@@ -88,7 +88,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <span>Welcome to</span><span class="product-title">TutorMe RMIT!</span>
+                    @if (Auth::check())
+                    <span>Welcome to</span><span class="product-title">
+                        TutorMe RMIT {{ Auth::user()->name }}!
+                    </span>
+                    @else
+                     <span>Welcome to</span><span class="product-title">
+                        TutorMe RMIT!
+                     </span>
+                    @endif
                 </div>
 
                 <div class="links">
