@@ -11,7 +11,7 @@
                             I need a tutor NOW!
                         </button>
                         <button type="button" class="btn-secondary tutor-button">
-                            I want to teach!
+                            I want to 
                         </button>
                 </div>
             </div>
