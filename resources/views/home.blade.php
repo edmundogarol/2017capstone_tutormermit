@@ -8,7 +8,7 @@
                 <div class="panel-heading">Choose an option!</div>
                 <div class="panel-body tutorme-buttons btn-toolbar" role="toolbar">
                         <button type="button" class="btn-secondary student-button">
-                            I need a tutor!
+                            I need a tutor NOW!
                         </button>
                         <button type="button" class="btn-secondary tutor-button">
                             I want to teach!
