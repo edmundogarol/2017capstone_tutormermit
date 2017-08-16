@@ -93,7 +93,7 @@
 
                 <div class="links">
                     <a href="http://www.latlmes.com/tech/tutor-me-rmit-mobile-app-download-1">
-                        Download the Mobile App now!
+                        Download the Mobile App now now now now!
                     </a>
                 </div>
             </div>
