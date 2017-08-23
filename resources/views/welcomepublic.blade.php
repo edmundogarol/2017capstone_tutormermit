@@ -41,7 +41,7 @@
 				<p>Let Tutor Help You</p>
 				
 				<ul class="actions">
-				<li><a href="{ {url('/login')} }" class="button scrolly">Start Now</a></li>
+				<li><a href="{{ url('/login') }}" class="button scrolly">Start Now</a></li>
 				</ul>
 			</div>
 		</section>
