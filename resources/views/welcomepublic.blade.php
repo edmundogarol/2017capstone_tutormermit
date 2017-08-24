@@ -36,7 +36,7 @@
 				
 				<span class="icon major fa-cloud"></span>
 
-				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
+				 <h1>Welcome to<strong>TutorMe RMITTTT</strong><br />
 							</h1>
 
 				<p>Let Tutor Help You</p>
