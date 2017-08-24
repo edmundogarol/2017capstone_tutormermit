@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -20,11 +21,11 @@
 			<div class="inner">
 			 
 			@if (Route::has('login'))
-					<div class="top-right links">
+					<div id="top-right">
 						@if (Auth::check())
 							<a href="{{ url('/home') }}">Home</a>
 						@else
-							<a href="{{ url('/login') }}">Login</a>
+							<a href="{{ url('/login') }}">Login</a>&nbsp&nbsp
 							<a href="{{ url('/register') }}">Register</a>
 						@endif
 					</div>
@@ -35,13 +36,13 @@
 				
 				<span class="icon major fa-cloud"></span>
 
-				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
+				 <h1>Welcome to<strong>TutorMe RMITTTT</strong><br />
 							</h1>
 
 				<p>Let Tutor Help You</p>
 				
 				<ul class="actions">
-				<li><a href="{ {url('/login')} }" class="button scrolly">Start Now</a></li>
+				<li><a href="{{ url('/login') }}" class="button scrolly">Start Now</a></li>
 				</ul>
 			</div>
 		</section>
