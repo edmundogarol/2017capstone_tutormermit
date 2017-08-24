@@ -33,8 +33,6 @@
                      <div class="inner">
                             <!-- Authentication Links -->
                         @if (Auth::guest())
-                        <div id="top-right">
-
                             <a href="{{ url('/login') }}">Login</a>
                             <a href="{{ url('/register') }}">Register</a>
                         @else
@@ -57,21 +55,16 @@
                                     </li>
                                 </ul>
                             </div>
-                            </div>
                         @endif
                     </div>
                     </div>
-             <span class="icon major fa-cloud"></span>
-
              
-            @if (Auth::check())
-             <h1>Welcome to<strong>TutorMe RMIT  {{ Auth::user()->name }}!</strong><br /> </h1>
-        
-            @else
-            <h1>Welcome to<strong>TutorMe RMIT</strong><br />
-                        </h1>
-            @endif
-            <p>Let Tutor Help You</p>
+           
+
+                 <h1><strong>TutorMe RMIT</strong><br />
+                            </h1>
+
+                <p>Let Tutor Help You</p>
                 
           
         </section>
@@ -106,26 +99,8 @@
 
         @yield('content')
     </div>
-        <section id="footer">
-            <ul class="icons">
-                <li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
-                <li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
-            </ul>
-            <ul class="copyright">
-                <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-            </ul>
-        </section>
 
     <!-- Scripts -->
-            <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/js/jquery.scrolly.min.js"></script>
-            <script src="assets/js/skel.min.js"></script>
-            <script src="assets/js/util.js"></script>
-            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-            <script src="assets/js/main.js"></script>
-
+    <script src="{{ url('/js/app.js') }}"></script>
 </body>
 </html>
