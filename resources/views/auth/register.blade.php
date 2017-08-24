@@ -48,11 +48,8 @@
                                 @endif
                             </div>
                         </div>
-                     <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="male" name="gender">Male
-                        </label>
-                    </div>
+        
+
                        <!--radio button not working 
                        <div class="form-group">
 
