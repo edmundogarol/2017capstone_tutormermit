@@ -16,10 +16,6 @@
 <body>
 		<section id="headerleft">
 			<div class="inner">
-			
-
-				
-				
 				 
 				@if (Route::has('login'))
 						<div id="bottom-right">
@@ -36,7 +32,7 @@
 
 				 
 				@if (Auth::check())
-				 <h1>Welcome to<strong>TutorMe RMIT  {{ Auth::user()->name }}!</strong><br /> </h1>
+				 <h1>Welcome to<strong>TutorMe RMIT  {{ Auth::user()->name }}!</strong><br/> </h1>
 			
 				@else
 				<h1>Welcome to<strong>TutorMe RMIT</strong><br />
@@ -50,8 +46,8 @@
 				<a href="{{ url('/home') }}">FUNCTION2</a>
 				
 				<HR>
-			       <br>
-		<br>
+			    <br>
+		        <br>
 			
 				<br>
 
