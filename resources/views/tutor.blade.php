@@ -1,10 +1,6 @@
-<html>
-<header>
-<title>
-	Tutor home
-</title>
-	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
-</header>
+@extends('layouts.app')
+
+@section('content')
 	<span class="leftcol">
 		<p align="center">Welcome tutor (name)!</p>
     </span>
@@ -39,4 +35,4 @@
 								</tbody>
 							</table>
 	</section>
-</html>
+@endsection
