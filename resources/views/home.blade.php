@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2 choice-box">
             <div class="panel panel-default">
                 <div class="panel-heading">Choose an option!</div>
                 <div class="panel-body tutorme-buttons btn-toolbar" role="toolbar">
@@ -31,6 +31,12 @@
 
     .button-route{
         border-bottom: none;
+    }
+
+    .choice-box{
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
 </style>

@@ -24,11 +24,29 @@
         <link rel="stylesheet" href="../resources/assets/css/main.css" />
 </head>
 <body>
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>  
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'TutorMe RMIT') }}
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav row">
+                        <a class="nav" href="{{ url('/') }}"><li>Home</li></a>
+                        <a class="nav" href="{{ url('/home') }}"><li>Teach or Learn</li></a>
+                    </ul>
+                  
+                </div>
     <div id="app">
-    
-
             <section id="header">
-
                     <div class="top-right links">
                      <div class="inner">
                             <!-- Authentication Links -->
@@ -58,47 +76,22 @@
                         @endif
                     </div>
                     </div>
-             
-           
-
-                 <h1><strong>TutorMe RMIT</strong><br />
-                            </h1>
-
+                <h1><strong>TutorMe RMIT</strong><br /></h1>
                 <p>Let Tutor Help You</p>
-                
-          
         </section>
-            <!-- original header
-                <div class="navbar-header">
-
-                    -- Collapsed Hamburger 
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    Branding Image 
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'TutorMe RMIT') }}
-                    </a>
-                </div>
-            -->
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                  
-                </div>
-            </div>
-       
+    </div>
 
         @yield('content')
-    </div>
+
+    <style>
+        .button-route, .nav{
+            border-bottom: none;
+        }
+
+        .nav a{
+            padding-top: 10px;
+        }
+    </style>
 
     <!-- Scripts -->
     <script src="{{ url('/js/app.js') }}"></script>

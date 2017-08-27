@@ -39,14 +39,13 @@
 							</h1>
 				@endif
 				<p>Let Tutor Help You</p>
-				<HR>
-				<a href="{{ url('/home') }}">FUNCTION1</a>
+				<button>
+					<a href="{{ url('/home') }}">Home</a>
+				</button>
 				
 				<HR>
 				<a href="{{ url('/home') }}">FUNCTION2</a>
-				
-				<HR>
-			    <br>
+				<br>
 		        <br>
 			
 				<br>
