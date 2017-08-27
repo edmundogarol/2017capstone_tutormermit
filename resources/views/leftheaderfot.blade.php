@@ -18,12 +18,12 @@
 			<div class="inner">
 				 
 				@if (Route::has('login'))
-						<div id="bottom-right">
+						<div id="bottom-right column">
 							@if (Auth::check())
 								<a href="{{ url('/home') }}">Home</a>
 							@else
-								<a href="{{ url('/login') }}">Login</a>&nbsp&nbsp
-								<a href="{{ url('/register') }}">Register</a>
+			                    <a class="log" href="{{ url('/login') }}">Login</a>
+			                    <a class="reg" href="{{ url('/register') }}">Register</a>
 							@endif
 						</div>
 					@endif
