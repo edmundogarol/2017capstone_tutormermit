@@ -19,6 +19,11 @@ Auth::routes();
 
 Route::get('/tutor', function () {
     return view('tutor');
+
 });
+Route::get('/edit', function () {
+    return view('edit');
+});
+
 
 Route::get('/home', 'HomeController@index');
