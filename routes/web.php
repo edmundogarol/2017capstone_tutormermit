@@ -43,6 +43,10 @@ Route::get('/edit', function () {
     return view('edit');
 });
 
+Route::post('/edit', function () {
+    return view('edit');
+});
+
 Route::get('/home', 'HomeController@index');
 
 Route::get('/tutor','HomeController@tutor');

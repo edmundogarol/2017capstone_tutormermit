@@ -43,7 +43,7 @@
                     <ul class="nav navbar-nav">
                         <li><a class="nav" href="{{ url('/') }}">Home</a></li>
                         <li><a class="nav" href="{{ url('/home') }}">Teach or Learn</a></li>
-                        <li><a class="nav" href="{{ url('/edit') }}">Edit Details</a></li>    
+                        <li><a class="nav" href="{{ url('/edit') }}">Update Profile</a></li>    
                         <li><a href="{{ url('/logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

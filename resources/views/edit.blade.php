@@ -25,7 +25,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" placeholder={{ Auth::user()->name }} class="form-control" name="name" value="{{ old('name') }}" autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -39,7 +39,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" placeholder={{ Auth::user()->email }} class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -52,6 +52,7 @@
 
                         <center><h4>Gender</h4></center>
 
+                        <center>
                         <div class="8u">
                             <div class="row 50%">
                                     <div class="3u 12u$(small)">
@@ -64,33 +65,33 @@
                                     </div>
                             </div>
                         </div>
+                        </center>
 
                         <center>                        
                         <div class="8u">
+                            <h4>Subject List</h4>
                             <div class="select-wrapper">
                                 <select name="demo-category" id="demo-category">
-                                    <option value="">- Category -</option>
-                                    <option value="1">Subject 1</option>
-                                    <option value="2">Subject 2</option>
-                                    <option value="3">Subject 3</option>
-                                    <option value="4">Subject 4</option>
+                                    <option value="">- Add Subject -</option>
+                                    <option value="1">PHP</option>
+                                    <option value="2">Java</option>
+                                    <option value="3">C#</option>
+                                    <option value="4">Python</option>
                                 </select>
                             </div>
                         </div>
-                        
-
-                        <h4>Subjects</h4>
-                            <div class="8u">
-                                <div class="table-wrapper">
-                                    <table class="alt">
-                                        <tbody>
-                                            <tr>
-                                                <td>No Subjects</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <br>
+                        <div class="8u">
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>Subject list (No Subjects yet!)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
                         </center>
 
                         <center>
