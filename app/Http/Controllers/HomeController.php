@@ -34,7 +34,15 @@ class HomeController extends Controller
 
         if ($user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
         {
-            return view('edit', ['status' => 'initial']);
+            return view('edit', [
+                'status' => 'initial',
+                'callback' => [
+                    'name' => Auth::user()->name,
+                    'email' => Auth::user()->email,
+                    'gender' => Auth::user()->gender,
+                    'birthday' => date(Auth::user()->birthday),
+                ]
+            ]);
         } 
         else
         {

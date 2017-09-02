@@ -66,7 +66,7 @@
 
                         <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
 
-                            <label for="name" class="col-md-4 control-label {{ Auth::user()->birthday === '' || Auth::user()->birthday === '' ? 'required' : '' }}">Birthday</label>
+                            <label for="name" class="col-md-4 control-label {{ Auth::user()->birthday === '1900-01-01' || Auth::user()->birthday === '' ? ( $callback['birthday'] === '1900-01-01' || $callback['birthday'] === '' ? 'required' : '' ) : '' }}">Birthday</label>
 
                             <div class="col-md-6">
                             <input id="name" type="text" placeholder="{{ $callback['birthday'] }}" class="required form-control" name="birthday" value="{{ old('birthday') }}" autofocus>
@@ -81,7 +81,7 @@
                         <center>
                         {{ old('gender') }}
                         <div class="row">
-                                    <label for="gender" class="col-md-4 control-label {{ Auth::user()->gender === '' ? 'required' : '' }}">Gender</label>
+                                    <label for="gender" class="col-md-4 control-label {{ Auth::user()->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
                                     <div class="gender-radio 3u 12u$(small)">
                                     @if ( $callback['gender'] === 'male')
                                         <input type="radio" onClick=changeGender('male') id="gender-male" name="gender" value="male" required checked> 
