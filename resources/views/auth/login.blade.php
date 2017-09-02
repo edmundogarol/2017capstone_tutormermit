@@ -58,13 +58,15 @@
                     </form>
                     <center>
                    <header class="major">
-                   
-                            <h2><strong>OR</strong></h2>
-                   
+                        <h2><strong>OR</strong></h2>                                         
                     </header>
-                     </center>
+                    </center>
+                    <center>
+                        <a href="{{ url('/register') }}">
+                            <button type="submit" class="button special register-login"> Register</button>
+                        </a>
+                    </center>
                 </div>
-        
         </div>
     </div>
 </div>

@@ -17,4 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/tutor', function () {
+    return view('tutor');
+});
+
 Route::get('/home', 'HomeController@index');

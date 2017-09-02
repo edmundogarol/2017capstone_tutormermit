@@ -21,22 +21,27 @@
 			<div class="inner">
 			 
 			@if (Route::has('login'))
-					<div id="top-right">
+					<div>
 						@if (Auth::check())
-							<a href="{{ url('/home') }}">Home</a>
+							<a class="home-link" href="{{ url('/home') }}">Home</a>
+                            <a class="logout-link" href="{{ url('/logout') }}"
+                               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
 						@else
-							<a href="{{ url('/login') }}">Login</a>&nbsp&nbsp
-							<a href="{{ url('/register') }}">Register</a>
+	                        <a class="log" href="{{ url('/login') }}">Login</a>
+	                        <a class="reg" href="{{ url('/register') }}">Register</a>
 						@endif
 					</div>
 				@endif
 				
-				
-				
-				
-				<span class="icon major fa-cloud"></span>
+								<span class="icon major fa-cloud"></span>
 
-				 <h1>Welcome to<strong>TutorMe RMITTTT</strong><br />
+				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
 							</h1>
 
 				<p>Let Tutor Help You</p>
@@ -55,7 +60,7 @@
 							<p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>
               <br/>
 							<ul class="actions uniform">
-								<li><a href="#" class="button special">Rigester</a></li>
+								<li><a href="#" class="button special">Register</a></li>
 
 							</ul>
 				</div>
@@ -524,4 +529,16 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/main.js"></script>
 
 </body>
+<style>
+    .home-link, .logout-link, .log, .reg{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .home-link, .log {
+        border-right: 1px solid white;
+    }
+	a {
+		border-bottom: none !important;	
+	}
+</style>
 </html>

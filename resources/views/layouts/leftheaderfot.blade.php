@@ -18,12 +18,12 @@
 			<div class="inner">
 				 
 				@if (Route::has('login'))
-						<div id="bottom-right">
+						<div id="bottom-right column">
 							@if (Auth::check())
 								<a href="{{ url('/home') }}">Home</a>
 							@else
-								<a href="{{ url('/login') }}">Login</a>&nbsp&nbsp
-								<a href="{{ url('/register') }}">Register</a>
+			                    <a class="log" href="{{ url('/login') }}">Login</a>
+			                    <a class="reg" href="{{ url('/register') }}">Register</a>
 							@endif
 						</div>
 					@endif
@@ -39,14 +39,13 @@
 							</h1>
 				@endif
 				<p>Let Tutor Help You</p>
-				<HR>
-				<a href="{{ url('/home') }}">FUNCTION1</a>
+				<button>
+					<a href="{{ url('/home') }}">Home</a>
+				</button>
 				
 				<HR>
 				<a href="{{ url('/home') }}">FUNCTION2</a>
-				
-				<HR>
-			    <br>
+				<br>
 		        <br>
 			
 				<br>
