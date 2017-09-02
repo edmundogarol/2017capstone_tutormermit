@@ -9,12 +9,12 @@
 
 		<!-- Fonts -->
 		<!--<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">-->
-		<link rel="stylesheet" href="../resources/assets/css/main.css" />
+		<link rel="stylesheet" href="../resources/assets/css/left.css" />
 </head>
 
 
 <body>
-		<section id="headerleft">
+		<header id="header">
 			<div class="inner">
 				 
 				@if (Route::has('login'))
@@ -39,12 +39,18 @@
 							</h1>
 				@endif
 				<p>Let Tutor Help You</p>
-				<button>
-					<a href="{{ url('/home') }}">Home</a>
-				</button>
 				
-				<HR>
-				<a href="{{ url('/home') }}">FUNCTION2</a>
+				<br>
+				
+				
+					<li><a href="{{ url('/home') }}" class="button scrolly">>Home </a></li>
+			
+				
+				<br>
+			
+				<li><a href="{{ url('/') }}" class="button scrolly">>match</a></li>
+			
+				
 				<br>
 		        <br>
 			
@@ -54,26 +60,21 @@
 				
 				
 			</div>
-		</section>
+		</header>
 		
-		
+		<div id = "main">
 		 @yield('content')
-		
+		</div>
 		<!-- put blabla thing here -->
 		
 		
 		
 		<!-- Footer -->
-			<footer id="footerleft">
+			<footer id="footer">
 				<div class="inner">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-					</ul>
+					
 					<ul class="copyright">
-						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; Untitled</li><li>Design: </li>
 					</ul>
 				</div>
 			</footer>
@@ -83,8 +84,7 @@
 				<script src="assets/js/jquery.scrolly.min.js"></script>
 				<script src="assets/js/skel.min.js"></script>
 				<script src="assets/js/util.js"></script>
-				<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-				<script src="assets/js/main.js"></script>
+								<script src="assets/js/left.js"></script>
 
 	</body>
 	</html>

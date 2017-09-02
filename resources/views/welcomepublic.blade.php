@@ -39,7 +39,9 @@
 					</div>
 				@endif
 				
-								<span class="icon major fa-cloud"></span>
+		<span class="icon major fa-cloud"></span>
+
+		
 
 				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
 							</h1>
