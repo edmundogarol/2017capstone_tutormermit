@@ -33,7 +33,14 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/update', function () {
     return view('tempupdateprofile');
+
+Route::get('/tutor', function () {
+    return view('tutor');
+
 });
+Route::get('/edit', function () {
+    return view('edit');
+
 
 Route::get('/home', 'HomeController@index');
 
