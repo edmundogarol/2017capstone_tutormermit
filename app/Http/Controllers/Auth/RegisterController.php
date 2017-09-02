@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Academic;
+use App\Http\Controllers\AcadController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -62,9 +64,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $acad = Academic::create([
+            'subjects' => '{}',
+            'student_rating' => 0,
+            'tutor_rating' => 0,
+        ]);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'gender' => '',
+            'academic_id' => $acad->id,
+            'birthday' => date('1990-01-01'),
+            'active' => true,
             'password' => bcrypt($data['password']),
         ]);
     }

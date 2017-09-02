@@ -13,12 +13,11 @@ class CreateAcadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('acads', function (Blueprint $table) {
+        Schema::create('academics', function (Blueprint $table) {
             $table->increments('id');
             $table->json('subjects');
             $table->integer('student_rating');
             $table->integer('tutor_rating');
-            $table->boolean('active');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateAcadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acads');
+        Schema::dropIfExists('academics');
     }
 }
