@@ -32,7 +32,14 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['active' => true]);
 
-        return view('home');
+        if ($user->birthday === '1900-01-01')
+        {
+            return view('edit');
+        } 
+        else
+        {
+            return view('home');
+        }
     }
 
     public function tutor()
