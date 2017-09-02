@@ -32,9 +32,9 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['active' => true]);
 
-        if ($user->birthday === '1900-01-01')
+        if ($user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
         {
-            return view('edit');
+            return view('edit', ['status' => 'initial']);
         } 
         else
         {

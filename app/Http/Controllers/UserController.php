@@ -1,8 +1,9 @@
 <?php
 
-namespace TutorMeRMIT\Http\Controllers;
+namespace App\Http\Controllers;
 
-use TutorMeRMIT\User;
+use Auth;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -67,9 +68,28 @@ class UserController extends Controller
      * @param  \TutorMeRMIT\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $userToUpdate = User::find($user->id);
+        $userToUpdate->update([
+            'name' => $request->name ? $request->name : $user->name,
+            'email' => $request->email ? $request->email : $user->email,
+            'gender' => $request->gender ? $request->gender : $user->gender,
+            'birthday' => date($request->birthday ? $request->birthday : $user->birthday),
+        ]);
+
+        $userCallback = [
+            'name' => $request->name ? $request->name : $user->name,
+            'email' => $request->email ? $request->email : $user->email,
+            'gender' => $request->gender ? $request->gender : $user->gender,
+            'birthday' => date($request->birthday ? $request->birthday : $user->birthday),
+        ];
+        return view('edit', [
+            'status' => 'success',
+            'callback' => $userCallback,
+        ]);
     }
 
     /**

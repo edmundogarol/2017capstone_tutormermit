@@ -40,12 +40,18 @@ Route::get('/tutor', function () {
 });
 
 Route::get('/edit', function () {
-    return view('edit');
+    return view('edit', [
+    	'status' => 'initial',
+    	'callback' => [
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'gender' => Auth::user()->gender,
+            'birthday' => date(Auth::user()->birthday),
+        ]
+    ]);
 });
 
-Route::post('/edit', function () {
-    return view('edit');
-});
+Route::post('/edit','UserController@update');
 
 Route::get('/home', 'HomeController@index');
 
