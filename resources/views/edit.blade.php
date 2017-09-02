@@ -32,6 +32,10 @@
                      <div class="alert alert-success">
                          <strong>Success!</strong> Updated profile details.
                     </div>
+                    @elseif ($status === 'unfinished')
+                    <div class="alert alert-warning">
+                      <strong>Almost ready!</strong> Update your profile first!.
+                    </div>
                     @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/edit') }}">
                         {{ csrf_field() }}
@@ -69,7 +73,7 @@
                             <label for="name" class="col-md-4 control-label {{ Auth::user()->birthday === '1900-01-01' || Auth::user()->birthday === '' ? ( $callback['birthday'] === '1900-01-01' || $callback['birthday'] === '' ? 'required' : '' ) : '' }}">Birthday</label>
 
                             <div class="col-md-6">
-                            <input id="name" type="text" placeholder="{{ $callback['birthday'] }}" class="required form-control" name="birthday" value="{{ old('birthday') }}" autofocus>
+                            <input id="name" type="text" placeholder="{{ $callback['birthday'] === '1900-01-01' ? 'YYYY-MM-DD' : $callback['birthday'] }}" class="required form-control" name="birthday" value="{{ old('birthday') }}" autofocus>
                                 @if ($errors->has('birthday'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('birthday') }}</strong>
