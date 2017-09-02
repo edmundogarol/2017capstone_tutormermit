@@ -2,11 +2,9 @@
 
 @section('content')
 
-        <!-- Fonts -->
-        <!--<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">-->
-        <link rel="stylesheet" href="../resources/assets/css/main.css" />
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../resources/assets/css/main.css" />
 <div class="container">
-
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -25,7 +23,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" placeholder={{ Auth::user()->name }} class="form-control" name="name" value="{{ old('name') }}" autofocus>
+                                <input id="name" type="text" placeholder="{{ Auth::user()->name }}" class="form-control" name="name" value="{{ old('name') }}" autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -39,7 +37,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" placeholder={{ Auth::user()->email }} class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" placeholder="{{ Auth::user()->email }}" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -49,21 +47,31 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
 
-                        <center><h4>Gender</h4></center>
+                            <label for="name" class="col-md-4 control-label {{ Auth::user()->gender === '' ? 'required' : '' }}">Birthday</label>
+
+                            <div class="col-md-6">
+                            <input id="name" type="text" placeholder="{{ Auth::user()->birthday }}" class="required form-control" name="birthday" value="{{ old('birthday') }}" required autofocus>
+                                @if ($errors->has('birthday'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('birthday') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <center>
-                        <div class="8u">
-                            <div class="row 50%">
-                                    <div class="3u 12u$(small)">
-                                        <input type="radio" id="gender-male" name="gender">
+                        <div class="row">
+                                    <label for="gender" class="col-md-4 control-label {{ Auth::user()->birthday === '1900-01-01' ? 'required' : '' }}">Gender</label>
+                                    <div class="gender-radio 3u 12u$(small)">
+                                        <input type="radio" id="gender-male" name="gender" value="male" required>
                                         <label for="gender-male">Male</label>
                                     </div>
-                                    <div class="3u$ 12u$(small)">
-                                        <input type="radio" id="gender-female" name="gender">
+                                    <div class="gender-radio 3u$ 12u$(small)">
+                                        <input type="radio" id="gender-female" name="gender" value="female" required>
                                         <label for="gender-female">Female</label>
                                     </div>
-                            </div>
                         </div>
                         </center>
 
@@ -105,5 +113,13 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .required:after {
+            content: '*';
+            color: red;
+            padding-left: 5px;
+        }
+    </style>
 
 @endsection

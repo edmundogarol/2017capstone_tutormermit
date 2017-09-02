@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'gender' => '',
             'academic_id' => $acad->id,
-            'birthday' => date('1990-01-01'),
+            'birthday' => date('1900-01-01'),
             'active' => true,
             'password' => bcrypt($data['password']),
         ]);
