@@ -163,7 +163,7 @@
 						</form>
 
 						<ul class="actions uniform">
-							<li><a href="#" class="button special">More</a></li>
+							<li><a href="#" class="button special">Send</a></li>
 
 						</ul>
 					</div>

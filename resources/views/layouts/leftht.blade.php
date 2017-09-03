@@ -14,47 +14,58 @@
 
 
 <body>
+
 		<header id="header">
 			<div class="inner">
 				 
-				@if (Route::has('login'))
-						<div id="bottom-right column">
-							@if (Auth::check())
-								<a href="{{ url('/home') }}">Home</a>
-							@else
-			                    <a class="log" href="{{ url('/login') }}">Login</a>
-			                    <a class="reg" href="{{ url('/register') }}">Register</a>
-							@endif
+				@if (Auth::guest())
+					<a class="log" href="{{ url('/login') }}">Login</a>
+					<a class="reg" href="{{ url('/register') }}">Register</a>
+				@else
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							{{ Auth::user()->name }} <span class="caret"></span>
+						</a>
+					</div>
+				@endif
+
+				<a href="{{ url('/') }}">
+					<h1><strong>TutorMe RMIT</strong></h1>
+				</a>
+				
+				
+				<p>Let a tutor help you! Or go tutor someone!</p>
+
+				
+				<br>
+				
+				 @if (!Auth::guest())
+					<div class="collapse navbar-collapse" id="app-navbar-collapse">
+							<!-- Left Side Of Navbar -->
+							<ul>
+								
+								<li><a href="{{ url('/') }}" class="">>Home </a></li>
+								<br>
+
+								<li><a class="" href="{{ url('/home') }}">>Teach or Learn</a></li>
+								<br>
+								<li><a class="" href="{{ url('/edit') }}">>Update Profile</a></li>  
+								<br>  
+								<li><a class="" href="{{ url('/logout') }}"
+										onclick="event.preventDefault();
+										document.getElementById('logout-form').submit();">
+										>Logout
+									</a>
+
+									<form class="button scrolly" id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+										{{ csrf_field() }}
+									</form>
+								</li>
+							</ul>                 
 						</div>
 					@endif
-				
-				<span class="icon major fa-cloud"></span>
-
-				 
-				@if (Auth::check())
-				 <h1>Welcome to<strong>TutorMe RMIT  {{ Auth::user()->name }}!</strong><br/> </h1>
-			
-				@else
-				<h1>Welcome to<strong>TutorMe RMIT</strong><br />
-							</h1>
-				@endif
-				<p>Let Tutor Help You</p>
-				
-				<br>
-				
-				
-					<li><a href="{{ url('/home') }}" class="button scrolly">>Home </a></li>
-			
-				
-				<br>
-			
-				<li><a href="{{ url('/') }}" class="button scrolly">>match</a></li>
-			
-				
-				<br>
-		        <br>
-			
-				<br>
+					
+					
 
 
 				

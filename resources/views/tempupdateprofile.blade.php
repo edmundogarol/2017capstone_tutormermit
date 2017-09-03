@@ -1,11 +1,9 @@
-@extends('layouts.leftht')
+@extends('layouts.app')
 
 @section('content')
-
 	<span class="leftcol">
-		<p align="center">Welcome tutor (name)!</p>
+		<p align="center">Update preferences</p>
     </span>
-	Students requiring tutoring:
 	
 	<section>
 	<div class="table-wrapper">
@@ -18,11 +16,6 @@
 									</tr>
 								</thead>
 								<tbody>
- 									@foreach ($users as $user)
-							        <tr>
-							           <td>{{ $user->name }}</td>
-							        </tr>
-							        @endforeach
 									<tr>
 										<td>Prashay</td>
 										<td>Need help with Java.</td>
@@ -37,9 +30,8 @@
 										<td>Bill</td>
 										<td>Need help with AI</td>
 										<td align="center"><input type="submit" value="View"></td>
-									</tr> 
+									</tr>
 								</tbody>
 							</table>
 	</section>
-	
 @endsection
