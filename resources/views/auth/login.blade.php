@@ -52,6 +52,8 @@
                         <div class="form-group">
                                    <input type="checkbox" name="remember" class="checkbox" value=" {{ old('remember') ? 'checked' : ''}}" > Remember Me
                                     <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password? </a><br>
+                                    <br>
+                                    <br>
                                     <button type="submit" class="button special"> Login</button>
                         </div>
                         </center>

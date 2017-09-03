@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.leftht')
 
 @section('content')
+
 	<span class="leftcol">
 		<p align="center">Welcome tutor (name)!</p>
     </span>
@@ -40,4 +41,5 @@
 								</tbody>
 							</table>
 	</section>
+	
 @endsection

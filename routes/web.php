@@ -38,6 +38,10 @@ Route::get('/update', function () {
 Route::get('/tutor', function () {
     return view('tutor');
 });
+Route::get('/select', function () {
+    return view('selectskill');
+});
+
 
 Route::get('/edit', function () {
 
@@ -68,6 +72,12 @@ Route::get('/edit', function () {
 		    ]
 		]);
 	}
+});
+Route::post('/select', function () {
+    return view('selectskill');
+});
+Route::get('/req', function () {
+    return view('request');
 });
 
 Route::post('/edit','UserController@update');

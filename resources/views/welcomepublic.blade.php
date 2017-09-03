@@ -39,7 +39,9 @@
 					</div>
 				@endif
 				
-				<span class="icon major fa-cloud"></span>
+		<span class="icon major fa-cloud"></span>
+
+		
 
 				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
 							</h1>
@@ -161,7 +163,7 @@
 						</form>
 
 						<ul class="actions uniform">
-							<li><a href="#" class="button special">More</a></li>
+							<li><a href="#" class="button special">Send</a></li>
 
 						</ul>
 					</div>

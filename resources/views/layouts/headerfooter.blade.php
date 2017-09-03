@@ -51,6 +51,9 @@
 		</section>
 		
 		
+		
+		
+		
 		 @yield('content')
 		
 		<!-- put blabla thing here -->
