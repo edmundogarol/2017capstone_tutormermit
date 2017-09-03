@@ -44,7 +44,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ( $exception instanceof \Illuminate\Session\TokenMismatchException ) {
+            return redirect()->route('/login');
+        } 
+        else 
+        {
+            return parent::render($request, $exception);
+        }
     }
 
     /**

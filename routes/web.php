@@ -42,7 +42,11 @@ Route::get('/tutor', function () {
 Route::get('/edit', function () {
 
 	$user = Auth::user();
-	if ($user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
+	if ( $user === null )
+	{
+		return view('/auth/login');
+	}
+	else if ( $user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
 	{
 	    return view('edit', [
 	        'status' => 'unfinished',
