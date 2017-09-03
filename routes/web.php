@@ -44,11 +44,30 @@ Route::get('/select', function () {
 
 
 Route::get('/edit', function () {
-    return view('edit');
-});
 
-Route::post('/edit', function () {
-    return view('edit');
+	$user = Auth::user();
+	if ($user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
+	{
+	    return view('edit', [
+	        'status' => 'unfinished',
+	        'callback' => [
+	            'name' => Auth::user()->name,
+	            'email' => Auth::user()->email,
+	            'gender' => Auth::user()->gender,
+	            'birthday' => date(Auth::user()->birthday),
+	        ]
+	    ]);
+	} else {
+		return view('edit', [
+			'status' => 'initial',
+			'callback' => [
+		        'name' => Auth::user()->name,
+		        'email' => Auth::user()->email,
+		        'gender' => Auth::user()->gender,
+		        'birthday' => date(Auth::user()->birthday),
+		    ]
+		]);
+	}
 });
 Route::post('/select', function () {
     return view('selectskill');
@@ -56,6 +75,8 @@ Route::post('/select', function () {
 Route::get('/req', function () {
     return view('request');
 });
+
+Route::post('/edit','UserController@update');
 
 Route::get('/home', 'HomeController@index');
 
