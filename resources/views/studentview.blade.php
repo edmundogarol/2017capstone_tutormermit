@@ -2,6 +2,16 @@
 
 @section('content')
 
+								
+							<ul class="actions">
+								<li>
+								<input type="text" name="search" id="search" placeholder="Search" />
+								</li>
+								<li>
+								<a href="#" class="button special" value="Search">Search</a>
+								</li>
+
+							</ul>
 
 
 
@@ -12,41 +22,115 @@
 							<table>
 								<thead>
 									<tr>
-										<th>Tutors Lists: </th>
+										<th><h2>Tutors Lists: </h2></th>
 										
 									</tr>
 								</thead>
 								<tbody>
- 									
+
 							
 									<tr>
+									<td>
+	
+										<div class="8u 12u$(small)">
+										<ul class="alt">
+										<li>
+											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 
+											<h5>Rory</h5>
+													<h5>Skill: java...</h5>
+													<h5>Program: Bachelor in Information Technology</h5>
+													<a href="#" class="button special small" value="View">view</a>
 
-									<ul class="alt">
-									<li><td><span class="image fit"><img src="../resources/assets/images/pic02.jpg" alt="" /></span></td>
-							<td><h4>Prashay</h4></td>
-							<th>Skill: java...</th>
-               				<th>Course: Pg1...</th>
-              				<td><a href="#" class="button special small" value="View">view</a></td>
-							</li>
+										</li>
+										</td>
+										
+										</ul>
+										</div>
+										</td>
+
+									</tr>
+						
+									<tr>
+									<td>
+	
+										<div class="8u 12u$(small)">
+										<ul class="alt">
+										<li>
+											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
+
+											<h5>Yung</h5>
+													<h5>Skill: java...</h5>
+													<h5>Program: Bachelor in Information Technology</h5>
+													<a href="#" class="button special small" value="View">view</a>
+
+										</li>
+										</td>
+										
+										</ul>
+										</div>
+										</td>
+
+									</tr>
+									
+									<tr>
+									<td>
+	
+										<div class="8u 12u$(small)">
+										<ul class="alt">
+										<li>
+											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
+
+											<h5>Prashay</h5>
+													<h5>Skill: java...</h5>
+													<h5>Program: Bachelor in Information Technology</h5>
+													<a href="#" class="button special small" value="View">view</a>
+
+										</li>
+										</td>
+										
+										</ul>
+										</div>
+										</td>
 									</tr>
 
 									<tr>
+									<td>
+	
+										<div class="8u 12u$(small)">
+										<ul class="alt">
+										<li>
+											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 
-							<li><div class="3u 12u$(medium)">
-							<td><span class="image fit"><img src="../resources/assets/images/pic02.jpg" alt="" /></span></td>
-							<td><h4>Ken</h4></td>
-							<td>Skill: java...</td>
-               				<td>Course: Pg1...</td>
-              				<td><a href="#" class="button special small" value="View">view</a></td>
-							</div></li></tr>
+											<h5>Ken</h5>
+													<h5>Skill: java...</h5>
+													<h5>Program: Bachelor in Information Technology</h5>
+													<a href="#" class="button special small" value="View">view</a>
+
+										</li>
+										</td>
+										
+										</ul>
+										</div>
+
+										</td>
+
+									</tr>
+
+
+							
+									
+							
 						
 							</tbody>
-							
-							
+													
 						
 							</table>
-						</div>
+
+
+	</div>
+
+					
 
 
 
