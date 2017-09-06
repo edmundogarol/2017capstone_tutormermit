@@ -88,7 +88,7 @@
 											<h5>Prashay</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
+													<a href="{{ url('/req') }}" class="button special small" value="request">Request</a>
 										</li>
 										</td>
 										
