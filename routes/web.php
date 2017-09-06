@@ -84,6 +84,13 @@ Route::post('/select', function () {
 Route::get('/req', function () {
     return view('request');
 });
+Route::get('/rereq', function () {
+	return view('re-request');
+});
+
+Route::get('/tutorde', function () {
+	return view('tutor-detial');
+});
 
 Route::post('/edit','UserController@update');
 

@@ -9,3 +9,5 @@ Homestead.yaml
 .env
 
 database/database.sqlite
+
+deploy_v1.zip
