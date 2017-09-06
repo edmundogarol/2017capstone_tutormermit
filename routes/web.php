@@ -47,6 +47,10 @@ Route::get('/select', function () {
     return view('selectskill');
 });
 
+Route::get('/request', function () {
+    return view('request');
+});
+
 
 Route::get('/edit', function () {
 

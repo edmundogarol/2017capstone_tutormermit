@@ -1,8 +1,9 @@
-@extends('layouts.leftht')
+@extends('layouts.app')
 
 @section('content')
+<section id="one" class="main style1 special">
 
-								
+<div class="container">
 							<ul class="actions">
 								<li>
 								<input type="text" name="search" id="search" placeholder="Search" />
@@ -12,6 +13,9 @@
 								</li>
 
 							</ul>
+							</div>
+							</section>
+
 
 
 
@@ -40,7 +44,7 @@
 											<h5>Rory</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="#" class="button special small" value="View">view</a>
+													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 
 										</li>
 										</td>
@@ -62,7 +66,7 @@
 											<h5>Yung</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="#" class="button special small" value="View">view</a>
+												<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 
 										</li>
 										</td>
@@ -84,8 +88,7 @@
 											<h5>Prashay</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="#" class="button special small" value="View">view</a>
-
+													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 										</li>
 										</td>
 										
@@ -93,6 +96,10 @@
 										</div>
 										</td>
 									</tr>
+
+								
+								
+									
 
 									<tr>
 									<td>
@@ -105,7 +112,7 @@
 											<h5>Ken</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="#" class="button special small" value="View">view</a>
+													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 
 										</li>
 										</td>
