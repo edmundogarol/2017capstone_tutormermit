@@ -38,6 +38,11 @@ Route::get('/update', function () {
 Route::get('/tutor', function () {
     return view('tutor');
 });
+
+Route::get('/studentview', function () {
+    return view('studentview');
+});
+
 Route::get('/select', function () {
     return view('selectskill');
 });

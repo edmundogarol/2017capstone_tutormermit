@@ -1,25 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 choice-box">
-            <div class="panel panel-default">
-                <div class="panel-heading">Choose an option!</div>
-                <div class="panel-body tutorme-buttons btn-toolbar" role="toolbar">
-                        <button type="button" class="btn-secondary student-button">
+<section id="one" class="main style1 special">
+                <div class="container">
+                <ul class="actions uniform">
+                <li><a class="button-route" href="{{ url('/studentview') }}">
+                        <button type="button" class="button special">
                             I need a tutor NOW!
                         </button>
-                        <a class="button-route" href="{{ url('/tutor') }}">
-                            <button type="button" class="btn-secondary tutor-button">
+                        </a>
+                </li>
+                </ul>
+
+                <h2>OR</h2>
+
+                 <ul class="actions uniform">
+                    <li><a class="button-route" href="{{ url('/tutor') }}">
+                            <button type="button" class="button special">
                                 I want to tutor  
                             </button>
                         </a> 
-                </div>
+                    </li>
+                </ul>
+            
             </div>
-        </div>
-    </div>
-</div>
+</section>
 
 <style>
 
