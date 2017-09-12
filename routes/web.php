@@ -35,9 +35,9 @@ Route::get('/update', function () {
     return view('tempupdateprofile');
 });
 
-Route::get('/tutor', function () {
-    return view('tutor');
-});
+// Route::get('/tutor', function () {
+//     return view('tutor');
+// });
 
 Route::get('/studentview', function () {
     return view('studentview');

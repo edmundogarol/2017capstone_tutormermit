@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'TutorMe RMIT') }}</title>
+    <title>{{ config('app.name', 'MentorMe RMIT') }}</title>
 
     <!-- Styles -->
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
@@ -35,7 +35,7 @@
                     </button>
 
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'TutorMe RMIT') }}
+                        MentorMe RMIT
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -74,9 +74,9 @@
                     @endif
 
                     <a href="{{ url('/') }}">
-                        <h1><strong>TutorMe RMIT</strong></h1>
+                        <h1><strong>MentorMe RMIT</strong></h1>
                     </a>
-                    <p>Let a tutor help you! Or go tutor someone!</p>
+                    <p>Let a mentor help you! Or go mentor someone!</p>
                 </div>
             </div>
         </section>

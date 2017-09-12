@@ -6,7 +6,7 @@
                 <ul class="actions uniform">
                 <li><a class="button-route" href="{{ url('/studentview') }}">
                         <button type="button" class="button special">
-                            I need a tutor NOW!
+                            I need a mentor now!
                         </button>
                         </a>
                 </li>
@@ -17,7 +17,7 @@
                  <ul class="actions uniform">
                     <li><a class="button-route" href="{{ url('/tutor') }}">
                             <button type="button" class="button special">
-                                I want to tutor  
+                                I want to mentor!  
                             </button>
                         </a> 
                     </li>

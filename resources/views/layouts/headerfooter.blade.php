@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>TutorMe RMIT</title>
+		<title>MentorMe RMIT</title>
 
 		<!-- Fonts -->
 		<!--<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">-->
@@ -38,10 +38,10 @@
 
 				 
 				@if (Auth::check())
-				 <h1>Welcome to<strong>TutorMe RMIT  {{ Auth::user()->name }}!</strong><br /> </h1>
+				 <h1>Welcome to<strong>MentorMe RMIT  {{ Auth::user()->name }}!</strong><br /> </h1>
 			
 				@else
-				<h1>Welcome to<strong>TutorMe RMIT</strong><br />
+				<h1>Welcome to<strong>MentorMe RMIT</strong><br />
 							</h1>
 				@endif
 				<p>Let Tutor Help You</p>

@@ -4,8 +4,8 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	</head>
-		<p align="center">Welcome tutor (name)!</p>
-	You are tutoring now:
+		<p align="center">Welcome mentor {{ Auth::user()->name }}!</p>
+	You are mentoring now:
 	<div class="table-wrapper">
 		<table>
 			<thead>
