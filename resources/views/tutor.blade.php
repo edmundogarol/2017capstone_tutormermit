@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{ $students }}
+
 	<head>
 		<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	</head>

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->date('birthday');
             $table->boolean('active');
+            $table->integer('session');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use App\User;
+use App\Requests;
+use App\Academic;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -50,9 +52,16 @@ class HomeController extends Controller
         }
     }
 
-    public function tutor()
+    public function tutorView()
     {
-        $users = DB::table('users')->get();
-        return view('tutor', ['users'=>$users]);
+        $requests = Requests::where('tutor_id', Auth::user()->id);
+        $students = User::where('id', '!=', Auth::user()->id)->where('active', 1)->get();
+        return view('tutor', ['students'=>$students]);
+    }
+
+    public function studentView()
+    {
+        $mentors = User::where('active', 1)->where('id', '!=', Auth::user()->id)->get();
+        return view('studentView', ['mentors'=>$mentors]);
     }
 }

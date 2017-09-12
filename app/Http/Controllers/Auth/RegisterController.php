@@ -77,6 +77,7 @@ class RegisterController extends Controller
             'academic_id' => $acad->id,
             'birthday' => date('1900-01-01'),
             'active' => true,
+            'session' => 0,
             'password' => bcrypt($data['password']),
         ]);
     }

@@ -35,14 +35,6 @@ Route::get('/update', function () {
     return view('tempupdateprofile');
 });
 
-// Route::get('/tutor', function () {
-//     return view('tutor');
-// });
-
-Route::get('/studentview', function () {
-    return view('studentview');
-});
-
 Route::get('/select', function () {
     return view('selectskill');
 });
@@ -100,4 +92,7 @@ Route::post('/edit','UserController@update');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/tutor','HomeController@tutor');
+Route::get('/tutor','HomeController@tutorView');
+
+Route::get('/studentview','HomeController@studentView');
+
