@@ -74,6 +74,33 @@ Route::get('/edit', function () {
 		]);
 	}
 });
+
+Route::get('/preferences', function () {
+	$user = Auth::user();
+
+	if ( $user === null )
+	{
+		return view('/auth/login');
+	}
+	else if ( false )
+	{
+	    return view('preferences', [
+	        'status' => 'unfinished',
+	        'callback' => [
+	            'gender' => Auth::user()->gender,
+	        ]
+	    ]);
+	} else {
+		return view('preferences', [
+			'status' => 'initial',
+			'callback' => [
+		        'gender' => 'both',
+		    ]
+		]);
+	}
+	return view('preferences');
+});
+
 Route::post('/select', function () {
     return view('selectskill');
 });
@@ -87,6 +114,8 @@ Route::get('/rereq', function () {
 Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
+
+Route::post('/preferences','UserController@update');
 
 Route::post('/edit','UserController@update');
 
