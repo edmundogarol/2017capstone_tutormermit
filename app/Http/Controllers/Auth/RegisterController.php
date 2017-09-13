@@ -78,6 +78,7 @@ class RegisterController extends Controller
             'birthday' => date('1900-01-01'),
             'active' => true,
             'session' => 0,
+            'tutor' => false,
             'password' => bcrypt($data['password']),
         ]);
     }
