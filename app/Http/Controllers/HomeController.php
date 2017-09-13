@@ -54,14 +54,26 @@ class HomeController extends Controller
 
     public function tutorView()
     {
+        $user = Auth::user();
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update(['tutor' => true]);
+
         $requests = Requests::where('tutor_id', Auth::user()->id);
-        $students = User::where('id', '!=', Auth::user()->id)->where('active', 1)->get();
+        $students = User::where('id', '!=', Auth::user()->id)->where('active', 3)->get();
         return view('tutor', ['students'=>$students]);
     }
 
     public function studentView()
     {
-        $mentors = User::where('active', 1)->where('id', '!=', Auth::user()->id)->get();
+        $user = Auth::user();
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update(['tutor' => false]);
+
+        $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
         return view('studentView', ['mentors'=>$mentors]);
     }
 }
