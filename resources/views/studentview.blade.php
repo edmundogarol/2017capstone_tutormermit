@@ -13,6 +13,8 @@
 								</li>
 								<li>
 								<a href="#" class="button special" value="Search">Search</a>
+
+								<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
 								</li>
 
 							</ul>
@@ -48,8 +50,9 @@
 										<li>
 											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 
-											<h5>Rory</h5>
-													<h5>Skill: java...</h5>
+													<h5>Name: Rory</h5>
+													<h5>Gender: Male</h5>
+													<h5>Skill: java</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
 
 										</li>
@@ -106,11 +109,13 @@
 										<li>
 											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 
-											<h5>{{ $mentors->name }}</h5>
-													<h5>Skill: java...</h5>
+													<h5>Name: {{ $mentors->name }}</h5>
+													<h5>Gender: {{ $mentors->gender}}</h5>
+													<h5>E-mail: {{ $mentors->email}}</h5>
+													<h5>Skill: Java</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
 													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-													<label for="demo-priority-low"><h5>Active</h5></label><br>
+													<label for="demo-priority-low"><h5>Active</h5></label>
 													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 													
 									
