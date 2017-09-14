@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+    var subjects = [];
     function changeGender (e) {
         if (e === 'male') {
             $('#gender-male').prop('checked', true);
@@ -12,6 +13,13 @@
             $('#gender-male').prop('checked', false);
         }
     }
+
+    $(document).ready(function($) {
+        $('#subjects-select').on('change',function(e){
+            subjects.push(e.target.value);
+            console.log(subjects);
+        });
+    });
 </script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -109,12 +117,41 @@
                         <div class="8u">
                             <h4>Subject List</h4>
                             <div class="select-wrapper">
-                                <select>
+                                <select id="subjects-select" >
                                     <option value="">- Add Subject -</option>
-                                    <option value="1">PHP</option>
-                                    <option value="2">Java</option>
-                                    <option value="3">C#</option>
-                                    <option value="4">Python</option>
+                                    <option value="1">Building IT Systems</option>
+                                    <option value="2">Introduction to Information Technology</option>
+                                    <option value="3">Introduction to Programming</option>
+                                    <option value="4">User-centred Design</option>
+                                    <option value="5">Introduction to Computer Systems and Platform Technologies</option>
+                                    <option value="6">Programming 1</option>
+                                    <option value="7">Data Communication and Net-Centric Computing</option>
+                                    <option value="8">Web Programming</option>
+                                    <option value="9">Software Engineering Fundamentals</option>
+                                    <option value="10">Database Concepts</option>
+                                    <option value="11">Professional Computing Practice</option>
+                                    <option value="12">Security in Computing and Information Technology</option>
+                                    <option value="13">Software Engineering Project Management</option>
+                                    <option value="14">Programming Project 1</option>
+                                    <option value="15">Advanced Programming Techniques</option>
+                                    <option value="16">Agent-Oriented Programming and Design</option>
+                                    <option value="17">Algorithms and Analysis</option>
+                                    <option value="18">Artificial Intelligence</option>
+                                    <option value="19">Broadcast Networks and Applications</option>
+                                    <option value="20">Cloud Computing</option>
+                                    <option value="21">Database Administration</option>
+                                    <option value="22">Database Systems</option>
+                                    <option value="23">Digital Media Computing</option>
+                                    <option value="24">Distributed Systems</option>
+                                    <option value="25">Document Markup Languages</option>
+                                    <option value="26">Electronic Commerce and Enterprise Systems</option>
+                                    <option value="27">Interactive 3D Graphics and Animation</option>
+                                    <option value="28">iPhone Software Engineering</option>
+                                    <option value="29">Information Technology Entrepreneurship</option>
+                                    <option value="30">Machine Learning</option>
+                                    <option value="31">Knowledge and Data Warehousing</option>
+                                    <option value="32">Mobile Application Development</option>
+                                    <option value="33">Network Programming</option>
                                 </select>
                             </div>
                         </div>
@@ -126,6 +163,7 @@
                                         <tr>
                                             <td>Subject list (No Subjects yet!)</td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
