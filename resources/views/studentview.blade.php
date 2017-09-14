@@ -29,11 +29,15 @@
 							<table>
 								<thead>
 									<tr>
-										<th><h2>Tutors Lists: </h2></th>
+										<th><h2>Active requests: </h2></th>
 										
 									</tr>
 								</thead>
 								<tbody>
+
+								
+
+
 
 							
 									<tr>
@@ -47,7 +51,6 @@
 											<h5>Rory</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
 
 										</li>
 										</td>
@@ -58,52 +61,43 @@
 
 									</tr>
 						
-									<tr>
-									<td>
-	
-										<div class="8u 12u$(small)">
-										<ul class="alt">
-										<li>
-											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
-
-											<h5>Yung</h5>
-													<h5>Skill: java...</h5>
-													<h5>Program: Bachelor in Information Technology</h5>
-												<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
-
-										</li>
-										</td>
-										
-										</ul>
-										</div>
-										</td>
-
-									</tr>
-									
-									<tr>
-									<td>
-	
-										<div class="8u 12u$(small)">
-										<ul class="alt">
-										<li>
-											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
-
-											<h5>Prashay</h5>
-													<h5>Skill: java...</h5>
-													<h5>Program: Bachelor in Information Technology</h5>
-													<a href="{{ url('/req') }}" class="button special small" value="request">Request</a>
-										</li>
-										</td>
-										
-										</ul>
-										</div>
-										</td>
-									</tr>
-
-								
-								
 									
 
+
+							
+									
+							
+						
+							</tbody>
+													
+						
+							</table>
+
+
+	</div>
+
+
+
+
+
+<div class="table-wrapper">
+
+
+
+							<table>
+								<thead>
+									<tr>
+										<th><h2>Tutors Lists: </h2></th>
+										
+									</tr>
+								</thead>
+								<tbody>
+
+
+								@foreach ($mentors as $mentors)
+							      
+
+							
 									<tr>
 									<td>
 	
@@ -112,25 +106,26 @@
 										<li>
 											<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 
-											<h5>Ken</h5>
+											<h5>{{ $mentors->name }}</h5>
 													<h5>Skill: java...</h5>
 													<h5>Program: Bachelor in Information Technology</h5>
+													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+													<label for="demo-priority-low"><h5>Active</h5></label><br>
 													<a href="{{ url('/request') }}" class="button special small" value="request">Request</a>
+													
+									
 
 										</li>
 										</td>
 										
 										</ul>
 										</div>
-
 										</td>
 
 									</tr>
-
-
 							
-									
-							
+								
+							        @endforeach
 						
 							</tbody>
 													
