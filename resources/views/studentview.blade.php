@@ -2,8 +2,6 @@
 
 @section('content')
 
-{{ $mentors }}
-
 <section id="one" class="main style1 special">
 
 <div class="container">
