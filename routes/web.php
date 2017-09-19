@@ -39,11 +39,6 @@ Route::get('/select', function () {
     return view('selectskill');
 });
 
-Route::get('/request', function () {
-    return view('request');
-});
-
-
 Route::get('/edit', function () {
 
 	$user = Auth::user();
@@ -114,6 +109,8 @@ Route::get('/rereq', function () {
 Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
+
+Route::post('/requesting','HomeController@requesting');
 
 Route::post('/preferences','UserController@update');
 

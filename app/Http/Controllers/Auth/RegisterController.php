@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Academic;
+use App\Preference;
 use App\Http\Controllers\AcadController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -70,6 +71,13 @@ class RegisterController extends Controller
             'tutor_rating' => 0,
         ]);
 
+        $prefs = Preference::create([
+            'subjects' => '{}',
+            'min_age' => 0,
+            'max_age' => 200,
+            'gender' => '',
+        ]);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -79,6 +87,7 @@ class RegisterController extends Controller
             'active' => true,
             'session' => 0,
             'tutor' => false,
+            'preferences_id' => $prefs->id,
             'password' => bcrypt($data['password']),
         ]);
     }

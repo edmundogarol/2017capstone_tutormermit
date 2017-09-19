@@ -8,7 +8,7 @@
 <div class="row">
    <div class="6u 12u$(medium)">
       <span class="leftcol">
-		<h1>Send Request: To <strong> tutor name</strong> </h1> 
+		<h1>Send Request: To <strong>{{ $mentor->name }}</strong> </h1> 
 		
        </span>
     </div>

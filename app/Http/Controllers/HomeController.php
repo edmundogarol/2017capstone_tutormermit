@@ -60,9 +60,12 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['tutor' => true]);
 
-        $requests = Requests::where('tutor_id', Auth::user()->id);
-        $students = User::where('id', '!=', Auth::user()->id)->where('active', 3)->get();
-        return view('tutor', ['students'=>$students]);
+        $requests = Requests::where('tutor_id', $user->id)->get();
+        // $students = User::where('id', '!=', Auth::user()->id)->get();
+        $students = User::get();
+        $requests = Requests::get();
+
+        return view('tutor', ['students'=>$students, 'requests'=>$requests]);
     }
 
     public function studentView()
@@ -73,7 +76,14 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['tutor' => false]);
 
-        $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
+        // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
+        $mentors = User::get();
         return view('studentview', ['mentors'=>$mentors]);
+    }
+
+    public function requesting(int $mentor_id)
+    {
+        $mentor = User::where('id', mentor_id)->get()->pop();
+        return view('request', ['mentor'=>$mentor]);
     }
 }
