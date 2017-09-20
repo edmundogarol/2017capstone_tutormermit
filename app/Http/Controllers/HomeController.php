@@ -81,9 +81,10 @@ class HomeController extends Controller
         return view('studentview', ['mentors'=>$mentors]);
     }
 
-    public function requesting(int $mentor_id)
+    public function req($id)
     {
-        $mentor = User::where('id', mentor_id)->get()->pop();
+        $mentor_id = $id;
+        $mentor = User::where('id', $mentor_id)->get()->pop();
         return view('request', ['mentor'=>$mentor]);
     }
 }

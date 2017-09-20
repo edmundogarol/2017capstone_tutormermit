@@ -63,18 +63,16 @@
 						<ul class="alt">
 							<li>
 								<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
-								<form class="form-horizontal" role="form" method="POST" action="{{ url('/requesting') }}">
+                        		{{ csrf_field() }}
 									<h5>Name: {{ $mentors->name }}</h5>
-									<h5>Gender: {{ $mentors->gender}}</h5>
-									<h5>E-mail: {{ $mentors->email}}</h5>
+									<h5>Gender: {{ $mentors->gender }}</h5>
+									<h5>E-mail: {{ $mentors->email }}</h5>
 									<h5>Skill: Java</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
 									<input type="radio" id="demo-priority-low" name="demo-priority" checked>
 									<label for="demo-priority-low"><h5>Active</h5></label>
-			                        <input type="hidden" id="mentor_id_input" name="mentor_id" value="{{ $mentors->id }}">
-									<button type="submit" class="button special small">
-										Request
-									</button>
+
+									<a class="button special" href="{{ url('req/'.$mentors->id) }}" value="Request" class="button special small">Request</a>
 								</form>
 							</li>					
 						</ul>

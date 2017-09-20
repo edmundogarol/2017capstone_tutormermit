@@ -96,10 +96,10 @@ Route::get('/preferences', function () {
 	return view('preferences');
 });
 
-Route::post('/select', function () {
+Route::post('/select', function () {	
     return view('selectskill');
 });
-Route::get('/req', function () {
+Route::get('/request', function () {
     return view('request');
 });
 Route::get('/rereq', function () {
@@ -110,7 +110,7 @@ Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
 
-Route::post('/requesting','HomeController@requesting');
+Route::get('req/{id}','HomeController@req');
 
 Route::post('/preferences','UserController@update');
 
