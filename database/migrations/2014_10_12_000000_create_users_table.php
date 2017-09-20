@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active');
             $table->boolean('tutor');
             $table->integer('session');
+            $table->integer('preferences_id');
             $table->rememberToken();
             $table->timestamps();
         });

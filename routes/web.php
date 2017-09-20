@@ -39,11 +39,6 @@ Route::get('/select', function () {
     return view('selectskill');
 });
 
-Route::get('/request', function () {
-    return view('request');
-});
-
-
 Route::get('/edit', function () {
 
 	$user = Auth::user();
@@ -101,19 +96,23 @@ Route::get('/preferences', function () {
 	return view('preferences');
 });
 
-Route::post('/select', function () {
+Route::post('/select', function () {	
     return view('selectskill');
 });
-Route::get('/req', function () {
+Route::get('/request', function () {
     return view('request');
 });
-Route::get('/rereq', function () {
-	return view('re-request');
-});
+// Route::get('/rereq', function () {
+// 	return view('re-request');
+// });
 
 Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
+
+Route::get('req/{id}','RequestsController@req');
+
+Route::post('/rereq','RequestsController@reqsend');
 
 Route::post('/preferences','UserController@update');
 

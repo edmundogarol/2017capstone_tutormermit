@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{ $requests}}
 {{ $students }}
 
 	<head>
