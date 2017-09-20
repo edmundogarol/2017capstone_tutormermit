@@ -102,15 +102,17 @@ Route::post('/select', function () {
 Route::get('/request', function () {
     return view('request');
 });
-Route::get('/rereq', function () {
-	return view('re-request');
-});
+// Route::get('/rereq', function () {
+// 	return view('re-request');
+// });
 
 Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
 
-Route::get('req/{id}','HomeController@req');
+Route::get('req/{id}','RequestsController@req');
+
+Route::post('/rereq','RequestsController@reqsend');
 
 Route::post('/preferences','UserController@update');
 

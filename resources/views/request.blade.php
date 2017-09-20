@@ -20,8 +20,9 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel-body">
-				<form class="form-horizontal" method="POST" action="{{ url('/req')}}">
+				<form class="form-horizontal" method="POST" action="{{ url('/rereq')}}">
 					<div class="form-group">
+                		{{ csrf_field() }}
 						<div class="col-md-6">
 							<input type="text" name="Tname" id="Tname" placeholder="Tutor Name" value="{{ $mentor->name }}"disabled/>
 						</div>
@@ -78,7 +79,7 @@
 					<br>
 					<center>
 						<ul class="actions uniform">
-							<li><a href="{{ url('/rereq') }}" class="button special">Send</a></li>
+							<li><button type="submit" class="button special">Send</button></li>
 						</ul>
 					</center>
 				</form>
