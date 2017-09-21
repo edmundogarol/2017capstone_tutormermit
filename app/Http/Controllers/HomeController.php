@@ -73,37 +73,29 @@ class HomeController extends Controller
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
 
         $point = 0;
-        
-        DB::table('users')
-            ->where('id', $user->id)
-            ->update(['tutor' => false]);
-       $preference = Auth::user();
-      
-      
-        DB::table('preferences')
-          -> where('id', $user->id);
 
-
-       $requests = Requests::where('student_id', $user->id)->get();
+        $requests = Requests::where('student_id', $user->id)->get();
         
               
-                $mentors = User::where(
+//                 $mentors = User::where(
                     
-                      function($mentors) use ($preference){
+//                       function($mentors) use ($preference){
                          
-                                $point = 0;
+//                                 $point = 0;
 
-                                    if (isset($user_preferences['gender'])) {
-                                        $mentors->where('gender', $user_preferences->gender);
-                                        $point = $point +5 ;    
-                                        }
-//                                    if (isset($preference['subjects'])) {
-//                                        $mentors->where('subjects', $preference->subjects);
-//                                       
-//                                    }
+//                                     if (isset($user_preferences['gender'])) {
+//                                         $mentors->where('gender', $user_preferences->gender);
+//                                         $point = $point +5 ;    
+//                                         }
+// //                                    if (isset($preference['subjects'])) {
+// //                                        $mentors->where('subjects', $preference->subjects);
+// //                                       
+// //                                    }
 
         
-                        } )->where('id', '!=', Auth::user()->id)->get();
+//                         } )->where('id', '!=', Auth::user()->id)->get();
+
+       $mentors = User::where('gender', $user_preferences->gender)->get();
 
         return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences]);
     }
