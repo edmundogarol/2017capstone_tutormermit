@@ -78,6 +78,8 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['tutor' => false]);
        $preference = Auth::user();
+      
+      
         DB::table('preferences')
           -> where('id', $user->id);
 
