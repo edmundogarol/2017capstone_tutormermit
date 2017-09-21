@@ -62,10 +62,8 @@ class HomeController extends Controller
 
         $requests = Requests::where('tutor_id', $user->id)->get();
         // $students = User::where('id', '!=', Auth::user()->id)->get();
-        $students = User::get();
-        $requests = Requests::get();
 
-        return view('tutor', ['students'=>$students, 'requests'=>$requests]);
+        return view('tutor', ['requests'=>$requests]);
     }
 
     public function studentView()
