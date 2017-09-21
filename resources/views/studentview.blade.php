@@ -2,27 +2,13 @@
 
 @section('content')
 
-<section id="one" class="main style1 special">
-	<div class="container">
-		<ul class="actions">
-			<li>
-			<input type="text" name="search" id="search" placeholder="Search" />
-			</li>
-			<li>
-			<a href="#" class="button special" value="Search">Search</a>
-
-			<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
-			</li>
-
-		</ul>
-	</div>
-</section>
+{{ $requests }}
 
 <div class="table-wrapper">
 	<table>
 		<thead>
 			<tr>
-				<th><h2>Active requests: </h2></th>
+				<th><h4>Preferences: </h4></th>
 				
 			</tr>
 		</thead>
@@ -32,13 +18,7 @@
 					<div class="8u 12u$(small)">
 						<ul class="alt">
 							<li>
-								<span class="image left">
-									<img src="../resources/assets/images/pic02.jpg" alt="" />
-								</span>
-								<h5>Name: Rory</h5>
-								<h5>Gender: Male</h5>
-								<h5>Skill: java</h5>
-								<h5>Program: Bachelor in Information Technology</h5>
+								<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
 							</li>						
 						</ul>
 					</div>
@@ -48,11 +28,43 @@
 	</table>
 </div>
 
+
 <div class="table-wrapper">
 	<table>
 		<thead>
 			<tr>
-				<th><h2>Tutors Lists: </h2></th>
+				<th><h4>Active requests: </h4></th>
+				
+			</tr>
+		</thead>
+		<tbody>
+		@foreach ($requests as $requests)
+			<tr>
+				<td>
+					<div class="8u 12u$(small)">
+						<ul class="alt">
+							<li>
+								<span class="image left">
+									<img src="../resources/assets/images/pic02.jpg" alt="" />
+								</span>
+								<h5>Request ID: {{ $requests->id }}</h5>
+								<h5>Mentor's ID: {{ $requests->tutor_id }}</h5>
+							</li>						
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+		   	@endforeach
+		</tbody>
+	</table>
+</div>
+
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<th><h4>Tutors Lists: </h4></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,7 +79,7 @@
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
-									<h5>Point: {{ $mentors->point }}</h5>
+									<h5>Point: </h5>
 									<h5>Skill: Java</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
 									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($mentors->active == 1) ? checked : '' @endif disabled>

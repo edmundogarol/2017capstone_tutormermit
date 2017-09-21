@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+    var subjects = [];
     function changeGender (e) {
         if (e === 'male') {
             $('#gender-male').prop('checked', true);
             $('#gender-female').prop('checked', false);
             $('#gender-both').prop('checked', false);
-        } else if {
+        } else if (e === 'female') {
             $('#gender-female').prop('checked', true);
             $('#gender-male').prop('checked', false);
             $('#gender-both').prop('checked', false);
@@ -17,8 +18,14 @@
             $('#gender-male').prop('checked', false);
             $('#gender-both').prop('checked', true);
         }
-
     }
+
+    $(document).ready(function($) {
+        $('#subjects-select').on('change',function(e){
+            subjects.push(e.target.value);
+            console.log(subjects);
+        });
+    });
 </script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -39,18 +46,19 @@
                         {{ csrf_field() }}
 
                         {{--
-                        <div class="form-group{{ $errors->has('agemin') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">From</label>
-
-                            <div class="col-md-6">
-                                <input id="agemin" type="agemin" placeholder="{{ $callback['agemin'] }}" class="form-control" name="agemin" value="{{ old('agemin') }}">
+                        <h5>Preferred Tutor Age</h5>
+                        <div class="row">
+                            <div class="form-group{{ $errors->has('min_age') ? ' has-error' : '' }}">
+                                <label for="min_age" class="col-md-4 control-label">From</label>
+                                <div class="4u">
+                                    <input id="min_age" type="min_age" placeholder="{{ $callback['min_age'] }}" class="form-control" name="min_age" value="{{ old('min_age') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('agemin') ? ' has-error' : '' }}">
-                            <label for="agemax" class="col-md-4 control-label">To</label>
-
-                            <div class="col-md-6">
-                                <input id="agemax" type="agemax" placeholder="{{ $callback['agemax'] }}" class="form-control" name="agemax" value="{{ old('agemax') }}">
+                            <div class="form-group{{ $errors->has('max_age') ? ' has-error' : '' }}">
+                                <label for="max_age" class="col-md-4 control-label">To</label>
+                                <div class="4u">
+                                    <input id="max_age" type="max_age" placeholder="{{ $callback['max_age'] }}" class="form-control" name="max_age" value="{{ old('max_age') }}">
+                                </div>
                             </div>
                         </div>
                         --}}
@@ -87,15 +95,44 @@
                         </center>
 
                         <center>                        
-                        <div class="8u">
+                        <div class="8u">                            
                             <h4>Preferred Tutor Skills</h4>
-                            <div class="select-wrapper">
-                                <select>
+                            <div class="select-wrapper">    
+                                <select id="subjects-select" >
                                     <option value="">- Add Subject -</option>
-                                    <option value="1">PHP</option>
-                                    <option value="2">Java</option>
-                                    <option value="3">C#</option>
-                                    <option value="4">Python</option>
+                                    <option value="1">Building IT Systems</option>
+                                    <option value="2">Introduction to Information Technology</option>
+                                    <option value="3">Introduction to Programming</option>
+                                    <option value="4">User-centred Design</option>
+                                    <option value="5">Introduction to Computer Systems and Platform Technologies</option>
+                                    <option value="6">Programming 1</option>
+                                    <option value="7">Data Communication and Net-Centric Computing</option>
+                                    <option value="8">Web Programming</option>
+                                    <option value="9">Software Engineering Fundamentals</option>
+                                    <option value="10">Database Concepts</option>
+                                    <option value="11">Professional Computing Practice</option>
+                                    <option value="12">Security in Computing and Information Technology</option>
+                                    <option value="13">Software Engineering Project Management</option>
+                                    <option value="14">Programming Project 1</option>
+                                    <option value="15">Advanced Programming Techniques</option>
+                                    <option value="16">Agent-Oriented Programming and Design</option>
+                                    <option value="17">Algorithms and Analysis</option>
+                                    <option value="18">Artificial Intelligence</option>
+                                    <option value="19">Broadcast Networks and Applications</option>
+                                    <option value="20">Cloud Computing</option>
+                                    <option value="21">Database Administration</option>
+                                    <option value="22">Database Systems</option>
+                                    <option value="23">Digital Media Computing</option>
+                                    <option value="24">Distributed Systems</option>
+                                    <option value="25">Document Markup Languages</option>
+                                    <option value="26">Electronic Commerce and Enterprise Systems</option>
+                                    <option value="27">Interactive 3D Graphics and Animation</option>
+                                    <option value="28">iPhone Software Engineering</option>
+                                    <option value="29">Information Technology Entrepreneurship</option>
+                                    <option value="30">Machine Learning</option>
+                                    <option value="31">Knowledge and Data Warehousing</option>
+                                    <option value="32">Mobile Application Development</option>
+                                    <option value="33">Network Programming</option>
                                 </select>
                             </div>
                         </div>
