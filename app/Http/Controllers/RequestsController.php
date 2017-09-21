@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
+use App\Requests;
+use App\Subject;
 use Illuminate\Http\Request;
 
 class RequestsController extends Controller
@@ -13,11 +16,96 @@ class RequestsController extends Controller
         $mentor = User::where('id', $mentor_id)->get()->pop();
         return view('request', ['mentor'=>$mentor]);
     }
-
-    public function reqsend(array $data)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $mentor_id = $data->id;
-        $mentor = User::where('id', $mentor_id)->get()->pop();
-        return view('re-request', ['mentor'=>$mentor]);
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $new_request = Requests::create([
+            'student_id' => Auth::user()->id,
+            'tutor_id' => $request->mentorid,
+            'subject_id' => $request->subject,
+        ]);
+
+        $mentor = User::where('id', $request->mentorid)->get()->pop();
+        $subject = Subject::where('id', $request->subject)->get()->pop();
+
+        $callback = [
+            'request_id' => $new_request->id,
+            'mentor_name' => $mentor->name,
+            'mentor_id' => $mentor->id,
+            'subject' => $subject,
+            'question' => $request->enquiry,
+        ];
+
+        return view('re-request', ['request' => $callback]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \TutorMeRMIT\Requests  $requests
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Requests $requests)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \TutorMeRMIT\Requests  $requests
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Requests $requests)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \TutorMeRMIT\Requests  $requests
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Requests $requests)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \TutorMeRMIT\Requests  $requests
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Requests $requests)
+    {
+        //
     }
 }

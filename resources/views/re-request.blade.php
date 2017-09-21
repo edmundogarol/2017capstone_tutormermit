@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
 	<central>
 	<div class="container">
 	<br>
 	<div class="row">
 	   <div class="6u 12u$(medium)">
 	      <span class="leftcol">
-			<h1>Request ID: <strong> Number</strong> </h1> 
+			<h1>Request ID: <strong> {{ $request['request_id'] }}</strong> </h1> 
 			
 	       </span>
 	    </div>
@@ -34,7 +35,7 @@
 									<h4>Tutor Name :</h4>
 								</div>
 								<div class="col-md-6">
-								<h5>dsadjsal</h5>
+								<h5>{{ $request['mentor_name'] }}</h5>
 								</div>
 							</div>
 
@@ -46,7 +47,7 @@
 						<h4>Tutor ID :</h4>
 					</div>
 					<div class="col-md-6">
-					<h5>dsadjsal</h5>
+					<h5>{{ $request['mentor_id'] }}</h5>
 					</div>
 				</div>
 					<div class="form-group">
@@ -58,19 +59,7 @@
 						<div class="col-md-6">
 						<h5>dsadjsal</h5>
 						</div>
-					</div>
-
-							<div class="form-group">
-								
-
-								<div class="col-md-6">
-									<h4>Email :</h4>
-								</div>
-								<div class="col-md-6">
-								<h5>dsadjsal</h5>
-								</div>
-							</div>
-							
+					</div>							
 							<div class="form-group">
 								
 
@@ -78,7 +67,7 @@
 									<h4>Question :</h4>
 								</div>
 								<div class="col-md-12">
-								<h5>dsadjsalsadsadsadasdsadsadasdsa</h5>
+								<h5>{{ $request['question'] }}</h5>
 								</div>
 							</div>
 							
