@@ -70,36 +70,7 @@ Route::get('/edit', function () {
 	}
 });
 
-Route::get('/preferences', function () {
-	$user = Auth::user();
-
-	if ( $user === null )
-	{
-		return view('/auth/login');
-	}
-	else if ( false )
-	{
-	    return view('preferences', [
-	        'status' => 'unfinished',
-	        'callback' => [
-	            'gender' => Auth::user()->gender,
-	            /*
-	            'gender' => Auth::prefence()->gender,
-	            'age_min' => Auth::preference()->age_min,
-	            'age_max' => Auth::preference()->age_max,
-				*/
-	        ]
-	    ]);
-	} else {
-		return view('preferences', [
-			'status' => 'initial',
-			'callback' => [		        
-		        'gender' => 'both',
-		    ]
-		]);
-	}
-	return view('preferences');
-});
+Route::get('/preferences','UserController@preferences');
 
 Route::post('/select', function () {	
     return view('selectskill');
@@ -119,7 +90,7 @@ Route::get('req/{id}','RequestsController@req');
 
 Route::post('/rereq','RequestsController@store');
 
-Route::post('/preferences','UserController@update');
+// Route::post('/preferences','UserController@update');
 
 Route::post('/edit','UserController@update');
 

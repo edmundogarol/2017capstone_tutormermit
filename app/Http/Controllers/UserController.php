@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
+use App\Preference;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -101,5 +102,13 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function preferences()
+    {
+        $user = Auth::user();
+        $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
+
+        return view('preferences', ['preferences' => $user_preferences]);
     }
 }

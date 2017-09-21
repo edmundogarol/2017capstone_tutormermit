@@ -28,6 +28,8 @@
     });
 </script>
 
+{{ $preferences }}
+
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../resources/assets/css/main.css" />
 <div class="container">
@@ -45,27 +47,25 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/preferences') }}">
                         {{ csrf_field() }}
 
-                        {{--
                         <h5>Preferred Tutor Age</h5>
                         <div class="row">
-                            <div class="form-group{{ $errors->has('min_age') ? ' has-error' : '' }}">
+                            <div class="form-group">
                                 <label for="min_age" class="col-md-4 control-label">From</label>
                                 <div class="4u">
-                                    <input id="min_age" type="min_age" placeholder="{{ $callback['min_age'] }}" class="form-control" name="min_age" value="{{ old('min_age') }}">
+                                    <input id="min_age" type="min_age" placeholder="" class="form-control" name="min_age" value="">
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('max_age') ? ' has-error' : '' }}">
+                            <div class="form-group">
                                 <label for="max_age" class="col-md-4 control-label">To</label>
                                 <div class="4u">
-                                    <input id="max_age" type="max_age" placeholder="{{ $callback['max_age'] }}" class="form-control" name="max_age" value="{{ old('max_age') }}">
+                                    <input id="max_age" type="max_age" placeholder="" class="form-control" name="max_age" value="">
                                 </div>
                             </div>
                         </div>
-                        --}}
 
                         <center>
                         {{ old('gender') }}
-                        <div class="row">
+                        {{-- <div class="row">
                                     <label for="gender" class="col-md-4 control-label {{ Auth::user()->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
                                     <div class="gender-radio 2u 10u$(small)">
                                     @if ( $callback['gender'] === 'male')
@@ -91,6 +91,7 @@
                                     @endif
                                         <label for="gender-both">Both</label>
                                     </div>
+                                    --}}
                         </div>
                         </center>
 
