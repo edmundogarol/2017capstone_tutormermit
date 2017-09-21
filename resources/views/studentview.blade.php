@@ -2,21 +2,31 @@
 
 @section('content')
 
-<section id="one" class="main style1 special">
-	<div class="container">
-		<ul class="actions">
-			<li>
-			<input type="text" name="search" id="search" placeholder="Search" />
-			</li>
-			<li>
-			<a href="#" class="button special" value="Search">Search</a>
 
-			<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
-			</li>
 
-		</ul>
-	</div>
-</section>
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<th><h2>Preferences: </h2></th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<div class="8u 12u$(small)">
+						<ul class="alt">
+							<li>
+								<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
+							</li>						
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 <div class="table-wrapper">
 	<table>
