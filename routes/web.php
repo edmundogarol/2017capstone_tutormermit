@@ -83,12 +83,17 @@ Route::get('/preferences', function () {
 	        'status' => 'unfinished',
 	        'callback' => [
 	            'gender' => Auth::user()->gender,
+	            /*
+	            'gender' => Auth::prefence()->gender,
+	            'age_min' => Auth::preference()->age_min,
+	            'age_max' => Auth::preference()->age_max,
+				*/
 	        ]
 	    ]);
 	} else {
 		return view('preferences', [
 			'status' => 'initial',
-			'callback' => [
+			'callback' => [		        
 		        'gender' => 'both',
 		    ]
 		]);
