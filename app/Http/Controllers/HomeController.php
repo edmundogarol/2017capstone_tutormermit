@@ -62,21 +62,52 @@ class HomeController extends Controller
 
         $requests = Requests::where('tutor_id', $user->id)->get();
         // $students = User::where('id', '!=', Auth::user()->id)->get();
+        $students = User::get();
+        $requests = Requests::get();
 
-        return view('tutor', ['requests'=>$requests]);
+        return view('tutor', ['students'=>$students, 'requests'=>$requests]);
     }
 
     public function studentView()
     {
         $user = Auth::user();
-
+       
+         $point = 0;
+        
         DB::table('users')
             ->where('id', $user->id)
             ->update(['tutor' => false]);
+       $preference = Auth::user();
+      
+      
+        DB::table('preferences')
+          -> where('id', $user->id);
+
 
         // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
-        $requests = Requests::where('student_id', $user->id)->get();
-        $mentors = User::get();
+       $requests = Requests::where('student_id', $user->id)->get();
+        
+              
+                $mentors = User::where(
+                    
+                      function($mentors) use ($preference){
+                         
+                                $point = 0;
+
+                                    if (isset($preference['gender'])) {
+                                        $mentors->where('gender', $preference->gender);
+                                        $point = $point +5 ;    
+                                        }
+//                                    if (isset($preference['subjects'])) {
+//                                        $mentors->where('subjects', $preference->subjects);
+//                                       
+//                                    }
+
+        
+                        } )->where('id', '!=', Auth::user()->id)->get();
+
+        //$mentors = User::get();
         return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests]);
+
     }
 }
