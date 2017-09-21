@@ -112,7 +112,7 @@ Route::get('/tutorde', function () {
 
 Route::get('req/{id}','RequestsController@req');
 
-Route::post('/rereq','RequestsController@reqsend');
+Route::post('/rereq','RequestsController@store');
 
 Route::post('/preferences','UserController@update');
 
