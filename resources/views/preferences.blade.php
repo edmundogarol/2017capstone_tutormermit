@@ -65,7 +65,7 @@
 
                         <center>
                         {{ old('gender') }}
-                        {{-- <div class="row">
+                         <div class="row">
                                     <label for="gender" class="col-md-4 control-label {{ Auth::user()->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
                                     <div class="gender-radio 2u 10u$(small)">
                                     @if ( $callback['gender'] === 'male')
@@ -91,7 +91,7 @@
                                     @endif
                                         <label for="gender-both">Both</label>
                                     </div>
-                                    --}}
+                                    
                         </div>
                         </center>
 

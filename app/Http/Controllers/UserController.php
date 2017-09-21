@@ -109,6 +109,13 @@ class UserController extends Controller
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
 
-        return view('preferences', ['preferences' => $user_preferences]);
+        $userCallback = [
+            'name' =>  $user->name,
+            'email' => $user->email,
+            'gender' => $user->gender,
+            'birthday' => $user->birthday,
+        ];
+
+        return view('preferences', ['preferences' => $user_preferences, 'callback' => $userCallback]);
     }
 }

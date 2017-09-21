@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Requests;
 use App\Academic;
+use App\Preference;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -61,14 +62,15 @@ class HomeController extends Controller
             ->update(['tutor' => true]);
 
         $requests = Requests::where('tutor_id', $user->id)->get();
-        // $students = User::where('id', '!=', Auth::user()->id)->get();
+        $students = User::where('id', '!=', Auth::user()->id)->get();
 
-        return view('tutor', ['requests'=>$requests]);
+        return view('tutor', ['students' => $students, 'requests'=>$requests]);
     }
 
     public function studentView()
     {
         $user = Auth::user();
+        $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
 
         DB::table('users')
             ->where('id', $user->id)
@@ -77,6 +79,6 @@ class HomeController extends Controller
         // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
         $requests = Requests::where('student_id', $user->id)->get();
         $mentors = User::get();
-        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests]);
+        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences]);
     }
 }

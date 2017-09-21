@@ -3,6 +3,7 @@
 @section('content')
 
 {{ $requests }}
+{{ $preferences }}
 
 <div class="table-wrapper">
 	<table>
