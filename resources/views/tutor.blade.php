@@ -59,7 +59,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($students as $students)
+				@foreach ($requests as $requests)
 				<tr>
 					<td>
 						<div class="8u 12u$(small)">
@@ -67,15 +67,15 @@
 								<li>
 									<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
 									{{ csrf_field() }}
-									<h5>Name: {{ $students->name }}</h5>
-									<h5>Gender: {{ $students->gender }}</h5>
-									<h5>E-mail: {{ $students->email }}</h5>
+									<h5>Name: {{ $requests->name }}</h5>
+									<h5>Gender: {{ $requests->gender }}</h5>
+									<h5>E-mail: {{ $requests->email }}</h5>
 									<h5>Subject: Java</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
-									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($students->active == 1) ? checked : '' @endif disabled>
+									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($requests->active == 1) ? checked : '' @endif disabled>
 									<label for="demo-priority-low"><h5>Active</h5></label>
 
-									<a class="button special" href="{{ url('req/'.$students->id) }}" value="Request" class="button special small">View Request</a>
+									<a class="button special" href="{{ url('req/'.$requests->id) }}" value="Request" class="button special small">View Request</a>
 								</form>
 							</li>					
 						</ul>
