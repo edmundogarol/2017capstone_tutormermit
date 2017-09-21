@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{ $requests }}
 <section id="one" class="main style1 special">
 	<div class="container">
 		<ul class="actions">

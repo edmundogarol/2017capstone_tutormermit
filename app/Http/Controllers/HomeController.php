@@ -77,7 +77,8 @@ class HomeController extends Controller
             ->update(['tutor' => false]);
 
         // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
+        $requests = Requests::where('student_id', $user->id)->get();
         $mentors = User::get();
-        return view('studentview', ['mentors'=>$mentors]);
+        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests]);
     }
 }
