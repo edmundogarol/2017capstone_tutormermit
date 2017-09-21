@@ -2,63 +2,89 @@
 
 @section('content')
 
-{{ $requests}}
+<!-- {{ $requests}} {{ $students }} -->
 
-	<head>
-		<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
-	</head>
-		<p align="center">Welcome mentor {{ Auth::user()->name }}!</p>
-	You are mentoring now:
-	<div class="table-wrapper">
-		<table>
-			<thead>
-				<tr>
-					<th align="left">Name</th>
-					<th align="left">Description</th>
-					<th align="left">View Session Details</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Jimmy</td>
-					<td>Problem with for loop in a array using Java</td>
-					<td align="center"><input type="button" onclick="location.href='jimmy.blade.php';" value="View"></td>
+<head>
+	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+</head>
+<p align="center"><h2 align="center">Welcome Mentor {{ Auth::user()->name }}!</h2></p>
+<section id="one" class="main style1 special">
+	<div class="container">
+		<ul class="actions">
+			<li>
+				<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
+			</li>
+
+		</ul>
+	</div>
+</section>
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<th>
+					<h2>Scheduled Sessions:
+					</h2>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<div class="8u 12u$(small)">
+						<ul class="alt">
+							<li>
+								<span class="image left">
+									<img src="../resources/assets/images/pic02.jpg" alt="" />
+								</span>
+								<h5>Name: Prashay</h5>
+								<h5>Gender: Male</h5>
+								<h5>Email: p@n.com
+									<h5>Subject: Programming Project 1</h5>
+									<h5>Program: Bachelor in Information Technology</h5>
+									<h5>Time: Wednesday 2:00PM</h5>
+								</li>						
+							</ul>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<br>
-	Student requests:
-	<section>
 	<div class="table-wrapper">
 		<table>
 			<thead>
 				<tr>
-					<th align="left">Name</th>
-					<th align="left">Description</th>
-					<th align="left">View Students</th>
+					<th><h2>Student Requests: </h2></th>
 				</tr>
 			</thead>
 			<tbody>
+				@foreach ($students as $students)
 				<tr>
-					<td>Prashay</td>
-					<td>Need help with Java.</td>
-					<td align="center"><input type="button" onclick="location.href='prashay.blade.php';"
-                        value="View"/></td>
-				</tr>
-				<tr>
-					<td>Ken</td>
-					<td>Need help with C#</td>
-					<td align="center"><input type="submit" value="View"></td>
-				</tr>
-				<tr>
-					<td>Bill</td>
-					<td>Need help with AI</td>
-					<td align="center"><input type="submit" value="View"></td>
-				</tr>
-			</tbody>
-		</table>
-	</section>
-	</div>
-	<br>
+					<td>
+						<div class="8u 12u$(small)">
+							<ul class="alt">
+								<li>
+									<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
+									{{ csrf_field() }}
+									<h5>Name: {{ $students->name }}</h5>
+									<h5>Gender: {{ $students->gender }}</h5>
+									<h5>E-mail: {{ $students->email }}</h5>
+									<h5>Subject: Java</h5>
+									<h5>Program: Bachelor in Information Technology</h5>
+									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($students->active == 1) ? checked : '' @endif disabled>
+									<label for="demo-priority-low"><h5>Active</h5></label>
+
+									<a class="button special" href="{{ url('req/'.$students->id) }}" value="Request" class="button special small">View Request</a>
+								</form>
+							</li>					
+						</ul>
+					</div>
+				</td>
+			</tr>
+			@endforeach
+		</tbody>					
+	</table>
+</div>
+<br>
 @endsection
