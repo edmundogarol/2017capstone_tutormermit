@@ -76,12 +76,24 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['tutor' => false]);
 
-<<<<<<< HEAD
-        $mentors = User::where('active', 0) ->where('tutor', 1)->where('subject', $user->subject)->where('gender', $user->gender)->where('age', $user->age)->where('id', '!=', Auth::user()->id)->get();
-=======
-        // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
-        $mentors = User::get();
->>>>>>> origin/develop
+//        $point = 0;
+//        $mentors = User::where('active', 0) ->where('tutor', 0)->where(
+//            
+//              function($mentors) use ($point){
+//                            if (isset($user['gender'])) {
+//                                $mentors->where('gender', $user->gender);
+//                                $point = 5;
+//                            }
+//
+//                } )->where('id', '!=', Auth::user()->id)->get();
+         
+         $mentors = User::where('active', 0) ->where('tutor', 0)->where('id', '!=', Auth::user()->id)->get();
+
+         //$mentors = User::where('active', 0) ->where('tutor', 0)->where('subject', $user->subject)->where('gender', $user->gender)->where('age', $user->age)->where('id', '!=', Auth::user()->id)->get();
+
+
+
+
         return view('studentview', ['mentors'=>$mentors]);
     }
 }
