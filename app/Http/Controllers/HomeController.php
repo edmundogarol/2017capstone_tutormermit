@@ -72,13 +72,39 @@ class HomeController extends Controller
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
 
+        $point = 0;
+        
         DB::table('users')
             ->where('id', $user->id)
             ->update(['tutor' => false]);
+       $preference = Auth::user();
+      
+      
+        DB::table('preferences')
+          -> where('id', $user->id);
 
-        // $mentors = User::where('active', 1)->where('tutor', 1)->where('id', '!=', Auth::user()->id)->get();
-        $requests = Requests::where('student_id', $user->id)->get();
-        $mentors = User::get();
+
+       $requests = Requests::where('student_id', $user->id)->get();
+        
+              
+                $mentors = User::where(
+                    
+                      function($mentors) use ($preference){
+                         
+                                $point = 0;
+
+                                    if (isset($user_preferences['gender'])) {
+                                        $mentors->where('gender', $user_preferences->gender);
+                                        $point = $point +5 ;    
+                                        }
+//                                    if (isset($preference['subjects'])) {
+//                                        $mentors->where('subjects', $preference->subjects);
+//                                       
+//                                    }
+
+        
+                        } )->where('id', '!=', Auth::user()->id)->get();
+
         return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences]);
     }
 }
