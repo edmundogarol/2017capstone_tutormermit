@@ -48,16 +48,17 @@ class RequestsController extends Controller
             'student_id' => Auth::user()->id,
             'tutor_id' => $request->mentorid,
             'subject_id' => $request->subject,
+            'status' => 'pending',
         ]);
 
-        $mentor = User::where('id', $request->mentorid)->get()->pop();
-        $subject = Subject::where('id', $request->subject)->get()->pop();
+        $mentor = User::where('id', $new_request->tutor_id)->get()->pop();
+        $subject = Subject::where('id', $new_request->subject_id)->get()->pop();
 
         $callback = [
             'request_id' => $new_request->id,
             'mentor_name' => $mentor->name,
             'mentor_id' => $mentor->id,
-            'subject' => $subject,
+            'subject' => $subject->name,
             'question' => $request->enquiry,
         ];
 

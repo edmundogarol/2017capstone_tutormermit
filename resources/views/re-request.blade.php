@@ -57,7 +57,7 @@
 							<h4>Subject :</h4>
 						</div>
 						<div class="col-md-6">
-						<h5>dsadjsal</h5>
+						<h5>{{ $request['subject']}}</h5>
 						</div>
 					</div>							
 							<div class="form-group">

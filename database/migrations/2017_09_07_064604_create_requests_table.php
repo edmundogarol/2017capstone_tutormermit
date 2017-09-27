@@ -18,6 +18,7 @@ class CreateRequestsTable extends Migration
             $table->integer('student_id');
             $table->integer('tutor_id');
             $table->integer('subject_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
