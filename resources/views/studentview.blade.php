@@ -3,8 +3,11 @@
 @section('content')
 
 
-
+{{ $requests }}
 {{ $mentorsessions }}
+
+ @foreach ($mentorsessions as $mentorsessions)
+			
 
 <section id="one" class="main style1 special">
 
@@ -41,7 +44,8 @@
 					<br>
 				</section>
 
-
+ @if ($mentorsessions->active ==0)
+		
 <div class="table-wrapper">
 	<table>
 		<thead>
@@ -53,12 +57,14 @@
 	  						<strong>Error!</strong> {{ $errors->first() }}
 						</div>
 					@endif
+
 		
 			</tr>
 		</thead>
 		<tbody>
 		
          @foreach ($requests as $requests)
+
 			<tr>
 				<td>
 					<div class="8u 12u$(small)">
@@ -81,7 +87,42 @@
 
 		   	@endforeach
 
-      
+@else
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+			
+				<th><h4>ACTIVE SESSIONS</h4></th>
+		
+			</tr>
+		</thead>
+		<tbody>
+		
+        
+
+			<tr>
+				<td>
+					<div class="8u 12u$(small)">
+						<ul class="alt">
+							<li>
+								<span class="image left">
+									<img src="../resources/assets/images/pic02.jpg" alt="" />
+								</span>
+								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
+								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
+								<h5>E-mail: {{$mentorsessions->email}}</h5>
+							
+
+							</li>						
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+	
+
+      @endif
 
 		
 		</tbody>
@@ -125,5 +166,6 @@
 		</tbody>					
 	</table>
 </div>
+@endforeach
 
 @endsection
