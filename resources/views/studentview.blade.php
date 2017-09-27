@@ -2,8 +2,7 @@
 
 @section('content')
 
-<!--{{ $requests }}-->
-<!--{{ $preferences }}-->
+
 
 {{ $mentorsessions }}
 
@@ -13,7 +12,7 @@
 						<header class="major">
 							<h2>CURRENT PREFERENCES: </h2>
 						</header>
-						<ul>
+						<ul class="alt">
 							<li>
 								
 								<h5>Age range: {{ $preferences->min_age}} to {{ $preferences->max_age}}</h5>
@@ -26,7 +25,7 @@
                                 @endif
                                 <h5>Subjects: {{ $preferences->subjects}}</h5>
 
-								<a href="{{ url('/preferences') }}" class="button special" value="Search">Update preference</a>
+								<a href="{{ url('/preferences') }}" class="button special" value="preferences">Update preference</a>
 								
 							</li>						
 						</ul>
@@ -47,12 +46,14 @@
 	<table>
 		<thead>
 			<tr>
+			
 				<th><h4>ACTIVE REQUEST: </h4></th>
 					@if ($errors->any())
-						<div class="alert alert-warning">
-	  						<strong>Warning!</strong> {{ $errors->first() }}
+						<div class="alert alert-danger">
+	  						<strong>Error!</strong> {{ $errors->first() }}
 						</div>
 					@endif
+		
 			</tr>
 		</thead>
 		<tbody>

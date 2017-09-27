@@ -88,8 +88,12 @@ class RequestsController extends Controller
     {
         $requestObj = Requests::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
         
-        if($requestObj != null) {
+        $sessionObj = MentorSession::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
+
+        if($requestObj != null ) {
             return redirect('studentview')->withErrors(['You already made a request to that mentor!']);
+        } else if($sessionObj != null ) {
+            return redirect('studentview')->withErrors(['You are in a session with this mentor.']);
         } else {
             $subject = Subject::where('id', $request->subject)->get()->pop();
 
