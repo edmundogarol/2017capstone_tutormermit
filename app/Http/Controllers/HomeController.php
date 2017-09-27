@@ -95,7 +95,11 @@ class HomeController extends Controller
         
 //                         } )->where('id', '!=', Auth::user()->id)->get();
 
-       $mentors = User::where('gender', $user_preferences->gender)->get();
+        if ($user_preferences->gender == '') {
+            $mentors = User::where('id', '!=', Auth::user()->id)->get();
+        } else {
+            $mentors = User::where('gender', $user_preferences->gender)->get();
+        }
 
         return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences]);
     }
