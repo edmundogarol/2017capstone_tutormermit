@@ -5,9 +5,8 @@
 <!--{{ $requests }}-->
 <!--{{ $preferences }}-->
 
-
-
 <section id="one" class="main style1 special">
+
 					<div class="container">
 						<header class="major">
 							<h2>CURRENT PREFERENCES: </h2>
@@ -40,7 +39,11 @@
 		<thead>
 			<tr>
 				<th><h4>ACTIVE REQUEST: </h4></th>
-				
+					@if ($errors->any())
+						<div class="alert alert-warning">
+	  						<strong>Warning!</strong> {{ $errors->first() }}
+						</div>
+					@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -57,6 +60,7 @@
 								<h5>Request ID: {{ $requests->id }}</h5>
 								<h5>Mentor's ID: {{ $requests->tutor_id }}</h5>
 								<h5>Subject: {{ $requests->subject }}</h5>
+								<h5>Status: {{ $requests->status }}</h5>
 							</li>						
 						</ul>
 					</div>

@@ -2,6 +2,8 @@
 
 @section('content')
 
+{{ $reqObj }}
+
 	<central>
 	<div class="container">
 	<br>

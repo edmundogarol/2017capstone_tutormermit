@@ -44,26 +44,33 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        $subject = Subject::where('id', $request->subject)->get()->pop();
+        $requestObj = Requests::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
+        
+        if($requestObj != null) {
+            return redirect('studentview')->withErrors(['You already made a request to that mentor!']);;
+        } else {
+            $subject = Subject::where('id', $request->subject)->get()->pop();
 
-        $new_request = Requests::create([
-            'student_id' => Auth::user()->id,
-            'tutor_id' => $request->mentorid,
-            'subject' => $subject->name,
-            'status' => 'pending',
-        ]);
+            $new_request = Requests::create([
+                'student_id' => Auth::user()->id,
+                'tutor_id' => $request->mentorid,
+                'subject' => $subject->name,
+                'status' => 'pending',
+            ]);
 
-        $mentor = User::where('id', $new_request->tutor_id)->get()->pop();
+            $mentor = User::where('id', $new_request->tutor_id)->get()->pop();
 
-        $callback = [
-            'request_id' => $new_request->id,
-            'mentor_name' => $mentor->name,
-            'mentor_id' => $mentor->id,
-            'subject' => $new_request->subject,
-            'question' => $request->enquiry,
-        ];
+            $callback = [
+                'request_id' => $new_request->id,
+                'mentor_name' => $mentor->name,
+                'mentor_id' => $mentor->id,
+                'subject' => $new_request->subject,
+                'question' => $request->enquiry,
+                'status' => $new_request->status,
+            ];
 
-        return view('re-request', ['request' => $callback]);
+            return view('re-request', ['request' => $callback, 'reqObj' => $requestObj]);
+        }
     }
 
     /**

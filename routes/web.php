@@ -98,5 +98,5 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/tutor','HomeController@tutorView');
 
-Route::get('/studentview','HomeController@studentView');
+Route::get('/studentview','HomeController@studentView')->name('studentview');
 
