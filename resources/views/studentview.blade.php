@@ -5,6 +5,8 @@
 <!--{{ $requests }}-->
 <!--{{ $preferences }}-->
 
+{{ $mentorsessions }}
+
 <section id="one" class="main style1 special">
 
 					<div class="container">
@@ -28,6 +30,13 @@
 								
 							</li>						
 						</ul>
+						@if ($errors->any())
+							@if (str_contains($errors->first(), 'cancelled'))
+								<div class="alert alert-info">
+									<strong>Info:</strong> {{ $errors->first() }}
+								</div>
+							@endif
+						@endif
 			
 					</div>
 					<br>
@@ -57,10 +66,12 @@
 								<span class="image left">
 									<img src="../resources/assets/images/pic02.jpg" alt="" />
 								</span>
-								<h5>Request ID: {{ $requests->id }}</h5>
-								<h5>Mentor's ID: {{ $requests->tutor_id }}</h5>
+								<h5>Request ID: {{ $requests->req_id }}</h5>
+								<h5>Mentor: {{ $requests->name}}</h5>
 								<h5>Subject: {{ $requests->subject }}</h5>
 								<h5>Status: {{ $requests->status }}</h5>
+								<a class="button special" href="{{ url('rereq/'.$requests->req_id) }}" value="Request" class="button special small">View</a>
+
 							</li>						
 						</ul>
 					</div>

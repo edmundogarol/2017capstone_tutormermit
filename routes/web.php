@@ -90,6 +90,12 @@ Route::get('req/{id}','RequestsController@req');
 
 Route::get('rereq/{id}','RequestsController@rereq');
 
+Route::get('accept/{id}','RequestsController@accept');
+
+Route::get('cancel/{id}','RequestsController@cancel');
+
+Route::get('decline/{id}','RequestsController@decline');
+
 Route::post('/rereq','RequestsController@store');
 
 // Route::post('/preferences','UserController@update');

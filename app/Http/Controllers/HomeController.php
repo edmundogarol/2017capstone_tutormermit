@@ -8,6 +8,7 @@ use App\User;
 use App\Requests;
 use App\Academic;
 use App\Preference;
+use App\MentorSession;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -61,26 +62,44 @@ class HomeController extends Controller
             ->where('id', $user->id)
             ->update(['tutor' => true]);
 
-        $requests = Requests::where('tutor_id', $user->id)->get();
+        $mentorsessions = DB::table('users AS usr')
+                    ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email")
+                    ->join("mentor_sessions AS mensess", "mensess.student_id", "=", "usr.id")
+                    ->get();
+
         $students = User::where('id', '!=', Auth::user()->id)->get();
 
-        return view('tutor', ['students' => $students, 'requests'=>$requests]);
+        $callback = DB::table('users AS usr')
+                    ->select("usr.id", "usr.name", "usr.gender", "usr.active", "req.subject", "req.enquiry")
+                    ->join("requests AS req", "req.student_id", "=", "usr.id")
+                    ->where('status', '!=', 'Declined')
+                    ->where('status', '!=', 'Accepted')
+                    ->get();
+
+        return view('tutor', ['students' => $students, 'requests'=> $callback, 'mentorsessions' => $mentorsessions]);
     }
 
     public function studentView()
     {
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
+        $mentorsessions = DB::table('users AS usr')
+                    ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email")
+                    ->join("mentor_sessions AS mensess", "mensess.tutor_id", "=", "usr.id")
+                    ->get();
 
         $point = 0;
 
-        $requests = Requests::where('student_id', $user->id)->get();
+        $requests = DB::table('users AS usr')
+                    ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.id AS req_id", "req.tutor_id", "req.status", "req.subject", "req.enquiry")
+                    ->join("requests AS req", "req.tutor_id", "=", "usr.id")
+                    ->get();
         
               
 //                 $mentors = User::where(
                     
 //                       function($mentors) use ($preference){
-                         
+                     
 //                                 $point = 0;
 
 //                                     if (isset($user_preferences['gender'])) {
@@ -101,6 +120,6 @@ class HomeController extends Controller
             $mentors = User::where('gender', $user_preferences->gender)->get();
         }
 
-        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences]);
+        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions]);
     }
 }

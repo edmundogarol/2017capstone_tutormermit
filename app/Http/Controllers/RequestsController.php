@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\Requests;
 use App\Subject;
+use App\MentorSession;
 use Illuminate\Http\Request;
 
 class RequestsController extends Controller
@@ -16,12 +17,11 @@ class RequestsController extends Controller
         $mentor = User::where('id', $mentor_id)->get()->pop();
         return view('request', ['mentor'=>$mentor]);
     }   
+
     public function rereq($id)
     {
         $this_request = Requests::where('id', $id)->get()->pop();
         $mentor = User::where('id', $this_request->tutor_id)->get()->pop();
-
-        $requestObj = Requests::where('tutor_id', $mentor->id)->where('student_id', Auth::user()->id)->get()->pop();
 
         $callback = [
             'request_id' => $this_request->id,
@@ -31,7 +31,32 @@ class RequestsController extends Controller
             'enquiry' => $this_request->enquiry,    
             'status' => $this_request->status,
         ];
-        return view('re-request', ['request'=>$callback, 'reqObj' => $requestObj]);
+        return view('re-request', ['request'=>$callback]);
+    }
+
+    public function accept($id)
+    {
+        $new_session = MentorSession::create([
+            'student_id' => $id,
+            'tutor_id' => Auth::user()->id,
+        ]);
+
+        Requests::where('student_id', $id)->where('tutor_id', Auth::user()->id)->delete();
+        $student = User::where('id',$id)->get()->pop();
+        return redirect('tutor')->withErrors(['Request accepted from: '.$student->name]);
+    }   
+
+    public function decline($id)
+    {
+        Requests::where('student_id', $id)->where('tutor_id', Auth::user()->id)->update(['status' => 'Declined']);
+        $student = User::where('id', $id)->get()->pop();
+        return redirect('tutor')->withErrors(['Request declined from: '.$student->name]);
+    }
+
+    public function cancel($id)
+    {
+        Requests::where('id', $id)->delete();
+        return redirect('studentview')->withErrors(['Request cancelled.']);
     }
     /**
      * Display a listing of the resource.
@@ -64,7 +89,7 @@ class RequestsController extends Controller
         $requestObj = Requests::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
         
         if($requestObj != null) {
-            return redirect('studentview')->withErrors(['You already made a request to that mentor!']);;
+            return redirect('studentview')->withErrors(['You already made a request to that mentor!']);
         } else {
             $subject = Subject::where('id', $request->subject)->get()->pop();
 
@@ -73,7 +98,7 @@ class RequestsController extends Controller
                 'tutor_id' => $request->mentorid,
                 'subject' => $subject->name,
                 'enquiry' => $request->enquiry,
-                'status' => 'pending',
+                'status' => 'Pending',
             ]);
 
             $mentor = User::where('id', $new_request->tutor_id)->get()->pop();

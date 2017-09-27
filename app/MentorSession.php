@@ -1,10 +1,10 @@
 <?php
 
-namespace TutorMeRMIT;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class MentorSession extends Model
 {
     protected $fillable = [
         'student_id', 'tutor_id'
