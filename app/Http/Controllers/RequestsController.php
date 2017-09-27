@@ -15,6 +15,23 @@ class RequestsController extends Controller
         $mentor_id = $id;
         $mentor = User::where('id', $mentor_id)->get()->pop();
         return view('request', ['mentor'=>$mentor]);
+    }   
+    public function rereq($id)
+    {
+        $this_request = Requests::where('id', $id)->get()->pop();
+        $mentor = User::where('id', $this_request->tutor_id)->get()->pop();
+
+        $requestObj = Requests::where('tutor_id', $mentor->id)->where('student_id', Auth::user()->id)->get()->pop();
+
+        $callback = [
+            'request_id' => $this_request->id,
+            'mentor_name' => $mentor->name,
+            'mentor_id' => $mentor->id,
+            'subject' => $this_request->subject,
+            'enquiry' => $this_request->enquiry,    
+            'status' => $this_request->status,
+        ];
+        return view('re-request', ['request'=>$callback, 'reqObj' => $requestObj]);
     }
     /**
      * Display a listing of the resource.
@@ -55,6 +72,7 @@ class RequestsController extends Controller
                 'student_id' => Auth::user()->id,
                 'tutor_id' => $request->mentorid,
                 'subject' => $subject->name,
+                'enquiry' => $request->enquiry,
                 'status' => 'pending',
             ]);
 
@@ -65,7 +83,7 @@ class RequestsController extends Controller
                 'mentor_name' => $mentor->name,
                 'mentor_id' => $mentor->id,
                 'subject' => $new_request->subject,
-                'question' => $request->enquiry,
+                'enquiry' => $new_request->enquiry,
                 'status' => $new_request->status,
             ];
 

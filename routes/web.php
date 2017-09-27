@@ -88,6 +88,8 @@ Route::get('/tutorde', function () {
 
 Route::get('req/{id}','RequestsController@req');
 
+Route::get('rereq/{id}','RequestsController@rereq');
+
 Route::post('/rereq','RequestsController@store');
 
 // Route::post('/preferences','UserController@update');

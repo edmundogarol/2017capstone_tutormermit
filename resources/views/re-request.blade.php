@@ -69,7 +69,7 @@
 									<h4>Question :</h4>
 								</div>
 								<div class="col-md-12">
-								<h5>{{ $request['question'] }}</h5>
+								<h5>{{ $request['enquiry'] }}</h5>
 								</div>
 							</div>
 							

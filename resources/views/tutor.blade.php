@@ -75,7 +75,7 @@
 									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($requests->active == 1) ? checked : '' @endif disabled>
 									<label for="demo-priority-low"><h5>Active</h5></label>
 
-									<a class="button special" href="{{ url('req/'.$requests->id) }}" value="Request" class="button special small">View Request</a>
+									<a class="button special" href="{{ url('rereq/'.$requests->id) }}" value="Request" class="button special small">View Request</a>
 								</form>
 							</li>					
 						</ul>
