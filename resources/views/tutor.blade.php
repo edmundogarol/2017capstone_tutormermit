@@ -43,6 +43,8 @@
 									<h5>Subject: Programming Project 1</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
 									<h5>Time: Wednesday 2:00PM</h5>
+									<!-- <a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a> !-->
+									<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
 								</li>						
 							</ul>
 						</div>
@@ -74,8 +76,10 @@
 									<h5>Program: Bachelor in Information Technology</h5>
 									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($requests->active == 1) ? checked : '' @endif disabled>
 									<label for="demo-priority-low"><h5>Active</h5></label>
-
-									<a class="button special" href="{{ url('rereq/'.$requests->id) }}" value="Request" class="button special small">View Request</a>
+									<!-- <a class="button special" href="{{ url('req/'.$requests->id) }}" value="Request" class="button special small">View Request</a> -->
+									<br>
+									<a href="{{ url('/') }}" class="button special" value="Search">Accept</a>
+									<a href="{{ url('/') }}" class="button special" value="Search">Decline</a>
 								</form>
 							</li>					
 						</ul>
