@@ -56,6 +56,7 @@
 								</span>
 								<h5>Request ID: {{ $requests->id }}</h5>
 								<h5>Mentor's ID: {{ $requests->tutor_id }}</h5>
+								<h5>Subject: {{ $requests->subject }}</h5>
 							</li>						
 						</ul>
 					</div>

@@ -44,21 +44,22 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
+        $subject = Subject::where('id', $request->subject)->get()->pop();
+
         $new_request = Requests::create([
             'student_id' => Auth::user()->id,
             'tutor_id' => $request->mentorid,
-            'subject_id' => $request->subject,
+            'subject' => $subject->name,
             'status' => 'pending',
         ]);
 
         $mentor = User::where('id', $new_request->tutor_id)->get()->pop();
-        $subject = Subject::where('id', $new_request->subject_id)->get()->pop();
 
         $callback = [
             'request_id' => $new_request->id,
             'mentor_name' => $mentor->name,
             'mentor_id' => $mentor->id,
-            'subject' => $subject->name,
+            'subject' => $new_request->subject,
             'question' => $request->enquiry,
         ];
 

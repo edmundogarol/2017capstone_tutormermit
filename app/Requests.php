@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Requests extends Model
 {
     protected $fillable = [
-        'student_id', 'tutor_id', 'subject_id', 'status'
+        'student_id', 'tutor_id', 'subject', 'status'
     ];
 }
