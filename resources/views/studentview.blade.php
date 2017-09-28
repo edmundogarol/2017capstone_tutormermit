@@ -5,8 +5,6 @@
 
 {{ $requests }}
 {{ $mentorsessions }}
-
- @foreach ($mentorsessions as $mentorsessions)
 			
 
 <section id="one" class="main style1 special">
@@ -43,8 +41,6 @@
 					</div>
 					<br>
 				</section>
-
- @if ($mentorsessions->active ==0)
 		
 <div class="table-wrapper">
 	<table>
@@ -87,7 +83,6 @@
 
 		   	@endforeach
 
-@else
 <div class="table-wrapper">
 	<table>
 		<thead>
@@ -100,6 +95,7 @@
 		<tbody>
 		
         
+ @foreach ($mentorsessions as $mentorsessions)
 
 			<tr>
 				<td>
@@ -121,8 +117,8 @@
 			</tr>
 
 	
-
-      @endif
+@endforeach
+     
 
 		
 		</tbody>
@@ -166,6 +162,5 @@
 		</tbody>					
 	</table>
 </div>
-@endforeach
 
 @endsection

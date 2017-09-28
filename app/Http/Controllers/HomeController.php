@@ -84,8 +84,9 @@ class HomeController extends Controller
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
         $mentorsessions = DB::table('users AS usr')
-                    ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email")
+                    ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email", "mensess.student_id")
                     ->join("mentor_sessions AS mensess", "mensess.tutor_id", "=", "usr.id")
+                    ->where('mensess.student_id', $user->id)
                     ->get();
 
         $point = 0;
