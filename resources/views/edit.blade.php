@@ -2,8 +2,10 @@
 
 @section('content')
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
-    var subjects = [];
+
+@php ($subjects = [])
+
+<script>    
     function changeGender (e) {
         if (e === 'male') {
             $('#gender-male').prop('checked', true);
@@ -16,9 +18,14 @@
 
     $(document).ready(function($) {
         $('#subjects-select').on('change',function(e){
-            subjects.push(e.target.value);
-            console.log(subjects);
-        });
+            $subjects.push(e.target.value);
+            console.log($subjects);
+            
+            /*
+            $.ajax({
+
+            })
+            */
     });
 </script>
 
@@ -155,19 +162,31 @@
                                 </select>
                             </div>
                         </div>
-                        <br>
+                        <br>                        
+
                         <div class="8u">
                             <div class="table-wrapper">
                                 <table class="alt" name="subject" id="subjects">
-                                    <tbody>
-                                        <tr>
-                                            <td>Subject list (No Subjects yet!)</td>
-                                        </tr>
-                                        
+                                    <tbody>                                        
+                                        {{--
+                                        @if (count($subjects) > 0)
+                                            @foreach( $subjects as $subjectid )
+                                                $subjectname = DB::table(subjects)->where('id', $subjectid);
+                                                <tr>                                                
+                                                    <td>{{ $subjectname }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td>Subject list (No Subjects yet!)</td>
+                                            </tr>                                        
+                                        @endif
+                                        --}}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
                         <input type="hidden" id="subject-input" name="subjects" value="" required>
                         </center>
 

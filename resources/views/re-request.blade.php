@@ -57,7 +57,7 @@
 							<h4>Subject :</h4>
 						</div>
 						<div class="col-md-6">
-						<h5>dsadjsal</h5>
+						<h5>{{ $request['subject']}}</h5>
 						</div>
 					</div>							
 							<div class="form-group">
@@ -67,7 +67,7 @@
 									<h4>Question :</h4>
 								</div>
 								<div class="col-md-12">
-								<h5>{{ $request['question'] }}</h5>
+								<h5>{{ $request['enquiry'] }}</h5>
 								</div>
 							</div>
 							
@@ -78,15 +78,18 @@
 							<div class="6u 12u$(medium)">
 
 							<ul class="actions uniform">
-								<li><a href="{{ url('/rereq') }}" class="button special">edit</a></li>
+								<li><a href="{{ url('/studentview') }}" class="button special">Confirm</a></li>
 
 							</ul>
 							</div>
                            <div class="6u 12u$(medium)">
 
 							<ul class="actions uniform">
-								<li><a href="{{ url('/rereq') }}" class="button special">Send</a></li>
-
+								@if ($request['status'] == 'Declined')
+									<li><a href="{{ url('/cancel/'.$request['request_id']) }}" class="button special">Delete</a></li>
+								@else
+									<li><a href="{{ url('/cancel/'.$request['request_id']) }}" class="button special">Cancel</a></li>
+								@endif
 							</ul>
 							
 							</div>

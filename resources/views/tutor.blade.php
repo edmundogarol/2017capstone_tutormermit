@@ -4,6 +4,7 @@
 
 <!-- {{ $requests}} {{ $students }} -->
 
+{{ $mentorsessions }}
 <head>
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 </head>
@@ -16,6 +17,17 @@
 			</li>
 
 		</ul>
+		@if ($errors->any())
+			@if (str_contains($errors->first(), 'accepted'))
+				<div class="alert alert-success">
+					<strong>Success:</strong> {{ $errors->first() }}
+				</div>
+			@else
+				<div class="alert alert-info">
+					<strong>Info:</strong> {{ $errors->first() }}
+				</div>
+			@endif
+		@endif
 	</div>
 </section>
 <div class="table-wrapper">
@@ -43,6 +55,8 @@
 									<h5>Subject: Programming Project 1</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
 									<h5>Time: Wednesday 2:00PM</h5>
+									<!-- <a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a> !-->
+									<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
 								</li>						
 							</ul>
 						</div>
@@ -69,13 +83,14 @@
 									{{ csrf_field() }}
 									<h5>Name: {{ $requests->name }}</h5>
 									<h5>Gender: {{ $requests->gender }}</h5>
-									<h5>E-mail: {{ $requests->email }}</h5>
-									<h5>Subject: Java</h5>
-									<h5>Program: Bachelor in Information Technology</h5>
+									<h5>Subject: {{ $requests->subject }}</h5>
+									<h5>Enquiry: {{ $requests->enquiry }}</h5>
 									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($requests->active == 1) ? checked : '' @endif disabled>
 									<label for="demo-priority-low"><h5>Active</h5></label>
-
-									<a class="button special" href="{{ url('req/'.$requests->id) }}" value="Request" class="button special small">View Request</a>
+									<!-- <a class="button special" href="{{ url('req/'.$requests->id) }}" value="Request" class="button special small">View Request</a> -->
+									<br>
+									<a href="{{ url('/accept/'.$requests->id) }}" class="button special" value="Search">Accept</a>
+									<a href="{{ url('/decline/'.$requests->id) }}" class="button special" value="Search">Decline</a>
 								</form>
 							</li>					
 						</ul>

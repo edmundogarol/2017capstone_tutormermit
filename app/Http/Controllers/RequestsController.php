@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\Requests;
 use App\Subject;
+use App\MentorSession;
 use Illuminate\Http\Request;
 
 class RequestsController extends Controller
@@ -15,6 +16,47 @@ class RequestsController extends Controller
         $mentor_id = $id;
         $mentor = User::where('id', $mentor_id)->get()->pop();
         return view('request', ['mentor'=>$mentor]);
+    }   
+
+    public function rereq($id)
+    {
+        $this_request = Requests::where('id', $id)->get()->pop();
+        $mentor = User::where('id', $this_request->tutor_id)->get()->pop();
+
+        $callback = [
+            'request_id' => $this_request->id,
+            'mentor_name' => $mentor->name,
+            'mentor_id' => $mentor->id,
+            'subject' => $this_request->subject,
+            'enquiry' => $this_request->enquiry,    
+            'status' => $this_request->status,
+        ];
+        return view('re-request', ['request'=>$callback]);
+    }
+
+    public function accept($id)
+    {
+        $new_session = MentorSession::create([
+            'student_id' => $id,
+            'tutor_id' => Auth::user()->id,
+        ]);
+
+        Requests::where('student_id', $id)->where('tutor_id', Auth::user()->id)->delete();
+        $student = User::where('id',$id)->get()->pop();
+        return redirect('tutor')->withErrors(['Request accepted from: '.$student->name]);
+    }   
+
+    public function decline($id)
+    {
+        Requests::where('student_id', $id)->where('tutor_id', Auth::user()->id)->update(['status' => 'Declined']);
+        $student = User::where('id', $id)->get()->pop();
+        return redirect('tutor')->withErrors(['Request declined from: '.$student->name]);
+    }
+
+    public function cancel($id)
+    {
+        Requests::where('id', $id)->delete();
+        return redirect('studentview')->withErrors(['Request cancelled.']);
     }
     /**
      * Display a listing of the resource.
@@ -44,24 +86,38 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        $new_request = Requests::create([
-            'student_id' => Auth::user()->id,
-            'tutor_id' => $request->mentorid,
-            'subject_id' => $request->subject,
-        ]);
+        $requestObj = Requests::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
+        
+        $sessionObj = MentorSession::where('tutor_id', $request->mentorid)->where('student_id', Auth::user()->id)->get()->pop();
 
-        $mentor = User::where('id', $request->mentorid)->get()->pop();
-        $subject = Subject::where('id', $request->subject)->get()->pop();
+        if($requestObj != null ) {
+            return redirect('studentview')->withErrors(['You already made a request to that mentor!']);
+        } else if($sessionObj != null ) {
+            return redirect('studentview')->withErrors(['You are in a session with this mentor.']);
+        } else {
+            $subject = Subject::where('id', $request->subject)->get()->pop();
 
-        $callback = [
-            'request_id' => $new_request->id,
-            'mentor_name' => $mentor->name,
-            'mentor_id' => $mentor->id,
-            'subject' => $subject,
-            'question' => $request->enquiry,
-        ];
+            $new_request = Requests::create([
+                'student_id' => Auth::user()->id,
+                'tutor_id' => $request->mentorid,
+                'subject' => $subject->name,
+                'enquiry' => $request->enquiry,
+                'status' => 'Pending',
+            ]);
 
-        return view('re-request', ['request' => $callback]);
+            $mentor = User::where('id', $new_request->tutor_id)->get()->pop();
+
+            $callback = [
+                'request_id' => $new_request->id,
+                'mentor_name' => $mentor->name,
+                'mentor_id' => $mentor->id,
+                'subject' => $new_request->subject,
+                'enquiry' => $new_request->enquiry,
+                'status' => $new_request->status,
+            ];
+
+            return view('re-request', ['request' => $callback, 'reqObj' => $requestObj]);
+        }
     }
 
     /**
