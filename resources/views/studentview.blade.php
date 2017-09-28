@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-{{ $requests }}
-{{ $mentorsessions }}
 			
 
 <section id="one" class="main style1 special">

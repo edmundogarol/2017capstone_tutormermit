@@ -94,6 +94,7 @@ class HomeController extends Controller
         $requests = DB::table('users AS usr')
                     ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.id AS req_id", "req.tutor_id", "req.status", "req.subject", "req.enquiry")
                     ->join("requests AS req", "req.tutor_id", "=", "usr.id")
+                    ->where('req.student_id', $user->id)
                     ->get();
         
               
