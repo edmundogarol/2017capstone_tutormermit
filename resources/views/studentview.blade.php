@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
-			
+@section('content')			
 
 <section id="one" class="main style1 special">
 
@@ -38,6 +37,7 @@
 					<br>
 				</section>
 		
+
 <div class="table-wrapper">
 	<table>
 		<thead>
@@ -129,6 +129,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		
 			@foreach ($mentors as $mentors)
 			<tr>
 				
@@ -139,6 +140,10 @@
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
+
+									<h5>Point: {{ $mentors->point }}</h5>
+
+
 									<h5>Skill: Java</h5>
 									<h5>Program: Bachelor in Information Technology</h5>
 									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($mentors->active == 1) ? checked : '' @endif disabled>
