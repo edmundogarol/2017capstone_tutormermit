@@ -62,7 +62,7 @@
 							<p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>
               <br/>
 							<ul class="actions uniform">
-								<li><a href="#" class="button special">Register</a></li>
+								<li><a href="{{ url('/register') }}" class="button special">Register</a></li>
 
 							</ul>
 				</div>

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
-@section('content')			
+@section('content')	
+
+@php
+function multiexplode($delimiters,$string) {
+            $ready = str_replace($delimiters, $delimiters[0], $string);
+            $launch = explode($delimiters[0], $ready);
+            return  $launch;
+        }
+@endphp
 
 <section id="one" class="main style1 special">
 
@@ -19,8 +27,22 @@
                                 	<h5>Gender: {{$preferences->gender}}</h5>
 
                                 @endif
-                                <h5>Subjects: {{ $preferences->subjects}}</h5>
+                                <h5>Subjects: <br> 
+								@php
+								$subsArray = $preferences->subjects;
+								$finSubs = array_slice(multiexplode(array(",","{","}"), $subsArray), 1, -1);
+								@endphp
 
+								<?php
+								for ($i = 0; $i < count($finSubs); $i++){
+									$subject = DB::table('subjects')->select('name')->where('id', $finSubs[$i])->get();
+									foreach ($subject as $sub){
+										echo "| &nbsp;&nbsp;".$sub->name."&nbsp;&nbsp;";
+									}
+								}
+								echo "|";
+								?>
+								</h5>			
 								<a href="{{ url('/preferences') }}" class="button special" value="preferences">Update preference</a>
 								
 							</li>						
@@ -104,8 +126,7 @@
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
 								<h5>E-mail: {{$mentorsessions->email}}</h5>
-							
-
+								<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
 							</li>						
 						</ul>
 					</div>
@@ -130,6 +151,7 @@
 		</thead>
 		<tbody>
 		
+			<span {{ $ranking = 1 }}/>
 			@foreach ($mentors as $mentors)
 			<tr>
 				
@@ -137,17 +159,30 @@
 
 				<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
                         		{{ csrf_field() }}
+                        			<h3>RANK: #{{ $ranking }}</h2> 
+                        			<span {{ $ranking = $ranking + 1 }}/>
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
 
-									<h5>Point: {{ $mentors->point }}</h5>
+									@php
+									$subs = DB::table('academics')->select('subjects')
+																	->where('id', $mentors->academic_id)
+																	->get();
+									$subsArray = $subs->pop()->subjects;
+									$finSubs = array_slice(multiexplode(array(",","{","}"), $subsArray), 1, -1);
+									@endphp
 
-
-									<h5>Skill: Java</h5>
-									<h5>Program: Bachelor in Information Technology</h5>
-									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($mentors->active == 1) ? checked : '' @endif disabled>
-									<label for="demo-priority-low"><h5>Active</h5></label>
+									<h5>Skills:	
+										<?php
+										for ($i = 0; $i < count($finSubs); $i++){
+											$subject = DB::table('subjects')->select('name')->where('id', $finSubs[$i])->get();
+											foreach ($subject as $sub){
+												echo $sub->name."&nbsp;&nbsp; | &nbsp;&nbsp;";
+											}
+										}
+										?>
+									</h5>
 									<a class="button special" href="{{ url('req/'.$mentors->id) }}" value="Request" class="button special small">Request</a>
 									
 								</form>
