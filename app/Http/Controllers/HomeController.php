@@ -149,11 +149,15 @@ class HomeController extends Controller
                 
         $userSubjects = array_slice(multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
 
+        // [Gender + Age ] (2) + [Subjects]
+        $preference_count = 2 + count($userSubjects);
+
         $debug_array = [];
 
         for ($i=0;$i<count($activeMentors);$i++)
         { 
             $point = 0;
+            $match_count = 0;
             $mentor_match = User::where('id', $activeMentors[$i]->id )->get()->pop();
             $mentor_acadProfile = Academic::where('id', $mentor_match->academic_id)->get()->pop();
             $mentorSubjects = array_slice(multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
@@ -166,10 +170,12 @@ class HomeController extends Controller
             // Gender
             if($user_preferences->gender == $mentor_match->gender) {
                 $point = $point + 10;
+                $match_count = $match_count + 1;
             }
             // Age
             if($user_preferences->min_age < $mentorAge && $user_preferences->max_age >  $mentorAge) {
                 $point = $point + 10;
+                $match_count = $match_count + 1;
             }
             // Subjects
             for($m = 0; $m < count($userSubjects); $m++)
@@ -178,23 +184,24 @@ class HomeController extends Controller
                 {
                     if($userSubjects[$m] == $mentorSubjects[$o])
                     {
-                        array_push($debug_array, [$m.$o, $userSubjects[$m], $mentorSubjects[$o], $point]);
                         $point = $point + 10;
+                        $match_count = $match_count + 1;
                     }
                 }
             }
 
-            array_push($rank, ['mentorId'=> $mentor_match->id, 'points' => $point]);
+            $match_percentage = ($match_count / $preference_count) * 100;
+
+            array_push($rank, ['mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);        
         }
 
-        $tempMentors = User::get();
         $mentors = array_sort($rank, 'points', SORT_DESC);
 
         $sorted = $activeMentors->sortBy(function($activeMentors) use ($mentors) {
             return array_search($activeMentors->getKey(), $mentors);
         });
 
-        return view('studentview', ['mentors'=>$sorted, 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions]);
+        return view('studentview', ['mentors'=>$sorted, 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions, 'rankingObj' => $mentors, 'test' => $mentors]);
 
     }
 }

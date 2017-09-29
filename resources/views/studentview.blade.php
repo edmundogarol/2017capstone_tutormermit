@@ -152,15 +152,21 @@ function multiexplode($delimiters,$string) {
 		<tbody>
 		
 			<span {{ $ranking = 1 }}/>
+			<span {{ $rank_perc = 0 }}/>
 			@foreach ($mentors as $mentors)
+
 			<tr>
 				
 				<td>
 
 				<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
                         		{{ csrf_field() }}
-                        			<h3>RANK: #{{ $ranking }}</h2> 
-                        			<span {{ $ranking = $ranking + 1 }}/>
+                        			<div style="display: flex; flex-direction: row;">
+	                        			<h3>RANK: #{{ $ranking }} &nbsp;&nbsp;</h2> 
+	                        			<span {{ $ranking = $ranking + 1 }}/>
+	                        			<h4> ({{ $rankingObj[$rank_perc]['match_percentage'] }}%) match </h4>
+                        			</div>
+									<span {{ $rank_perc = $rank_perc + 1 }}/>
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
