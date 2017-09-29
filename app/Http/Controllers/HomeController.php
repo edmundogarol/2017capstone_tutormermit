@@ -145,7 +145,8 @@ class HomeController extends Controller
 
         $activeMentors = User::where('active',1)->where('tutor',1)->where('id', '!=', $user->id)->get();
 
-        $mentorAge = 18;
+        $mentorAge = 0;
+                
         $userSubjects = array_slice(multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
 
         $debug_array = [];
@@ -156,7 +157,12 @@ class HomeController extends Controller
             $mentor_match = User::where('id', $activeMentors[$i]->id )->get()->pop();
             $mentor_acadProfile = Academic::where('id', $mentor_match->academic_id)->get()->pop();
             $mentorSubjects = array_slice(multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
-
+            
+            //get DOB
+            $mentor_dob = multiexplode(array(" ","-"), $mentor_match->birthday);
+            //caculate age
+            $mentorAge = date('Y')-$mentor_dob[0]+1;
+            
             // Gender
             if($user_preferences->gender == $mentor_match->gender) {
                 $point = $point + 10;
