@@ -12,6 +12,6 @@ class Academic extends Model
      * @var array
      */
     protected $fillable = [
-        'subjects', 'student_rating', 'tutor_rating'
+        'subjects', 'student_rating', 'tutor_rating', 'student_r_count', 'tutor_r_count'
     ];
 }

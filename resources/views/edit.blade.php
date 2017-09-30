@@ -53,7 +53,6 @@ function multiexplode($delimiters,$string) {
                 data: {subject: subjectChosen, _token: "{{ csrf_token() }}"},
                 success: function( data ) {
                     if(data.status != 'Subject not added') {
-                        document.getElementById('nosubs').remove();
                         $("#subjects").append("<tr id='remove-subject."+data.subjectId+"'><td>"+data.subjectToAdd+"<span onclick='deleteSubject("+data.subjectId+")' value="+data.subjectId+" class='button pull-right'>X</span></td></tr>");
                         // $("#debug").append("<h4>"+data.debug+"</h4>");
                     } else {

@@ -32,7 +32,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // REQUESTING MENTORING
-Route::get('req/{id}','RequestsController@req');
+Route::get('req/{id}/{match_perc}','RequestsController@req');
 
 Route::get('rereq/{id}','RequestsController@rereq');
 
@@ -48,14 +48,23 @@ Route::post('/rereq','RequestsController@store');
 // EDINTING PREFERENCES AND PROFILE
 Route::get('/edit','UserController@getEdit');
 
-Route::get('/preferences','UserController@preferences');
-
 Route::post('/edit','UserController@update');
+
+Route::post('/home/subject/add', 'UserController@addSubject');
+
+Route::post('/home/subject/delete', 'UserController@deleteSubject');
 
 Route::post('/edit/subject/add', 'UserController@addSubject');
 
 Route::post('/edit/subject/delete', 'UserController@deleteSubject');
 
+Route::get('/preferences','AcadController@preferences');
+
+Route::post('/preferences','AcadController@update');
+
+Route::post('/preferences/subject/add', 'AcadController@addSubject');
+
+Route::post('/preferences/subject/delete', 'AcadController@deleteSubject');
 
 // HOME ROUTES
 Route::get('/home', 'HomeController@index');

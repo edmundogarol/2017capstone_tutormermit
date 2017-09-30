@@ -164,9 +164,8 @@ function multiexplode($delimiters,$string) {
                         			<div style="display: flex; flex-direction: row;">
 	                        			<h3>RANK: #{{ $ranking }} &nbsp;&nbsp;</h2> 
 	                        			<span {{ $ranking = $ranking + 1 }}/>
-	                        			<h4> ({{ $rankingObj[$rank_perc]['match_percentage'] }}%) match </h4>
+	                        			<h4> ({{ (int)$rankingObj[$rank_perc]['match_percentage'] }}%) match </h4>
                         			</div>
-									<span {{ $rank_perc = $rank_perc + 1 }}/>
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
@@ -189,8 +188,8 @@ function multiexplode($delimiters,$string) {
 										}
 										?>
 									</h5>
-									<a class="button special" href="{{ url('req/'.$mentors->id) }}" value="Request" class="button special small">Request</a>
-									
+									<a class="button special" href="{{ url('req/'.$mentors->id.'/'.$rankingObj[$rank_perc]['match_percentage']) }}" value="Request" class="button special small">Request</a>
+									<span {{ $rank_perc = $rank_perc + 1 }}/>
 								</form>
 						
 					

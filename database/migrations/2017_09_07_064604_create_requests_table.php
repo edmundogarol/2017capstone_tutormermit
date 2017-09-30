@@ -19,6 +19,7 @@ class CreateRequestsTable extends Migration
             $table->integer('tutor_id');
             $table->string('subject');
             $table->string('enquiry');
+            $table->integer('match_perc');
             $table->string('status');
             $table->timestamps();
         });

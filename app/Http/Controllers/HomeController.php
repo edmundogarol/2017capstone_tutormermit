@@ -73,10 +73,11 @@ class HomeController extends Controller
         $students = User::where('id', '!=', Auth::user()->id)->get();
 
         $callback = DB::table('users AS usr')
-                    ->select("usr.id", "usr.name", "usr.gender", "usr.active", "req.subject", "req.enquiry")
+                    ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.match_perc", "req.subject", "req.enquiry")
                     ->join("requests AS req", "req.student_id", "=", "usr.id")
                     ->where('status', '!=', 'Declined')
                     ->where('status', '!=', 'Accepted')
+                    ->orderBy('req.match_perc', 'desc')
                     ->get();
 
         return view('tutor', ['students' => $students, 'requests'=> $callback, 'mentorsessions' => $mentorsessions]);
@@ -104,6 +105,7 @@ class HomeController extends Controller
         
          //$matching = User::where('active',1)->where('tutor',1)->where(
         $rank = [];
+        $order = [];
 
         $activeMentors = User::where('active',1)->where('tutor',1)->where('id', '!=', $user->id)->get();
 
@@ -112,7 +114,7 @@ class HomeController extends Controller
         $userSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
 
         // [Gender + Age ] (2) + [Subjects]
-        $preference_count = 2 + count($userSubjects);
+        $preference_count = 2 + ($userSubjects[0] == '' ? 0 : count($userSubjects));
 
         $debug_array = [];
 
@@ -130,7 +132,7 @@ class HomeController extends Controller
             $mentorAge = date('Y')-$mentor_dob[0]+1;
             
             // Gender
-            if($user_preferences->gender == $mentor_match->gender) {
+            if($user_preferences->gender == $mentor_match->gender || ($user_preferences->gender == 'both' || $user_preferences->gender == '')) {
                 $point = $point + 10;
                 $match_count = $match_count + 1;
             }
@@ -144,7 +146,7 @@ class HomeController extends Controller
             {
                 for($o = 0; $o < count($mentorSubjects); $o++)
                 {
-                    if($userSubjects[$m] == $mentorSubjects[$o])
+                    if($userSubjects[$m] == $mentorSubjects[$o] && $userSubjects[$m] != '')
                     {
                         $point = $point + 10;
                         $match_count = $match_count + 1;
@@ -154,16 +156,23 @@ class HomeController extends Controller
 
             $match_percentage = ($match_count / $preference_count) * 100;
 
-            array_push($rank, ['mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);        
+            array_push($rank, ['id' => $mentor_match->id, 'mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);  
+        }
+        $sorted = [];
+
+        if(count($rank) != 0 ){
+            Utils::sksort($rank, 'points', false);
+
+            for($i=0; $i<count($rank); $i++){
+                array_push($order, $rank[$i]['id']);
+            }
+
+            $sorted = $activeMentors->sortBy(function($activeMentors) use ($order) {
+                return array_search($activeMentors->getKey(), $order);
+            });
         }
 
-        $mentors = Utils::array_sort($rank, 'points', SORT_DESC);
-
-        $sorted = $activeMentors->sortBy(function($activeMentors) use ($mentors) {
-            return array_search($activeMentors->getKey(), $mentors);
-        });
-
-        return view('studentview', ['mentors'=>$sorted, 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions, 'rankingObj' => $mentors, 'test' => $mentors]);
+        return view('studentview', ['mentors'=>$sorted , 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions, 'rankingObj' => $rank, 'test' => json_encode($rank)]);
 
     }
 }

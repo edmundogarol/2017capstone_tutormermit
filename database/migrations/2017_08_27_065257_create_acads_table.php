@@ -17,7 +17,9 @@ class CreateAcadsTable extends Migration
             $table->increments('id');
             $table->json('subjects');
             $table->integer('student_rating');
+            $table->integer('student_r_count');
             $table->integer('tutor_rating');
+            $table->integer('tutor_r_count');
             $table->timestamps();
         });
     }
