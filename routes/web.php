@@ -39,36 +39,7 @@ Route::get('/select', function () {
     return view('selectskill');
 });
 
-Route::get('/edit', function () {
-
-	$user = Auth::user();
-	if ( $user === null )
-	{
-		return view('/auth/login');
-	}
-	else if ( $user->birthday === '1900-01-01' || $user->birthday === '' || $user->gender === '' )
-	{
-	    return view('edit', [
-	        'status' => 'unfinished',
-	        'callback' => [
-	            'name' => Auth::user()->name,
-	            'email' => Auth::user()->email,
-	            'gender' => Auth::user()->gender,
-	            'birthday' => date(Auth::user()->birthday),
-	        ]
-	    ]);
-	} else {
-		return view('edit', [
-			'status' => 'initial',
-			'callback' => [
-		        'name' => Auth::user()->name,
-		        'email' => Auth::user()->email,
-		        'gender' => Auth::user()->gender,
-		        'birthday' => date(Auth::user()->birthday),
-		    ]
-		]);
-	}
-});
+Route::get('/edit','UserController@getEdit');
 
 Route::get('/preferences','UserController@preferences');
 
@@ -101,6 +72,10 @@ Route::post('/rereq','RequestsController@store');
 // Route::post('/preferences','UserController@update');
 
 Route::post('/edit','UserController@update');
+
+Route::post('/edit/subject/add', 'UserController@addSubject');
+
+Route::post('/edit/subject/delete', 'UserController@deleteSubject');
 
 Route::get('/home', 'HomeController@index');
 

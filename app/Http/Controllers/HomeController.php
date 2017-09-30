@@ -31,6 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $subjectList = [];
 
         DB::table('users')
             ->where('id', $user->id)
@@ -45,7 +46,8 @@ class HomeController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
-                ]
+                ],
+                'subjectList' => json_encode($subjectList)
             ]);
         } 
         else
