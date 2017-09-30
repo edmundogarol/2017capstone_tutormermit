@@ -31,32 +31,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::get('/update', function () {
-    return view('tempupdateprofile');
-});
-
-Route::get('/select', function () {
-    return view('selectskill');
-});
-
-Route::get('/edit','UserController@getEdit');
-
-Route::get('/preferences','UserController@preferences');
-
-Route::post('/select', function () {	
-    return view('selectskill');
-});
-Route::get('/request', function () {
-    return view('request');
-});
-// Route::get('/rereq', function () {
-// 	return view('re-request');
-// });
-
-Route::get('/tutorde', function () {
-	return view('tutor-detial');
-});
-
+// REQUESTING MENTORING
 Route::get('req/{id}','RequestsController@req');
 
 Route::get('rereq/{id}','RequestsController@rereq');
@@ -69,7 +44,11 @@ Route::get('decline/{id}','RequestsController@decline');
 
 Route::post('/rereq','RequestsController@store');
 
-// Route::post('/preferences','UserController@update');
+
+// EDINTING PREFERENCES AND PROFILE
+Route::get('/edit','UserController@getEdit');
+
+Route::get('/preferences','UserController@preferences');
 
 Route::post('/edit','UserController@update');
 
@@ -77,9 +56,32 @@ Route::post('/edit/subject/add', 'UserController@addSubject');
 
 Route::post('/edit/subject/delete', 'UserController@deleteSubject');
 
+
+// HOME ROUTES
 Route::get('/home', 'HomeController@index');
 
 Route::get('/tutor','HomeController@tutorView');
 
 Route::get('/studentview','HomeController@studentView')->name('studentview');
+
+
+// UNUSED
+Route::get('/update', function () {
+    return view('tempupdateprofile');
+});
+
+Route::get('/select', function () {
+    return view('selectskill');
+});
+
+Route::post('/select', function () {	
+    return view('selectskill');
+});
+Route::get('/request', function () {
+    return view('request');
+});
+
+Route::get('/tutorde', function () {
+	return view('tutor-detial');
+});
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use App\Http\Controllers\Utils;
 use App\User;
 use App\Requests;
 use App\Academic;
@@ -91,47 +92,6 @@ class HomeController extends Controller
                     ->where('mensess.student_id', $user->id)
                     ->get();
 
-        function multiexplode($delimiters,$string) {
-            $ready = str_replace($delimiters, $delimiters[0], $string);
-            $launch = explode($delimiters[0], $ready);
-            return  $launch;
-        }
-
-        function array_sort($array, $on, $order=SORT_ASC)
-        {
-            $new_array = array();
-            $sortable_array = array();
-
-            if (count($array) > 0) {
-                foreach ($array as $k => $v) {
-                    if (is_array($v)) {
-                        foreach ($v as $k2 => $v2) {
-                            if ($k2 == $on) {
-                                $sortable_array[$k] = $v2;
-                            }
-                        }
-                    } else {
-                        $sortable_array[$k] = $v;
-                    }
-                }
-
-                switch ($order) {
-                    case SORT_ASC:
-                        asort($sortable_array);
-                    break;
-                    case SORT_DESC:
-                        arsort($sortable_array);
-                    break;
-                }
-
-                foreach ($sortable_array as $k => $v) {
-                    $new_array[$k] = $array[$k];
-                }
-            }
-
-            return $new_array;
-        }
-
         $point = 0 ;
         
         $rank = collect([]);
@@ -149,7 +109,7 @@ class HomeController extends Controller
 
         $mentorAge = 0;
                 
-        $userSubjects = array_slice(multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
+        $userSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
 
         // [Gender + Age ] (2) + [Subjects]
         $preference_count = 2 + count($userSubjects);
@@ -162,10 +122,10 @@ class HomeController extends Controller
             $match_count = 0;
             $mentor_match = User::where('id', $activeMentors[$i]->id )->get()->pop();
             $mentor_acadProfile = Academic::where('id', $mentor_match->academic_id)->get()->pop();
-            $mentorSubjects = array_slice(multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
+            $mentorSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
             
             //get DOB
-            $mentor_dob = multiexplode(array(" ","-"), $mentor_match->birthday);
+            $mentor_dob = Utils::multiexplode(array(" ","-"), $mentor_match->birthday);
             //caculate age
             $mentorAge = date('Y')-$mentor_dob[0]+1;
             
@@ -197,7 +157,7 @@ class HomeController extends Controller
             array_push($rank, ['mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);        
         }
 
-        $mentors = array_sort($rank, 'points', SORT_DESC);
+        $mentors = Utils::array_sort($rank, 'points', SORT_DESC);
 
         $sorted = $activeMentors->sortBy(function($activeMentors) use ($mentors) {
             return array_search($activeMentors->getKey(), $mentors);

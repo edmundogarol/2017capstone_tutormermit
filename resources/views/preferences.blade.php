@@ -26,6 +26,20 @@
             console.log(subjects);
         });
     });
+
+    var options = "";
+    for(var i = 1; i<201; i++ ) {
+        options += "<option value="+i+">"+i+"</option>";
+    }
+
+    function updateAgeOptions() {
+        $('#min_age').html( options );
+        $('#min_age').val(1);
+        $('#max_age').html( options );
+        $('#max_age').val(200);
+    }   
+
+    window.onload = updateAgeOptions;
 </script>
 
 {{ $preferences }}
@@ -47,21 +61,25 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/preferences') }}">
                         {{ csrf_field() }}
 
-                        <h5>Preferred Tutor Age</h5>
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="min_age" class="col-md-4 control-label">From</label>
-                                <div class="4u">
-                                    <input id="min_age" type="min_age" placeholder="" class="form-control" name="min_age" value="">
+                        <h5>Preferred Mentor Age</h5>
+                        <center>
+                            <div class="row mentor-age">
+                                <div class="form-group">
+                                    <label for="min_age" class="col-md-4 control-label">From</label>
+                                    <div class="4u">
+                                        <select id="min_age" placeholder="1">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_age" class="col-md-4 control-label">To</label>
+                                    <div class="4u">
+                                        <select id="max_age" placeholder="200">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="max_age" class="col-md-4 control-label">To</label>
-                                <div class="4u">
-                                    <input id="max_age" type="max_age" placeholder="" class="form-control" name="max_age" value="">
-                                </div>
-                            </div>
-                        </div>
+                        </center>
 
                         <center>
                         {{ old('gender') }}
@@ -97,7 +115,7 @@
 
                         <center>                        
                         <div class="8u">                            
-                            <h4>Preferred Tutor Skills</h4>
+                            <h4>Preferred Mentor Skills</h4>
                             <div class="select-wrapper">    
                                 <select id="subjects-select" >
                                     <option value="">- Add Subject -</option>
@@ -142,9 +160,6 @@
                             <div class="table-wrapper">
                                 <table class="alt" name="subject" id="subjects">
                                     <tbody>
-                                        <tr>
-                                            <td>Subject list (No Subjects yet!)</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -169,6 +184,9 @@
             content: '*';
             color: red;
             padding-left: 5px;
+        }
+        .mentor-age{
+            display: grid;
         }
     </style>
 

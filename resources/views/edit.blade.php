@@ -53,6 +53,7 @@ function multiexplode($delimiters,$string) {
                 data: {subject: subjectChosen, _token: "{{ csrf_token() }}"},
                 success: function( data ) {
                     if(data.status != 'Subject not added') {
+                        document.getElementById('nosubs').remove();
                         $("#subjects").append("<tr id='remove-subject."+data.subjectId+"'><td>"+data.subjectToAdd+"<span onclick='deleteSubject("+data.subjectId+")' value="+data.subjectId+" class='button pull-right'>X</span></td></tr>");
                         // $("#debug").append("<h4>"+data.debug+"</h4>");
                     } else {
@@ -210,7 +211,7 @@ function multiexplode($delimiters,$string) {
                                             $subject = DB::table('subjects')->select()->where('id', $finSubs[$i])->get();
                                             foreach ($subject as $sub){
                                                 echo "<tr id='remove-subject.".$sub->id."'><td>".$sub->name."<span onclick='deleteSubject(".$sub->id.")' value=".$sub->id." class='button pull-right'>X</span></td></tr>";
-                                            }
+                                            }                                
                                         }
                                         ?>
                                     </tbody>
