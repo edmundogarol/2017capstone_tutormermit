@@ -12,12 +12,6 @@
 	<p align="center"><h2 align="center">Welcome Mentor {{ Auth::user()->name }}!</h2></p>
 	<section id="one" class="main style1 special">
 		<div class="container">
-			<ul class="actions">
-				<li>
-					<a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a>
-				</li>
-
-			</ul>
 			@if ($errors->any())
 				@if (str_contains($errors->first(), 'accepted'))
 					<div class="alert alert-success">
