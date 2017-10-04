@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Utils;
 use Auth;
+use App\Picture;
 use App\User;
 use App\Preference;
 use App\Subject;
 use App\Academic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -75,9 +78,25 @@ class UserController extends Controller
     public function update(Request $request)
     {        
         $user = Auth::user();
+        $hasFile = 'false';
 
         $userToUpdate = User::find($user->id);
         $userAcad = Academic::where('id', $userToUpdate->academic_id)->first();
+
+        $picture = [
+            'user_id' => 0,
+            'url' => '',
+        ];
+
+        if(Picture::where('user_id', Auth::user()->id)->first() == null ){
+            $file = $request->picture;
+            Storage::disk('local')->putFile($request->input('picture'),  $file);
+
+            $picture = Picture::create([
+                'user_id' => Auth::user()->id,
+                'url' => $request->picture->hashName(),
+            ]);
+        } 
 
         $userSubjects = array_slice(Utils::multiexplode(array("{", ",", "}","\""), $userAcad->subjects), 1, -1);
 
@@ -88,16 +107,20 @@ class UserController extends Controller
             'birthday' => date($request->birthday ? $request->birthday : $user->birthday),
         ]);
 
+        $picture = Picture::where('user_id', Auth::user()->id)->first();
+
         $userCallback = [
             'name' => $request->name ? $request->name : $user->name,
             'email' => $request->email ? $request->email : $user->email,
             'gender' => $request->gender ? $request->gender : $user->gender,
             'birthday' => date($request->birthday ? $request->birthday : $user->birthday),
+            'picture' => $picture ? $picture->url : '',
         ];
         return view('edit', [
             'status' => 'success',
             'callback' => $userCallback,
-            'subjectList' => json_encode($userSubjects)
+            'subjectList' => json_encode($userSubjects),
+            'debug' => $hasFile
         ]);
     }
 
@@ -107,6 +130,8 @@ class UserController extends Controller
 
         $userAcad = Academic::where('id', $user->academic_id)->first();
         $userSubjects = array_slice(Utils::multiexplode(array("{", ",", "}","\""), $userAcad->subjects), 1, -1);
+
+        $picture = Picture::where('user_id', Auth::user()->id)->first();
 
         if ( $user === null )
         {
@@ -121,6 +146,7 @@ class UserController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
+                    'picture' => '',
                 ]
             ]);
         } else {
@@ -131,8 +157,11 @@ class UserController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
+                    'picture' => $picture ? $picture->url : '',
                 ],
                 'subjectList' => json_encode($userSubjects),
+                            'debug' => 'initial'
+
             ]);
         }
     }

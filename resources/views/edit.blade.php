@@ -73,10 +73,10 @@ function multiexplode($delimiters,$string) {
             <div class="panel-body">
             <center>
                 <span id="debug">
+                    {{ $debug }}
                 </span>
                    <header class="major">
                             <h2><strong>Editing details</strong></h2>
-                   
                     </header>
                      </center>
                      @if ($status === 'success')
@@ -88,7 +88,7 @@ function multiexplode($delimiters,$string) {
                       <strong>Almost ready!</strong> Update your profile first!.
                     </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/edit') }}">
+                    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/edit') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -104,7 +104,17 @@ function multiexplode($delimiters,$string) {
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group" style="display: flex;">
+                            @if( $callback['picture'] !== 0)
+                                <img class="profile-pic" src="{{ $callback['picture'] == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$callback['picture']) }}">
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="picture" class="col-md-4 control-label">Profile Picture</label>
+                            <div class="col-md-6">
+                                <input type="file" name="picture" id="picture">
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -237,6 +247,12 @@ function multiexplode($delimiters,$string) {
             content: '*';
             color: red;
             padding-left: 5px;
+        }
+
+        .profile-pic {
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 

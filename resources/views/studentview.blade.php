@@ -66,7 +66,7 @@ function multiexplode($delimiters,$string) {
 			<tr>
 			
 				<th><h4>ACTIVE REQUEST: </h4></th>
-					@if ($errors->any())
+					@if (str_contains($errors->first(), 'already'))
 						<div class="alert alert-danger">
 	  						<strong>Error!</strong> {{ $errors->first() }}
 						</div>
@@ -121,7 +121,7 @@ function multiexplode($delimiters,$string) {
 						<ul class="alt">
 							<li>
 								<span class="image left">
-									<img src="../resources/assets/images/pic02.jpg" alt="" />
+									<img src="{{ $mentorsessions->prof_pic == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$mentorsessions->prof_pic) }}" alt="" />
 								</span>
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
@@ -158,8 +158,12 @@ function multiexplode($delimiters,$string) {
 			<tr>
 				
 				<td>
-
-				<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
+					@php
+					$prof_pic = DB::table('pictures')->select('url')
+													->where('user_id', $mentors->id)
+													->first();
+					@endphp
+				<span class="image left"><img src="{{ $prof_pic ? asset('../storage/app/'.$prof_pic->url) : asset('/images/default-avatar.jpg') }}" /></span>
                         		{{ csrf_field() }}
                         			<div style="display: flex; flex-direction: row;">
 	                        			<h3>RANK: #{{ $ranking }} &nbsp;&nbsp;</h2> 
