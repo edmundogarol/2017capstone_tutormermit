@@ -92,10 +92,12 @@ class UserController extends Controller
             $file = $request->picture;
             Storage::disk('local')->putFile($request->input('picture'),  $file);
 
-            $picture = Picture::create([
-                'user_id' => Auth::user()->id,
-                'url' => $request->picture->hashName(),
-            ]);
+            if ($request->picture){
+                $picture = Picture::create([
+                    'user_id' => Auth::user()->id,
+                    'url' => $request->picture->hashName(),
+                ]);
+            }
         } 
 
         $userSubjects = array_slice(Utils::multiexplode(array("{", ",", "}","\""), $userAcad->subjects), 1, -1);

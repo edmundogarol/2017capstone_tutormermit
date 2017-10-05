@@ -206,6 +206,11 @@ function multiexplode($delimiters,$string) {
 		   	@endforeach
 		</tbody>					
 	</table>
+	<style>
+	.image.left img, .image.right img {
+    width: 50%;
+}
+</style>
 </div>
 
 @endsection
