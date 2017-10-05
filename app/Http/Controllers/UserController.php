@@ -88,7 +88,7 @@ class UserController extends Controller
             'url' => '',
         ];
 
-        if(Picture::where('user_id', Auth::user()->id)->first() == null ){
+        if( $request->file('picture') != NULL ){
             $file = $request->picture;
             Storage::disk('local')->putFile($request->input('picture'),  $file);
 
@@ -122,7 +122,7 @@ class UserController extends Controller
             'status' => 'success',
             'callback' => $userCallback,
             'subjectList' => json_encode($userSubjects),
-            'debug' => $hasFile
+            'debug' => $request->file('picture')
         ]);
     }
 
