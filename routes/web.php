@@ -93,4 +93,7 @@ Route::get('/request', function () {
 Route::get('/tutorde', function () {
 	return view('tutor-detial');
 });
+Route::get('/rating', function () {
+	return view('feedback');
+});
 

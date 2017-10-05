@@ -126,7 +126,7 @@ function multiexplode($delimiters,$string) {
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
 								<h5>E-mail: {{$mentorsessions->email}}</h5>
-								<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
+								<a href="{{ url('/rating') }}" class="button special" value="Search">End Session</a>
 							</li>						
 						</ul>
 					</div>
