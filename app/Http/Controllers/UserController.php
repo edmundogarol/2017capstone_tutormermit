@@ -114,7 +114,7 @@ class UserController extends Controller
             'email' => $request->email ? $request->email : $user->email,
             'gender' => $request->gender ? $request->gender : $user->gender,
             'birthday' => date($request->birthday ? $request->birthday : $user->birthday),
-            'picture' => $picture ? $picture->url : '',
+            'picture' => $picture->url == '' ? $picture->url : '',
         ];
         return view('edit', [
             'status' => 'success',
@@ -157,7 +157,7 @@ class UserController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
-                    'picture' => $picture ? $picture->url : '',
+                    'picture' => $picture->url == '' ? $picture->url : '',
                 ],
                 'subjectList' => json_encode($userSubjects),
                             'debug' => 'initial'

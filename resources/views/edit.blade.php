@@ -73,7 +73,6 @@ function multiexplode($delimiters,$string) {
             <div class="panel-body">
             <center>
                 <span id="debug">
-                    {{ $debug }}
                 </span>
                    <header class="major">
                             <h2><strong>Editing details</strong></h2>

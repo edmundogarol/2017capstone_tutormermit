@@ -47,8 +47,9 @@ class HomeController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
+                    'picture' => '',
                 ],
-                'subjectList' => json_encode($subjectList)
+                'subjectList' => json_encode($subjectList),
             ]);
         } 
         else
