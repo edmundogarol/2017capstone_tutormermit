@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+function multiexplode($delimiters,$string) {
+            $ready = str_replace($delimiters, $delimiters[0], $string);
+            $launch = explode($delimiters[0], $ready);
+            return  $launch;
+        }
+@endphp
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
     var subjects = [];
@@ -20,15 +29,53 @@
         }
     }
 
-    $(document).ready(function($) {
-        $('#subjects-select').on('change',function(e){
-            subjects.push(e.target.value);
-            console.log(subjects);
+    var options = "";
+    for(var i = 1; i<201; i++ ) {
+        options += "<option value="+i+">"+i+"</option>";
+    }
+
+    function updateAgeOptions() {
+        $('#min_age').html( options );
+        $('#min_age').val(<?php echo $callback['min_age'] ?>);
+        $('#max_age').html( options );
+        $('#max_age').val(<?php echo $callback['max_age'] ?>);
+    }   
+
+    function deleteSubject(value) {
+        $.ajax({
+            type: "POST",
+            url: window.location.pathname +'/subject/delete',
+            data: {subject: value, _token: "{{ csrf_token() }}"},
+            success: function( data ) {
+                var subToDelete = "remove-subject."+data.subjectToDelete;
+                // $("#debug").append("<h4>"+data.debug+"</h4>");
+                document.getElementById(subToDelete).remove();
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#subjects-select').on('change', function (e) {
+            e.preventDefault();
+            var subjectChosen = $('#subjects-select').val();
+            $.ajax({
+                type: "POST",
+                url: window.location.pathname +'/subject/add',
+                data: {subject: subjectChosen, _token: "{{ csrf_token() }}"},
+                success: function( data ) {
+                    if(data.status != 'Subject not added') {
+                        $("#subjects").append("<tr id='remove-subject."+data.subjectId+"'><td>"+data.subjectToAdd+"<span onclick='deleteSubject("+data.subjectId+")' value="+data.subjectId+" class='button pull-right'>X</span></td></tr>");
+                        // $("#debug").append("<h4>"+data.debug+"</h4>");
+                    } else {
+                        alert('Subject already exists.')
+                    }
+                }
+            });
         });
     });
-</script>
 
-{{ $preferences }}
+    window.onload = updateAgeOptions;
+</script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../resources/assets/css/main.css" />
@@ -47,26 +94,30 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/preferences') }}">
                         {{ csrf_field() }}
 
-                        <h5>Preferred Tutor Age</h5>
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="min_age" class="col-md-4 control-label">From</label>
-                                <div class="4u">
-                                    <input id="min_age" type="min_age" placeholder="" class="form-control" name="min_age" value="">
+                        <h5>Preferred Mentor Age</h5>
+                        <center>
+                            <div class="row mentor-age">
+                                <div class="form-group">
+                                    <label for="min_age" class="col-md-4 control-label">From</label>
+                                    <div class="4u">
+                                        <select id="min_age" name="min_age" placeholder="{{ $callback['min_age'] }}">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_age" class="col-md-4 control-label">To</label>
+                                    <div class="4u">
+                                        <select id="max_age" name="max_age" placeholder="{{ $callback['max_age'] }}">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="max_age" class="col-md-4 control-label">To</label>
-                                <div class="4u">
-                                    <input id="max_age" type="max_age" placeholder="" class="form-control" name="max_age" value="">
-                                </div>
-                            </div>
-                        </div>
+                        </center>
 
                         <center>
                         {{ old('gender') }}
                          <div class="row">
-                                    <label for="gender" class="col-md-4 control-label {{ Auth::user()->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
+                                    <label for="gender" class="col-md-4 control-label {{ $preferences->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
                                     <div class="gender-radio 2u 10u$(small)">
                                     @if ( $callback['gender'] === 'male')
                                         <input type="radio" onClick=changeGender('male') id="gender-male" name="gender" value="male" required checked> 
@@ -97,7 +148,7 @@
 
                         <center>                        
                         <div class="8u">                            
-                            <h4>Preferred Tutor Skills</h4>
+                            <h4>Preferred Mentor Skills</h4>
                             <div class="select-wrapper">    
                                 <select id="subjects-select" >
                                     <option value="">- Add Subject -</option>
@@ -142,9 +193,15 @@
                             <div class="table-wrapper">
                                 <table class="alt" name="subject" id="subjects">
                                     <tbody>
-                                        <tr>
-                                            <td>Subject list (No Subjects yet!)</td>
-                                        </tr>
+                                        <?php
+                                        $finSubs = array_slice(multiexplode(array(",","[","]", "\""), $subjectList), 1, -1);
+                                        for ($i = 0; $i < count($finSubs); $i++){
+                                            $subject = DB::table('subjects')->select()->where('id', $finSubs[$i])->get();
+                                            foreach ($subject as $sub){
+                                                echo "<tr id='remove-subject.".$sub->id."'><td>".$sub->name."<span onclick='deleteSubject(".$sub->id.")' value=".$sub->id." class='button pull-right'>X</span></td></tr>";
+                                            }                                
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -169,6 +226,9 @@
             content: '*';
             color: red;
             padding-left: 5px;
+        }
+        .mentor-age{
+            display: grid;
         }
     </style>
 

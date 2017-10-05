@@ -7,8 +7,8 @@
 <br>
 <div class="row">
    	<div class="6u 12u$(medium)">
-      <span class="leftcol">
-		<h1>Send Request: To <strong>{{ $mentor->name }}</strong> </h1> 
+      <span class="leftcol" style="display:flex; flex-direction: row;">
+		<h1 class="mentor-name">Send Request: To <strong>{{ $mentor->name }}</strong> </h1> <h3 class="match-perc"> &nbsp;&nbsp; ({{ $match_perc }}% match) </h3>
        </span>
     </div>
 	<div class="6u 12u$(medium)">
@@ -23,6 +23,7 @@
 				<form class="form-horizontal" method="POST" action="{{ url('/rereq')}}">
 					<div class="form-group">
                 		{{ csrf_field() }}
+                		<input type="hidden" name="match_perc" value="{{ $match_perc }}"/>
 						<div class="col-md-6">
 							<input type="text" name="mentor_name" id="mentor_name" placeholder="Tutor Name" value="{{ $mentor->name }}"disabled/>
 						</div>
@@ -93,6 +94,12 @@
         content: '*';
         color: red;
         padding-left: 5px;
+    }
+    .mentor-name {
+    	min-width: max-content;
+    }
+    .match-perc {
+	    min-width: max-content;
     }
 </style>
 	

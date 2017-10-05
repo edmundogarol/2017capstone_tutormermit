@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content')	
 
-
-{{ $requests }}
-{{ $rank  }}
-
-{{ $mentorsessions }}
-			
+@php
+function multiexplode($delimiters,$string) {
+            $ready = str_replace($delimiters, $delimiters[0], $string);
+            $launch = explode($delimiters[0], $ready);
+            return  $launch;
+        }
+@endphp
 
 <section id="one" class="main style1 special">
 
@@ -26,8 +27,22 @@
                                 	<h5>Gender: {{$preferences->gender}}</h5>
 
                                 @endif
-                                <h5>Subjects: {{ $preferences->subjects}}</h5>
+                                <h5>Subjects: <br> 
+								@php
+								$subsArray = $preferences->subjects;
+								$finSubs = array_slice(multiexplode(array(",","{","}"), $subsArray), 1, -1);
+								@endphp
 
+								<?php
+								for ($i = 0; $i < count($finSubs); $i++){
+									$subject = DB::table('subjects')->select('name')->where('id', $finSubs[$i])->get();
+									foreach ($subject as $sub){
+										echo "| &nbsp;&nbsp;".$sub->name."&nbsp;&nbsp;";
+									}
+								}
+								echo "|";
+								?>
+								</h5>			
 								<a href="{{ url('/preferences') }}" class="button special" value="preferences">Update preference</a>
 								
 							</li>						
@@ -51,7 +66,7 @@
 			<tr>
 			
 				<th><h4>ACTIVE REQUEST: </h4></th>
-					@if ($errors->any())
+					@if (str_contains($errors->first(), 'already'))
 						<div class="alert alert-danger">
 	  						<strong>Error!</strong> {{ $errors->first() }}
 						</div>
@@ -106,13 +121,12 @@
 						<ul class="alt">
 							<li>
 								<span class="image left">
-									<img src="../resources/assets/images/pic02.jpg" alt="" />
+									<img src="{{ $mentorsessions->prof_pic == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$mentorsessions->prof_pic) }}" alt="" />
 								</span>
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
 								<h5>E-mail: {{$mentorsessions->email}}</h5>
-							
-
+								<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
 							</li>						
 						</ul>
 					</div>
@@ -137,26 +151,49 @@
 		</thead>
 		<tbody>
 		
+			<span {{ $ranking = 1 }}/>
+			<span {{ $rank_perc = 0 }}/>
 			@foreach ($mentors as $mentors)
+
 			<tr>
 				
 				<td>
-
-				<span class="image left"><img src="../resources/assets/images/pic02.jpg" alt="" /></span>
+					@php
+					$prof_pic = DB::table('pictures')->select('url')
+													->where('user_id', $mentors->id)
+													->first();
+					@endphp
+				<span class="image left"><img src="{{ $prof_pic ? asset('../storage/app/'.$prof_pic->url) : asset('/images/default-avatar.jpg') }}" /></span>
                         		{{ csrf_field() }}
+                        			<div style="display: flex; flex-direction: row;">
+	                        			<h3>RANK: #{{ $ranking }} &nbsp;&nbsp;</h2> 
+	                        			<span {{ $ranking = $ranking + 1 }}/>
+	                        			<h4> ({{ (int)$rankingObj[$rank_perc]['match_percentage'] }}%) match </h4>
+                        			</div>
 									<h5>Name: {{ $mentors->name }}</h5>
 									<h5>Gender: {{ $mentors->gender }}</h5>
 									<h5>E-mail: {{ $mentors->email }}</h5>
 
-									<h5>Point: {{ $mentors->point }}</h5>
+									@php
+									$subs = DB::table('academics')->select('subjects')
+																	->where('id', $mentors->academic_id)
+																	->get();
+									$subsArray = $subs->pop()->subjects;
+									$finSubs = array_slice(multiexplode(array(",","{","}"), $subsArray), 1, -1);
+									@endphp
 
-
-									<h5>Skill: Java</h5>
-									<h5>Program: Bachelor in Information Technology</h5>
-									<input type="radio" id="demo-priority-low" name="demo-priority" @if ($mentors->active == 1) ? checked : '' @endif disabled>
-									<label for="demo-priority-low"><h5>Active</h5></label>
-									<a class="button special" href="{{ url('req/'.$mentors->id) }}" value="Request" class="button special small">Request</a>
-									
+									<h5>Skills:	
+										<?php
+										for ($i = 0; $i < count($finSubs); $i++){
+											$subject = DB::table('subjects')->select('name')->where('id', $finSubs[$i])->get();
+											foreach ($subject as $sub){
+												echo $sub->name."&nbsp;&nbsp; | &nbsp;&nbsp;";
+											}
+										}
+										?>
+									</h5>
+									<a class="button special" href="{{ url('req/'.$mentors->id.'/'.$rankingObj[$rank_perc]['match_percentage']) }}" value="Request" class="button special small">Request</a>
+									<span {{ $rank_perc = $rank_perc + 1 }}/>
 								</form>
 						
 					

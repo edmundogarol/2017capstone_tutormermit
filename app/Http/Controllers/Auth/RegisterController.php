@@ -68,12 +68,14 @@ class RegisterController extends Controller
         $acad = Academic::create([
             'subjects' => '{}',
             'student_rating' => 0,
+            'student_r_count' => 0,
             'tutor_rating' => 0,
+            'tutor_r_count' => 0,
         ]);
 
         $prefs = Preference::create([
             'subjects' => '{}',
-            'min_age' => 0,
+            'min_age' => 1,
             'max_age' => 200,
             'gender' => '',
         ]);

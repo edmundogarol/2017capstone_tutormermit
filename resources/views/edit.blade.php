@@ -1,11 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+function multiexplode($delimiters,$string) {
+            $ready = str_replace($delimiters, $delimiters[0], $string);
+            $launch = explode($delimiters[0], $ready);
+            return  $launch;
+        }
+@endphp
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-@php ($subjects = [])
-
 <script>    
+
+    var userSubjects = <?php echo $subjectList; ?>;
     function changeGender (e) {
         if (e === 'male') {
             $('#gender-male').prop('checked', true);
@@ -16,16 +24,43 @@
         }
     }
 
-    $(document).ready(function($) {
-        $('#subjects-select').on('change',function(e){
-            $subjects.push(e.target.value);
-            console.log($subjects);
-            
-            /*
-            $.ajax({
+    function updateSubjects() {
+        document.getElementById('subject-input').value = <?php echo $subjectList; ?>;
+    }
 
-            })
-            */
+    window.onload = updateSubjects;
+
+    function deleteSubject(value) {
+        $.ajax({
+            type: "POST",
+            url: window.location.pathname +'/subject/delete',
+            data: {subject: value, _token: "{{ csrf_token() }}"},
+            success: function( data ) {
+                var subToDelete = "remove-subject."+data.subjectToDelete;
+                // $("#debug").append("<h4>"+data.debug+"</h4>");
+                document.getElementById(subToDelete).remove();
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#subjects-select').on('change', function (e) {
+            e.preventDefault();
+            var subjectChosen = $('#subjects-select').val();
+            $.ajax({
+                type: "POST",
+                url: window.location.pathname +'/subject/add',
+                data: {subject: subjectChosen, _token: "{{ csrf_token() }}"},
+                success: function( data ) {
+                    if(data.status != 'Subject not added') {
+                        $("#subjects").append("<tr id='remove-subject."+data.subjectId+"'><td>"+data.subjectToAdd+"<span onclick='deleteSubject("+data.subjectId+")' value="+data.subjectId+" class='button pull-right'>X</span></td></tr>");
+                        // $("#debug").append("<h4>"+data.debug+"</h4>");
+                    } else {
+                        alert('Subject already exists.')
+                    }
+                }
+            });
+        });
     });
 </script>
 
@@ -37,10 +72,11 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel-body">
             <center>
+                <span id="debug">
+                    {{ $debug }}
+                </span>
                    <header class="major">
-                   
                             <h2><strong>Editing details</strong></h2>
-                   
                     </header>
                      </center>
                      @if ($status === 'success')
@@ -52,7 +88,7 @@
                       <strong>Almost ready!</strong> Update your profile first!.
                     </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/edit') }}">
+                    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/edit') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -68,7 +104,17 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group" style="display: flex;">
+                            @if( $callback['picture'] !== 0)
+                                <img class="profile-pic" src="{{ $callback['picture'] == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$callback['picture']) }}">
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="picture" class="col-md-4 control-label">Profile Picture</label>
+                            <div class="col-md-6">
+                                <input type="file" name="picture" id="picture">
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -122,9 +168,9 @@
 
                         <center>                        
                         <div class="8u">
-                            <h4>Subject List</h4>
+                            <h4>My Subject List</h4>
                             <div class="select-wrapper">
-                                <select id="subjects-select" >
+                                <select id="subjects-select">
                                     <option value="">- Add Subject -</option>
                                     <option value="1">Building IT Systems</option>
                                     <option value="2">Introduction to Information Technology</option>
@@ -167,26 +213,20 @@
                         <div class="8u">
                             <div class="table-wrapper">
                                 <table class="alt" name="subject" id="subjects">
-                                    <tbody>                                        
-                                        {{--
-                                        @if (count($subjects) > 0)
-                                            @foreach( $subjects as $subjectid )
-                                                $subjectname = DB::table(subjects)->where('id', $subjectid);
-                                                <tr>                                                
-                                                    <td>{{ $subjectname }}</td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr>
-                                                <td>Subject list (No Subjects yet!)</td>
-                                            </tr>                                        
-                                        @endif
-                                        --}}
+                                    <tbody>           
+                                        <?php
+                                        $finSubs = array_slice(multiexplode(array(",","[","]", "\""), $subjectList), 1, -1);
+                                        for ($i = 0; $i < count($finSubs); $i++){
+                                            $subject = DB::table('subjects')->select()->where('id', $finSubs[$i])->get();
+                                            foreach ($subject as $sub){
+                                                echo "<tr id='remove-subject.".$sub->id."'><td>".$sub->name."<span onclick='deleteSubject(".$sub->id.")' value=".$sub->id." class='button pull-right'>X</span></td></tr>";
+                                            }                                
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
                         <input type="hidden" id="subject-input" name="subjects" value="" required>
                         </center>
 
@@ -207,6 +247,12 @@
             content: '*';
             color: red;
             padding-left: 5px;
+        }
+
+        .profile-pic {
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 

@@ -27,7 +27,6 @@
 				<div class="panel-body">
 				
 						<form class="form-horizontal" method="POST" action="#">
-
 							<div class="form-group">
 								
 
@@ -35,29 +34,36 @@
 									<h4>Tutor Name :</h4>
 								</div>
 								<div class="col-md-6">
-								<h5>{{ $request['mentor_name'] }}</h5>
+								<h3>{{ $request['mentor_name'] }}</h3>
 								</div>
 							</div>
-
+				<div class="form-group">
+							<div class="col-md-6">
+									<h4>Match:</h4>
+								</div>
+								<div class="col-md-6">
+								<h3>{{ $request['match_perc'] }}%</h3>
+								</div>
+							</div>
 				        
 				<div class="form-group">
-					
 
+								
+					
 					<div class="col-md-6">
 						<h4>Tutor ID :</h4>
 					</div>
 					<div class="col-md-6">
-					<h5>{{ $request['mentor_id'] }}</h5>
+					<h3>{{ $request['mentor_id'] }}</h3>
 					</div>
 				</div>
 					<div class="form-group">
-						
 
 						<div class="col-md-6">
 							<h4>Subject :</h4>
 						</div>
 						<div class="col-md-6">
-						<h5>{{ $request['subject']}}</h5>
+						<h3>{{ $request['subject']}}</h3>
 						</div>
 					</div>							
 							<div class="form-group">
@@ -67,7 +73,7 @@
 									<h4>Question :</h4>
 								</div>
 								<div class="col-md-12">
-								<h5>{{ $request['enquiry'] }}</h5>
+								<h4>{{ $request['enquiry'] }}</h4>
 								</div>
 							</div>
 							

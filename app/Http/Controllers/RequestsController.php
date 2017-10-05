@@ -11,11 +11,14 @@ use Illuminate\Http\Request;
 
 class RequestsController extends Controller
 {
-    public function req($id)
+    public function req($id, $match_perc)
     {
         $mentor_id = $id;
         $mentor = User::where('id', $mentor_id)->get()->pop();
-        return view('request', ['mentor'=>$mentor]);
+        return view('request', [
+            'mentor'=>$mentor,
+            'match_perc' => $match_perc,
+        ]);
     }   
 
     public function rereq($id)
@@ -28,6 +31,7 @@ class RequestsController extends Controller
             'mentor_name' => $mentor->name,
             'mentor_id' => $mentor->id,
             'subject' => $this_request->subject,
+            'match_perc' => $this_request->match_perc,
             'enquiry' => $this_request->enquiry,    
             'status' => $this_request->status,
         ];
@@ -100,6 +104,7 @@ class RequestsController extends Controller
             $new_request = Requests::create([
                 'student_id' => Auth::user()->id,
                 'tutor_id' => $request->mentorid,
+                'match_perc' => $request->match_perc,
                 'subject' => $subject->name,
                 'enquiry' => $request->enquiry,
                 'status' => 'Pending',
@@ -111,6 +116,7 @@ class RequestsController extends Controller
                 'request_id' => $new_request->id,
                 'mentor_name' => $mentor->name,
                 'mentor_id' => $mentor->id,
+                'match_perc' => $new_request->match_perc,
                 'subject' => $new_request->subject,
                 'enquiry' => $new_request->enquiry,
                 'status' => $new_request->status,

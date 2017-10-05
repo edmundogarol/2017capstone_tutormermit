@@ -44,8 +44,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof TokenMismatchException){
+            return redirect()->guest('/register');
+        } else {
             return parent::render($request, $exception);
-    }
+        }        
+   }
 
     /**
      * Convert an authentication exception into an unauthenticated response.

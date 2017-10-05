@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use App\Http\Controllers\Utils;
 use App\User;
 use App\Requests;
 use App\Academic;
@@ -31,6 +32,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $subjectList = [];
 
         DB::table('users')
             ->where('id', $user->id)
@@ -45,7 +47,8 @@ class HomeController extends Controller
                     'email' => Auth::user()->email,
                     'gender' => Auth::user()->gender,
                     'birthday' => date(Auth::user()->birthday),
-                ]
+                ],
+                'subjectList' => json_encode($subjectList)
             ]);
         } 
         else
@@ -70,10 +73,11 @@ class HomeController extends Controller
         $students = User::where('id', '!=', Auth::user()->id)->get();
 
         $callback = DB::table('users AS usr')
-                    ->select("usr.id", "usr.name", "usr.gender", "usr.active", "req.subject", "req.enquiry")
+                    ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.match_perc", "req.subject", "req.enquiry")
                     ->join("requests AS req", "req.student_id", "=", "usr.id")
                     ->where('status', '!=', 'Declined')
                     ->where('status', '!=', 'Accepted')
+                    ->orderBy('req.match_perc', 'desc')
                     ->get();
 
         return view('tutor', ['students' => $students, 'requests'=> $callback, 'mentorsessions' => $mentorsessions]);
@@ -89,140 +93,86 @@ class HomeController extends Controller
                     ->where('mensess.student_id', $user->id)
                     ->get();
 
-       
         $point = 0 ;
         
-         $rank = collect([]);
-        
-     
-        
+        $rank = collect([]);
         
         $requests = DB::table('users AS usr')
                     ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.id AS req_id", "req.tutor_id", "req.status", "req.subject", "req.enquiry")
                     ->join("requests AS req", "req.tutor_id", "=", "usr.id")
+                    ->where('req.student_id', $user->id)
                     ->get();
         
-        
          //$matching = User::where('active',1)->where('tutor',1)->where(
-          
-                                    
-        
-        
-        
-        
-         $matching = User::where(
-        
-                  function($matching) use ($user_preferences,$rank,$point,$user){
-                                 
-                                            
-                                      
-                                       
-                                for ($i=0;$i<100;$i++)
-                                     { 
-                                            $point =0;
-                                             
-                                            if (isset($user_preferences['gender'])) {
-                                                 if($user_preferences->gender === ''){
-                                                                                            }
-                                                 else{
-                                                    $matching->where('gender', $user_preferences->gender);
-                                                  }
-                                                  
-                                               
-                                                 $point = $point + 5;
-                                               
-                                      
-                                              }
-//                                           if (isset($user_preferences['subjects'])) {
-//                                               $matching->where('subjects', $user_preferences->subjects);
-//                                               $point = $point +5;
-//                                            }
-        //                                    
-        //                                    if (isset($user_preferences['age'])) {
-        //                                            $mentors->where('age', ">=",$user_preferences->min_age);
-        //                                            $mentors->where('age', "<=",$user_preferences->max_age);
-        //                                           
-        //                                        }
-        //                                    if (isset($user_preferences['language'])) {
-          //                                            $mentors->where('language',$user_preferences->first_language);
-          //                                            $mentors->where('language', $user_preferences->second_language);
-          //                                           $point = $point + 5;
-          //                                        }
+        $rank = [];
+        $order = [];
 
+        $activeMentors = User::where('active',1)->where('tutor',1)->where('id', '!=', $user->id)->get();
 
-        // language
+        $mentorAge = 0;
+                
+        $userSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $user_preferences->subjects), 1, -1);
 
-                                            
-                                           //$mentors = $point ->
-                                        $rank[$i]=[$user->id,$point];
-                                   }   
-                                }
-                           )->where('id', '!=', Auth::user()->id)->get();
-        
-      $mentors = User::where('id', '!=', Auth::user()->id)->orderByRaw($user->id)->get();
-        
-            //$mentors = $matching;
-//                 $mentors = User::where(
-//                    
-//
-//                       function($mentors) use ($user_preferences){
-//                         
-//                                    $point = 0 ;  
-//                                $rank = collect([$mentors,$point]);
-//
-//                                     if (isset($user_preferences['gender'])) {
-//                                         if($user_preferences->gender === ''){
-//                                                                                    }
-//                                         else{
-//                                            $mentors->where('gender', $user_preferences->gender);
-//                                          }
-//                                           $point =   $point +5;
-//                                      }
-////                                   if (isset($user_preferences['subjects'])) {
-////                                        $mentors->where('subjects', $user_preferences->subjects);
-////                                       
-////                                    }
-////                                    
-////                                    if (isset($user_preferences['age'])) {
-////                                            $mentors->where('age', ">=",$user_preferences->min_age);
-////                                            $mentors->where('age', "<=",$user_preferences->max_age);
-////                                           
-////                                        }
-////                                        
-//
-//// language
-//
-//                                    
-//                                   //$mentors = $point ->
-//                               
-//                                }
-//                   )->where('id', '!=', Auth::user()->id)->orderByRaw($user->id)->get();
+        // [Gender + Age ] (2) + [Subjects]
+        $preference_count = 2 + ($userSubjects[0] == '' ? 0 : count($userSubjects));
 
-//       $mentors = User::where('id', '!=', Auth::user()->id)->orderByRaw($user->id)->get();
-//
-//       
-//      foreach ($mentors as $user_preferences) {
-//         
-//        if (isset($user_preferences['gender'])) {
-//             if($user_preferences->gender === 'both'){
-//               
-//             }
-//             else{
-//                $mentors->where('gender', $user_preferences->gender);
-//              }
-//               
-//          }
-//      
-//        
-//      }
-//        
-//        if ($user_preferences->gender == '') {
-//            $mentors = User::where('id', '!=', Auth::user()->id)->get();
-//        } else {
-//            $mentors = User::where('gender', $user_preferences->gender)->get();
-//        }
+        $debug_array = [];
 
-        return view('studentview', ['mentors'=>$mentors, 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions, 'rank'=>$rank]);
+        for ($i=0;$i<count($activeMentors);$i++)
+        { 
+            $point = 0;
+            $match_count = 0;
+            $mentor_match = User::where('id', $activeMentors[$i]->id )->get()->pop();
+            $mentor_acadProfile = Academic::where('id', $mentor_match->academic_id)->get()->pop();
+            $mentorSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
+            
+            //get DOB
+            $mentor_dob = Utils::multiexplode(array(" ","-"), $mentor_match->birthday);
+            //caculate age
+            $mentorAge = date('Y')-$mentor_dob[0]+1;
+            
+            // Gender
+            if($user_preferences->gender == $mentor_match->gender || ($user_preferences->gender == 'both' || $user_preferences->gender == '')) {
+                $point = $point + 10;
+                $match_count = $match_count + 1;
+            }
+            // Age
+            if($user_preferences->min_age < $mentorAge && $user_preferences->max_age >  $mentorAge) {
+                $point = $point + 10;
+                $match_count = $match_count + 1;
+            }
+            // Subjects
+            for($m = 0; $m < count($userSubjects); $m++)
+            {
+                for($o = 0; $o < count($mentorSubjects); $o++)
+                {
+                    if($userSubjects[$m] == $mentorSubjects[$o] && $userSubjects[$m] != '')
+                    {
+                        $point = $point + 10;
+                        $match_count = $match_count + 1;
+                    }
+                }
+            }
+
+            $match_percentage = ($match_count / $preference_count) * 100;
+
+            array_push($rank, ['id' => $mentor_match->id, 'mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);  
+        }
+        $sorted = [];
+
+        if(count($rank) != 0 ){
+            Utils::sksort($rank, 'points', false);
+
+            for($i=0; $i<count($rank); $i++){
+                array_push($order, $rank[$i]['id']);
+            }
+
+            $sorted = $activeMentors->sortBy(function($activeMentors) use ($order) {
+                return array_search($activeMentors->getKey(), $order);
+            });
+        }
+
+        return view('studentview', ['mentors'=>$sorted , 'requests'=>$requests, 'preferences' => $user_preferences, 'mentorsessions' => $mentorsessions, 'rankingObj' => $rank, 'test' => json_encode($rank)]);
 
     }
 }

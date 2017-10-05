@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAcadsTable extends Migration
+class CreatePicturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateAcadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academics', function (Blueprint $table) {
+        Schema::create('pictures', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('subjects');
-            $table->integer('student_rating');
-            $table->integer('student_r_count');
-            $table->integer('tutor_rating');
-            $table->integer('tutor_r_count');
+            $table->string('user_id');
+            $table->string('url');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -31,6 +27,6 @@ class CreateAcadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academics');
+        Schema::dropIfExists('pictures');
     }
 }
