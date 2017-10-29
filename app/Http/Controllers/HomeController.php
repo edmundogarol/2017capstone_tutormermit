@@ -76,6 +76,7 @@ class HomeController extends Controller
         $callback = DB::table('users AS usr')
                     ->select("usr.id", "usr.name", "usr.gender", "usr.active","req.match_perc", "req.subject", "req.enquiry")
                     ->join("requests AS req", "req.student_id", "=", "usr.id")
+                    ->where("req.tutor_id", '=', $user->id)
                     ->where('status', '!=', 'Declined')
                     ->where('status', '!=', 'Accepted')
                     ->orderBy('req.match_perc', 'desc')
