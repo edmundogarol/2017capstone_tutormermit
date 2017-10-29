@@ -124,6 +124,7 @@ class HomeController extends Controller
         { 
             $point = 0;
             $match_count = 0;
+            $subject_match = 0;
             $mentor_match = User::where('id', $activeMentors[$i]->id )->get()->pop();
             $mentor_acadProfile = Academic::where('id', $mentor_match->academic_id)->get()->pop();
             $mentorSubjects = array_slice( Utils::multiexplode(array("{", ",", "}"), $mentor_acadProfile->subjects), 1, -1);
@@ -151,12 +152,17 @@ class HomeController extends Controller
                     if($userSubjects[$m] == $mentorSubjects[$o] && $userSubjects[$m] != '')
                     {
                         $point = $point + 10;
+                        $subject_match = $subject_match + 1;
                         $match_count = $match_count + 1;
                     }
                 }
             }
 
             $match_percentage = ($match_count / $preference_count) * 100;
+
+            if ($subject_match == 0) {
+                $match_percentage = 0;
+            }
 
             array_push($rank, ['id' => $mentor_match->id, 'mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);  
         }
