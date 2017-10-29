@@ -89,25 +89,35 @@ function multiexplode($delimiters,$string) {
                    
                             <h2><strong>Editing preferences</strong></h2>
                     </header>
-                            <p>Please enter the desired attributes of the mentor you would like to work with.</p>
+                            <p>Please enter the desired attributes of the mentor you would like to work with (with priority).</p>
                     
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/preferences') }}">
                         {{ csrf_field() }}
 
-                        <h5>Preferred Mentor Age</h5>
+                        <div class="label-priority-group">
+                            <h4>Preferred Mentor Age</h4>
+                            <label for="age_priority" class="col-md-4 control-label">(Priority)</label>
+                            <div class="4u">
+                                <select class="priority-picker" name="age_priority" placeholder="{{ $callback['max_age'] }}">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
                         <center>
                             <div class="row mentor-age">
                                 <div class="form-group">
                                     <label for="min_age" class="col-md-4 control-label">From</label>
                                     <div class="4u">
-                                        <select id="min_age" name="min_age" placeholder="{{ $callback['min_age'] }}">
+                                        <select class="age-picker" id="min_age" name="min_age" placeholder="{{ $callback['min_age'] }}">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="max_age" class="col-md-4 control-label">To</label>
                                     <div class="4u">
-                                        <select id="max_age" name="max_age" placeholder="{{ $callback['max_age'] }}">
+                                        <select class="age-picker" id="max_age" name="max_age" placeholder="{{ $callback['max_age'] }}">
                                         </select>
                                     </div>
                                 </div>
@@ -115,9 +125,20 @@ function multiexplode($delimiters,$string) {
                         </center>
 
                         <center>
-                        {{ old('gender') }}
-                         <div class="row">
-                                    <label for="gender" class="col-md-4 control-label {{ $preferences->gender === '' ? ( $callback['gender'] === '' ? 'required' : '') : '' }}">Gender</label>
+                         <div class="label-priority-group">
+                            <h4>Preferred Mentor Gender</h4>
+                            <label for="gender_priority" class="col-md-4 control-label">(Priority)</label>
+                            <div class="4u">
+                                <select class="priority-picker" name="gender_priority" placeholder="{{ $callback['max_age'] }}">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </center>
+                    <center>
+                         <div class="row gender-row">
                                     <div class="gender-radio 2u 10u$(small)">
                                     @if ( $callback['gender'] === 'male')
                                         <input type="radio" onClick=changeGender('male') id="gender-male" name="gender" value="male" required checked> 
@@ -147,8 +168,18 @@ function multiexplode($delimiters,$string) {
                         </center>
 
                         <center>                        
-                        <div class="8u">                            
-                            <h4>Preferred Mentor Skills</h4>
+                        <div class="8u"> 
+                            <div class="label-priority-group">                           
+                                <h4>Preferred Mentor Skills</h4>
+                                <label for="subject_priority" class="col-md-4 control-label">(Priority)</label>
+                                <div class="4u">
+                                    <select class="priority-picker" name="subject_priority" placeholder="{{ $callback['min_age'] }}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="select-wrapper">    
                                 <select id="subjects-select" >
                                     <option value="">- Add Subject -</option>
@@ -222,6 +253,22 @@ function multiexplode($delimiters,$string) {
     </div>
 
     <style>
+        .gender-row {
+            display: flex;
+            justify-content: center;
+        }
+        .age-picker {
+            width: 100px;
+        }
+        .priority-picker {
+            width: 50px;
+        }
+        .label-priority-group {
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            width: max-content;
+        }
         .required:after {
             content: '*';
             color: red;
@@ -229,6 +276,9 @@ function multiexplode($delimiters,$string) {
         }
         .mentor-age{
             display: grid;
+        }
+        h4 {
+            white-space: nowrap;
         }
     </style>
 

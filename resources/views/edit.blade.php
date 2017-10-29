@@ -56,7 +56,7 @@ function multiexplode($delimiters,$string) {
                         $("#subjects").append("<tr id='remove-subject."+data.subjectId+"'><td>"+data.subjectToAdd+"<span onclick='deleteSubject("+data.subjectId+")' value="+data.subjectId+" class='button pull-right'>X</span></td></tr>");
                         // $("#debug").append("<h4>"+data.debug+"</h4>");
                     } else {
-                        alert('Subject already exists.')
+                        alert('Subject already exists.');
                     }
                 }
             });
