@@ -126,7 +126,8 @@ function multiexplode($delimiters,$string) {
 																->first();
 								@endphp
 								<span class="image left">
-									<img src="{{ $prof_pic == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$prof_pic) }}" alt="" />
+									<img src="{{ empty($prof_pic) ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$prof_pic->url) }}" alt="" />
+									
 								</span>
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
