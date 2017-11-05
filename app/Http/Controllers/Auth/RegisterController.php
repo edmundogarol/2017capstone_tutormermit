@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Academic;
 use App\Preference;
+use App\Priority;
 use App\Http\Controllers\AcadController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,13 @@ class RegisterController extends Controller
             'min_age' => 1,
             'max_age' => 200,
             'gender' => '',
+        ]);
+
+        $pref_priority = Priority::create([
+            'preferences_id' => $prefs->id,
+            'age_priority' => 1,
+            'gender_priority' => 1,
+            'subjects_priority' => 1,
         ]);
 
         return User::create([

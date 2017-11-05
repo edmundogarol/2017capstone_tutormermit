@@ -9,6 +9,7 @@ use App\User;
 use App\Requests;
 use App\Academic;
 use App\Preference;
+use App\Priority;
 use App\MentorSession;
 use Illuminate\Http\Request;
 
@@ -69,6 +70,7 @@ class HomeController extends Controller
         $mentorsessions = DB::table('users AS usr')
                     ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email")
                     ->join("mentor_sessions AS mensess", "mensess.student_id", "=", "usr.id")
+                    ->where('mensess.tutor_id', $user->id)
                     ->get();
 
         $students = User::where('id', '!=', Auth::user()->id)->get();
@@ -89,8 +91,9 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
+        $pref_priorities = Priority::where('preferences_id', $user_preferences->id)->get()->pop();
         $mentorsessions = DB::table('users AS usr')
-                    ->select("mensess.id as session_id", "usr.name", "usr.active","usr.email", "mensess.student_id")
+                    ->select("mensess.id as session_id", "mensess.tutor_id as tutor", "usr.name", "usr.active","usr.email", "mensess.student_id")
                     ->join("mentor_sessions AS mensess", "mensess.tutor_id", "=", "usr.id")
                     ->where('mensess.student_id', $user->id)
                     ->get();
@@ -136,12 +139,12 @@ class HomeController extends Controller
             
             // Gender
             if($user_preferences->gender == $mentor_match->gender || ($user_preferences->gender == 'both' || $user_preferences->gender == '')) {
-                $point = $point + 10;
+                $point = $point + ($pref_priorities->gender_priority * 10);
                 $match_count = $match_count + 1;
             }
             // Age
             if($user_preferences->min_age < $mentorAge && $user_preferences->max_age >  $mentorAge) {
-                $point = $point + 10;
+                $point = $point + ($pref_priorities->age_priority * 10);
                 $match_count = $match_count + 1;
             }
             // Subjects
@@ -151,7 +154,7 @@ class HomeController extends Controller
                 {
                     if($userSubjects[$m] == $mentorSubjects[$o] && $userSubjects[$m] != '')
                     {
-                        $point = $point + 10;
+                        $point = $point + ($pref_priorities->subjects_priority * 10);
                         $subject_match = $subject_match + 1;
                         $match_count = $match_count + 1;
                     }
@@ -162,6 +165,7 @@ class HomeController extends Controller
 
             if ($subject_match == 0) {
                 $match_percentage = 0;
+                $point = 0;
             }
 
             array_push($rank, ['id' => $mentor_match->id, 'mentorname'=> $mentor_match->name, 'points' => $point,'match_count' => $match_count, 'match_percentage' => $match_percentage]);  

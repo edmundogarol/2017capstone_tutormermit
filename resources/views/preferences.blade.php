@@ -99,9 +99,9 @@ function multiexplode($delimiters,$string) {
                             <label for="age_priority" class="col-md-4 control-label">(Priority)</label>
                             <div class="4u">
                                 <select class="priority-picker" name="age_priority" placeholder="{{ $callback['max_age'] }}">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="1" {{ $pref_priorities->age_priority == 1 ? 'selected' : ''}}>1</option>
+                                    <option value="2" {{ $pref_priorities->age_priority == 2 ? 'selected' : ''}}>2</option>
+                                    <option value="3" {{ $pref_priorities->age_priority == 3 ? 'selected' : ''}}>3</option>
                                 </select>
                             </div>
                         </div>
@@ -130,9 +130,9 @@ function multiexplode($delimiters,$string) {
                             <label for="gender_priority" class="col-md-4 control-label">(Priority)</label>
                             <div class="4u">
                                 <select class="priority-picker" name="gender_priority" placeholder="{{ $callback['max_age'] }}">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="1" {{ $pref_priorities->gender_priority == 1 ? 'selected' : ''}}>1</option>
+                                    <option value="2" {{ $pref_priorities->gender_priority == 2 ? 'selected' : ''}}>2</option>
+                                    <option value="3" {{ $pref_priorities->gender_priority == 3 ? 'selected' : ''}}>3</option>
                                 </select>
                             </div>
                         </div>
@@ -173,10 +173,10 @@ function multiexplode($delimiters,$string) {
                                 <h4>Preferred Mentor Skills</h4>
                                 <label for="subject_priority" class="col-md-4 control-label">(Priority)</label>
                                 <div class="4u">
-                                    <select class="priority-picker" name="subject_priority" placeholder="{{ $callback['min_age'] }}">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                    <select class="priority-picker" name="subjects_priority" placeholder="{{ $callback['min_age'] }}">
+                                        <option value="1" {{ $pref_priorities->subjects_priority == 1 ? 'selected' : ''}}>1</option>
+                                        <option value="2" {{ $pref_priorities->subjects_priority == 2 ? 'selected' : ''}}>2</option>
+                                        <option value="3" {{ $pref_priorities->subjects_priority == 3 ? 'selected' : ''}}>3</option>
                                     </select>
                                 </div>
                             </div>

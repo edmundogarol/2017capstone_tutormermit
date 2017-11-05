@@ -120,13 +120,18 @@ function multiexplode($delimiters,$string) {
 					<div class="8u 12u$(small)">
 						<ul class="alt">
 							<li>
+								@php
+								$prof_pic = DB::table('pictures')->select('url')
+																->where('user_id', $mentorsessions->tutor)
+																->first();
+								@endphp
 								<span class="image left">
-									<img src="{{ $mentorsessions->prof_pic == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$mentorsessions->prof_pic) }}" alt="" />
+									<img src="{{ $prof_pic == '' ? asset('/images/default-avatar.jpg') : asset('../storage/app/'.$prof_pic) }}" alt="" />
 								</span>
 								<h5>Session ID: {{$mentorsessions->session_id}}</h5>
 								<h5>Mentor's name: {{$mentorsessions->name}}</h5>
 								<h5>E-mail: {{$mentorsessions->email}}</h5>
-								<a href="{{ url('/rating') }}" class="button special" value="Search">End Session</a>
+								<a href="{{ url('/student/end/session/') }}" class="button special" value="Search">End Session</a>
 							</li>						
 						</ul>
 					</div>

@@ -43,10 +43,10 @@
 
 		
 
-				 <h1>Welcome to<strong>TutorMe RMIT</strong><br />
+				 <h1>Welcome to<strong> MentorMe RMIT</strong><br />
 							</h1>
 
-				<p>Let Tutor Help You</p>
+				<p>Let a Mentor help you!</p>
 				
 				<ul class="actions">
 				<li><a href="{{ url('/login') }}" class="button scrolly">Start Now</a></li>
@@ -57,10 +57,12 @@
 			<section id="one" class="main style1 special">
 				<div class="container">
     <header class="major">
-								<h2>GET HELP WITH TUTOR</h2>
+								<h2>GET HELP ON THE SPOT!</h2>
 							</header>
-							<p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>
+							<p>MentorMe RMIT aims to connect RMIT students who need immediate homework help, with
+								other students who have done those same courses previously. Any student can sign up and either LEARN or TEACH and be a mentor themselves! </p>
               <br/>
+              				<p>MentorMe RMIT currently has available, all of the computer science subjects on offer at RMIT University. Nifty!</p>
 							<ul class="actions uniform">
 								<li><a href="{{ url('/register') }}" class="button special">Register</a></li>
 
@@ -68,7 +70,7 @@
 				</div>
 			</section>
 <br>
-			<!-- adv -->
+<!--
 				<section id="four" class="main style2 special">
 					<div class="container">
 						<header class="major">
@@ -84,7 +86,6 @@
 				</section>
 
 
-		<!-- tutor -->
 			<section id="three" class="main style1 special">
 				<div class="container">
 					<header class="major">
@@ -142,7 +143,6 @@
 <hr>
 			<br>
 
-		<!-- email -->
 		<section id="three" >
  			<div class="container">
     <header class="special">
@@ -189,7 +189,6 @@
 
 				</div>
 		</section>
-		<!-- Footer -->
 			<section id="footer">
 				<ul class="icons">
 					<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
@@ -203,7 +202,6 @@
 				</ul>
 			</section>
 			
-		<!--Elements -->
 		
 			<section id="five" class="main style1">
 				<div class="container">
@@ -519,8 +517,20 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					</section>
 
 				</div>
-			</section>
+			</section> -->
 	
+			<section id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; MentorMe RMIT</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</section>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>

@@ -98,7 +98,7 @@
                     <li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
                 </ul>
                 <ul class="copyright">
-                    <li>&copy; Untitled</li><li></li>
+                    <li>&copy; MentorMe RMIT</li><li></li>
                 </ul>
             </section>
 

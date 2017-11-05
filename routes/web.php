@@ -44,6 +44,11 @@ Route::get('decline/{id}','RequestsController@decline');
 
 Route::post('/rereq','RequestsController@store');
 
+// SESSIONS
+
+Route::get('/mentor/end/session/{id}','MentorSessionController@mentorEnd');
+
+Route::get('/student/end/session/{id}','MentorSessionController@studentEnd');
 
 // EDINTING PREFERENCES AND PROFILE
 Route::get('/edit','UserController@getEdit');

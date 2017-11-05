@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Priority;
 use App\Preference;
 use App\Academic;
 use App\Subject;
@@ -26,6 +27,7 @@ class AcadController extends Controller
         $user = Auth::user();
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
         $userSubjectPreferences = array_slice(Utils::multiexplode(array("{", ",", "}","\""), $user_preferences->subjects), 1, -1);
+        $pref_priorities = Priority::where('preferences_id', $user_preferences->id)->get()->pop();
 
         $userCallback = [
             'min_age' => $user_preferences->min_age,
@@ -36,7 +38,8 @@ class AcadController extends Controller
         return view('preferences', [
             'preferences' => $user_preferences, 
             'callback' => $userCallback,
-            'subjectList' => json_encode($userSubjectPreferences)
+            'subjectList' => json_encode($userSubjectPreferences),
+            'pref_priorities' => $pref_priorities,
         ]);
     }
 
@@ -171,6 +174,7 @@ class AcadController extends Controller
         $userToUpdate = User::find($user->id);
         $user_preferences = Preference::where('id', $user->preferences_id)->get()->pop();
         $userSubjectPreferences = array_slice(Utils::multiexplode(array("{", ",", "}","\""), $user_preferences->subjects), 1, -1);
+        $pref_priorities = Priority::where('preferences_id', $user_preferences->id)->get()->pop();
 
         $user_preferences->update([
             'min_age' => $request->min_age,
@@ -178,10 +182,17 @@ class AcadController extends Controller
             'gender' => $request->gender == 'both' || $request->gender == '' ? 'both' : $request->gender,
         ]);
 
+        $pref_priorities->update([
+            'age_priority' => $request->age_priority,
+            'gender_priority' => $request->gender_priority,
+            'subjects_priority' => $request->subjects_priority,
+        ]);
+
         $userCallback = [
             'min_age' => $user_preferences->min_age,
             'max_age' => $user_preferences->max_age,
             'gender' => $user_preferences->gender == 'both' || $user_preferences->gender == '' ? 'both' : $user_preferences->gender,
+
         ];
 
         return redirect('studentview');

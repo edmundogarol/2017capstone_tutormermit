@@ -30,7 +30,7 @@
 			<thead>
 				<tr>
 					<th>
-						<h2>Scheduled Sessions:
+						<h2>Active Sessions:
 						</h2>
 					</th>
 				</tr>
@@ -45,10 +45,10 @@
 									<span class="image left">
 										<img src="../resources/assets/images/pic02.jpg" alt="" />
 									</span>
-									<h5>Name: {{ $sessions->name }}</h5>
+									<h5>Student's Name: {{ $sessions->name }}</h5>
 									<h5>Email: {{ $sessions->email }}</h5>
 									<!-- <a href="{{ url('/preferences') }}" class="button special" value="Search">Preferences</a> !-->
-									<a href="{{ url('/') }}" class="button special" value="Search">End Session</a>
+									<a href="{{ url('/mentor/end/session/'.$sessions->session_id) }}" class="button special" value="Search">End Session</a>
 								</li>						
 							</ul>
 						</div>

@@ -74,7 +74,7 @@
 					<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					<li>&copy; MentorMe RMIT</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 				</ul>
 			</section>
 
